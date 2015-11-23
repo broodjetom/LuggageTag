@@ -9,6 +9,8 @@ import UI.*;
 import java.util.concurrent.Callable;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import models.PassengerLuggage;
 
 /**
  *
@@ -146,7 +149,39 @@ public class LuggageTag extends Application {
             return true;
         });
         
+        LuggageTable table = new LuggageTable();
+
+        String[] topText = {"Test 1", "Test 2", "Test 3", "Gewicht"}; // texten die bovenaan de tabel verschijnen
+        String[] topVars = {"fname", "mname", "lname", "weight"}; // De variable namen van het object gesorteerd op de topText 
+
+        // Nieuwe obkecten die we in de table stoppen
+        PassengerLuggage thomas = new PassengerLuggage();
+        thomas.setFname("Thomas");
+        thomas.setMname("");
+        thomas.setLname("Kamp");
+        thomas.setWeight(25.50);
+
+        PassengerLuggage passenger = new PassengerLuggage();
+        passenger.setFname("Alex");
+        passenger.setMname("Bob");
+        passenger.setLname("Lisenkov");
+        passenger.setWeight(500);
+        
+        // Maak een ObservableList van de objecten, is een soort van array
+        ObservableList<PassengerLuggage> data
+                = FXCollections.observableArrayList(
+                        passenger,
+                        thomas
+                );
+        
+        // Set de top rij
+        table.setTopRow(topText, topVars);
+        
+        // Set de data voor in de tabel
+        table.setContent(data);
+        
         // Zet in de top van de BorderPane
+        UI.setCenter(table.getTable());
         UI.setTop(
             menu.toNode() // menu.getMenu geeft et menu terug
         );
