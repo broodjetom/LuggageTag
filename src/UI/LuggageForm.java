@@ -11,6 +11,7 @@ import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -33,24 +34,29 @@ public class LuggageForm {
     private int row = 1;
     private int col = 0;
     private Callable onSubmit;
-    
+
     private boolean errorSet = false;
     Label errorText;
-    
+
     public Map<String, TextField> textFields = new HashMap<>();
     private Map<String, Boolean> textFieldsRequired = new HashMap<>();
-    
+
     public Map<String, TextArea> textAreas = new HashMap<>();
     private Map<String, Boolean> textAreasRequired = new HashMap<>();
-    
+
     public Map<String, ToggleGroup> radioFields = new HashMap<>();
     public Map<String, ComboBox> comboBox = new HashMap<>();
-    
+
     private Map<String, String> keyValues = new HashMap<>();
     private Map<String, Object> keyElement = new HashMap<>();
-    
+
     private final String BORDER_COLOR = "D9D9D9";
 
+    /**
+     * Constructor initializes the form itself
+     *
+     * @param UI The LuggageUI
+     */
     public LuggageForm(LuggageUI UI) {
         this.UI = UI;
         grid.setPadding(new Insets(5));
@@ -59,21 +65,38 @@ public class LuggageForm {
         errorText = UI.createText("", UI.COLOR_RED);
     }
 
+    /**
+     * Creates a new row to start building at
+     */
     public void addRow() {
         row++;
         col = 0;
     }
 
+    /**
+     * Add a column (creates new element at the next column)
+     */
     public void addCol() {
         col++;
     }
-    
-    public void add(Node node){
+
+    /**
+     * Add node to the grid
+     *
+     * @param node
+     */
+    public void add(Node node) {
         grid.add(node, col, row);
         addCol();
     }
-    
-    public String get( String id ){
+
+    /**
+     * Get the value of an input field
+     *
+     * @param id
+     * @return String the value of an element
+     */
+    public String get(String id) {
         keyValues.clear();
         for (Map.Entry<String, TextField> entry : textFields.entrySet()) {
             String value = entry.getValue().getText();
@@ -88,153 +111,237 @@ public class LuggageForm {
             String value = button.getText();
             keyValues.put(group.getKey(), value);
         }
-        
+
         return keyValues.get(id);
     }
 
+    /**
+     * Adds a label
+     *
+     * @param text
+     */
     public void addLabel(String text) {
         Label label = UI.createText(text);
         label.setStyle("-fx-font-weight: bold;");
         add(label);
     }
 
+    /**
+     * Adds a text field to the form
+     *
+     * @param id ID to set for this field
+     * @param required Make element required, or not
+     */
     public void addTextField(String id, Boolean required) {
         TextField textField = new TextField();
-        textField.setStyle("-fx-border-radius: 6px; -fx-background-color: white; -fx-border-color: #"+ BORDER_COLOR);
+        textField.setStyle("-fx-border-radius: 6px; -fx-background-color: white; -fx-border-color: #" + BORDER_COLOR);
         textFields.put(id, textField);
         textFieldsRequired.put(id, required);
         add(textField);
     }
-    
+
+    /**
+     * Adds a password field to the form
+     *
+     * @param id ID to set for this field
+     * @param required Make element required, or not
+     */
     public void addPassField(String id, Boolean required) {
         PasswordField passwordField = new PasswordField();
-        passwordField.setStyle("-fx-border-radius: 6px; -fx-background-color: white; -fx-border-color: #"+ BORDER_COLOR);
+        passwordField.setStyle("-fx-border-radius: 6px; -fx-background-color: white; -fx-border-color: #" + BORDER_COLOR);
         textFields.put(id, passwordField);
         textFieldsRequired.put(id, required);
         add(passwordField);
     }
-    
-    public void addTextArea(String id, Boolean required){
+
+    /**
+     * Adds a text area to the form
+     *
+     * @param id ID to set for this field
+     * @param required Make element required, or not
+     */
+    public void addTextArea(String id, Boolean required) {
         TextArea textArea = new TextArea();
-        textArea.setStyle("-fx-border-radius: 6px; -fx-background-color: white; -fx-border-color: #"+ BORDER_COLOR);
+        textArea.setStyle("-fx-border-radius: 6px; -fx-background-color: white; -fx-border-color: #" + BORDER_COLOR);
         textAreas.put(id, textArea);
         textAreasRequired.put(id, required);
         add(textArea);
     }
-    
-    public void addComboBox(String id, String[] elements){
+
+    /**
+     * Adds a combobox to the form
+     *
+     * @param id ID to set for this field
+     * @param elements The elements to add to the group of the combobox
+     */
+    public void addComboBox(String id, String[] elements) {
         ComboBox theBox = new ComboBox();
         theBox.setPromptText("- Select -");
-        theBox.setEditable(true);       
-        for (String el: elements) {
+        theBox.setEditable(true);
+        for (String el : elements) {
             theBox.getItems().add(el);
         }
         comboBox.put(id, theBox);
         add(theBox);
     }
-    
-    public void addHRadioButtons(String id, String[] elements){
+
+    /**
+     * Adds horizontally aligned radio buttons
+     *
+     * @param id ID to set for this field
+     * @param elements The elements to add to the group of the combobox
+     */
+    public void addHRadioButtons(String id, String[] elements) {
         addHRadioButtons(id, elements, elements[0]);
     }
-    
-    public void addHRadioButtons(String id, String[] elements, String selected){
+
+    /**
+     * Adds horizontally aligned radio buttons with one default selected
+     *
+     * @param id ID to set for this field
+     * @param elements The elements to add to the group of the combobox
+     * @param selected The default selected element (must be the same string as
+     * in elements)
+     */
+    public void addHRadioButtons(String id, String[] elements, String selected) {
         ToggleGroup group = new ToggleGroup();
-        
-        for(String element: elements){
+
+        for (String element : elements) {
             RadioButton rb = new RadioButton(element);
-            
-            if( element.equals(selected) )
-                   rb.setSelected(true);
-            
+
+            if (element.equals(selected)) {
+                rb.setSelected(true);
+            }
+
             rb.setToggleGroup(group);
             add(rb);
         }
-        
+
         radioFields.put(id, group);
     }
-    
-    public void addVRadioButtons(String id, String[] elements){
+
+    /**
+     * Adds vertically aligned radio button
+     *
+     * @param id ID to set for this field
+     * @param elements The elements to add to the group of the combobox
+     */
+    public void addVRadioButtons(String id, String[] elements) {
         addVRadioButtons(id, elements, elements[0]);
     }
-    
-    public void addVRadioButtons(String id, String[] elements, String selected){
+
+    /**
+     * Adds vertically aligned radio buttons with one default selected
+     *
+     * @param id ID to set for this field
+     * @param elements The elements to add to the group of the combobox
+     * @param selected The default selected element (must be the same string as
+     * in elements)
+     */
+    public void addVRadioButtons(String id, String[] elements, String selected) {
         ToggleGroup group = new ToggleGroup();
-        
-        for(String element: elements){
+
+        for (String element : elements) {
             RadioButton rb = new RadioButton(element);
-            
-            if( element.equals(selected) )
-                   rb.setSelected(true);
-            
+
+            if (element.equals(selected)) {
+                rb.setSelected(true);
+            }
+
             rb.setToggleGroup(group);
             add(rb);
             addRow();
         }
+
         radioFields.put(id, group);
-        
+
     }
-    
-    public void addSubmitButton(String text){
+
+    /**
+     * Adds a submit button to the form
+     *
+     * @param text the value of the button
+     */
+    public void addSubmitButton(String text) {
         Button login = UI.createSecondaryButton(text, false, (Callable) () -> {
             fireSubmitEvent();
             return true;
         });
-        
+
         grid.add(login, col, row);
         addCol();
     }
-    
-    public void error( String error ){
+
+    /**
+     * Adds an error message to the form, usually used in the onSubmit event
+     *
+     * @param error error message to be shown
+     */
+    public void error(String error) {
         addRow();
         errorText.setText(error);
-        if( !errorSet ){
+        if (!errorSet) {
             grid.add(errorText, 0, 0);
             addRow();
             errorSet = true;
         }
     }
 
+    /**
+     * Returns the node element to be added to the UI
+     *
+     * @return Node grid
+     */
     public Node toNode() {
         return grid;
     }
-    
-    public void onSubmit(Callable event){
+
+    /**
+     * Event listener when the submit button is clicked
+     *
+     * @param event Callable event
+     */
+    public void onSubmit(Callable event) {
         onSubmit = event;
     }
-    
-    private void fireSubmitEvent(){
+
+    /**
+     * Handles all the input field, if they are required, and gets the values of
+     * it
+     */
+    private void fireSubmitEvent() {
         try {
             keyValues.clear();
             for (Map.Entry<String, TextField> entry : textFields.entrySet()) {
                 String value = entry.getValue().getText();
                 keyValues.put(entry.getKey(), value);
-                
-                if( textFieldsRequired.get(entry.getKey()) && value.equals("")){
+
+                if (textFieldsRequired.get(entry.getKey()) && value.equals("")) {
                     entry.getValue().setStyle("-fx-border-color: red; -fx-border-radius: 6px;");
                 } else {
-                    entry.getValue().setStyle("-fx-border-color: #"+ BORDER_COLOR +"; -fx-border-radius: 6px;");
+                    entry.getValue().setStyle("-fx-border-color: #" + BORDER_COLOR + "; -fx-border-radius: 6px;");
                 }
             }
-            
+
             for (Map.Entry<String, TextArea> entry : textAreas.entrySet()) {
                 String value = entry.getValue().getText();
                 keyValues.put(entry.getKey(), value);
-                
-                if( textAreasRequired.get(entry.getKey()) && value.equals("")){
+
+                if (textAreasRequired.get(entry.getKey()) && value.equals("")) {
                     entry.getValue().setStyle("-fx-border-color: red; -fx-border-radius: 6px;");
                 } else {
-                    entry.getValue().setStyle("-fx-border-color: #"+ BORDER_COLOR +"; -fx-border-radius: 6px;");
+                    entry.getValue().setStyle("-fx-border-color: #" + BORDER_COLOR + "; -fx-border-radius: 6px;");
                 }
             }
-            
+
             for (Map.Entry<String, ToggleGroup> group : radioFields.entrySet()) {
                 RadioButton button = (RadioButton) group.getValue().getSelectedToggle();
-                
+
                 String value = button.getText();
 
                 keyValues.put(group.getKey(), value);
             }
-            
+
             onSubmit.call();
         } catch (Exception ex) {
             Logger.getLogger(LuggageUI.class.getName()).log(Level.SEVERE, null, ex);
