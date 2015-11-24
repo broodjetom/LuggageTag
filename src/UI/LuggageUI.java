@@ -65,7 +65,10 @@ public class LuggageUI {
     final public String GREY_BUTTON_BACKGOUND_TEXT_COLOR = "FFFFFF";
     
     
-    // Initialiseer de class
+    /**
+     * Init the UI class
+     * @param primaryStage the JavaFX primaryStage
+     */
     public LuggageUI(Stage primaryStage) {
         this.primaryStage = primaryStage;
         root = new BorderPane();
@@ -74,12 +77,21 @@ public class LuggageUI {
         registerFonts();
     }
     
-    // Functie op de titel te configureren
+    /**
+     * Set the title of the window, prefixed the the predefined string
+     * @param title 
+     */
     public void setTitle(String title) {
         primaryStage.setTitle(TITLE_PREFIX + title);
     }
     
-    // Functie om een nieuwe knop te maken
+    /**
+     * Creates a red button
+     * @param text Content of the button
+     * @param active Active state of the button
+     * @param clickEvent Callable callback on click
+     * @return Button button
+     */
     public Button createRedButton(String text, Boolean active, Callable clickEvent) {
         // Maak een nieuwe knop aan, zet te tekst er in, geef je juiste grote aan, set het lettertype, en de styling
         Button btn = new Button();
@@ -119,7 +131,13 @@ public class LuggageUI {
         return btn; // Geef je volledige button terug
     }
     
-    // Functie om een nieuwe knop te maken
+    /**
+     * Creates a secondary button
+     * @param text Content of the button
+     * @param active Active state of the button
+     * @param clickEvent Callable callback on click
+     * @return Button button
+     */
     public Button createSecondaryButton(String text, Boolean active, Callable clickEvent) {
         // Maak een nieuwe knop aan, zet te tekst er in, geef je juiste grote aan, set het lettertype, en de styling
         Button btn = new Button();
@@ -159,7 +177,13 @@ public class LuggageUI {
         return btn; // Geef je volledige button terug
     }
     
-    // Functie om een nieuwe knop te maken
+    /**
+     * Creates a grey button
+     * @param text Content of the button
+     * @param active Active state of the button
+     * @param clickEvent Callable callback on click
+     * @return Button button
+     */
     public Button createGreyButton(String text, Boolean active, Callable clickEvent) {
         // Maak een nieuwe knop aan, zet te tekst er in, geef je juiste grote aan, set het lettertype, en de styling
         Button btn = new Button();
@@ -199,17 +223,27 @@ public class LuggageUI {
         return btn; // Geef je volledige button terug
     }
     
-    // Extra functie om een button active te maken
+    /**
+     * Sets the button to <b>active</b> state
+     * @param button the button to be active
+     */
     public void primaryButtonActive(Button button) {
         button.setStyle("-fx-text-fill: #" + this.BUTTON_PRIMARY_TEXT_COLOR + "; -fx-background-color: #" + this.BUTTON_PRIMARY_BACKGOUND_HOVER_COLOR);
     }
 
-    // Extra functie om een button weer inactief te maken
+    /**
+     * Sets the button to <b>inactive</b> state
+     * @param button the button to be active
+     */
     public void primaryButtonInactive(Button button) {
         button.setStyle("-fx-text-fill: #" + this.BUTTON_PRIMARY_TEXT_COLOR + "; -fx-background-color: #" + this.BUTTON_PRIMARY_BACKGOUND_COLOR);
     }
     
-    // Create header text
+    /**
+     * Created a header text
+     * @param text String
+     * @return Label the header
+     */
     public Label createHeading(String text){
        Label label = new Label(text);
        label.setFont(uniSansSemiBoldItalic);
@@ -218,11 +252,21 @@ public class LuggageUI {
        return label;
     }
     
-    // Create normal text
+    /**
+     * Create normal text
+     * @param text String
+     * @return Label the text
+     */
     public Label createText(String text){
         return createText(text, COLOR_GREY);
     }
     
+    /**
+     * 
+     * @param text
+     * @param color
+     * @return 
+     */
     public Label createText(String text, String color){
        Label label = new Label(text);
        label.setFont(uniSansSemiBoldItalic);

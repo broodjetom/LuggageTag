@@ -43,6 +43,11 @@ public class LuggageMenu {
 
     LuggageUI UI;
 
+    /**
+     * Initializes the menu and adds the logo
+     *
+     * @param UI the LuggageUI object
+     */
     public LuggageMenu(LuggageUI UI) {
         this.UI = UI;
 
@@ -54,12 +59,22 @@ public class LuggageMenu {
         menu.getItems().add(LOGO);
     }
 
-    public void addSpacer(double with) {
+    /**
+     * Adds a spacer
+     *
+     * @param width
+     */
+    public void addSpacer(double width) {
         Pane pane = new Pane();
-        pane.setMinWidth(with);
+        pane.setMinWidth(width);
         menu.getItems().add(pane);
     }
 
+    /**
+     * toNode gives you the Node of the menu to be used in the UI
+     *
+     * @return Node menu
+     */
     public ToolBar toNode() {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double center = (primaryScreenBounds.getWidth() / 2) - (nodeCount * BUTTONWIDTH / 2) - LOGOWITDH;
@@ -71,14 +86,36 @@ public class LuggageMenu {
         return menu;
     }
 
+    /**
+     * Adds node to the menu
+     *
+     * @param value Node to be added
+     */
     public void add(Node value) {
         menu.getItems().add(value);
     }
 
+    /**
+     * Add a menu item to the menu
+     *
+     * @param text value of the button
+     * @param active active state of the button
+     * @param clickEvent Callable callback on click
+     */
     public void addMenuItem(String text, Boolean active, Callable clickEvent) {
         addMenuItem(text, active, clickEvent, false);
     }
 
+    /**
+     * Returns a menu item if r is false
+     *
+     * @param text Value of the button
+     * @param active Active state of the button
+     * @param clickEvent Callable callback on click
+     * @param r If true, this returns the button and does <b>not</b> add it to
+     * the menu
+     * @return
+     */
     public Button addMenuItem(String text, Boolean active, Callable clickEvent, Boolean r) {
         Button btn = new Button();
         btn.setText(text);
@@ -119,7 +156,7 @@ public class LuggageMenu {
             }
             );
             btn.setUserData(true);
-            
+
             btn.setStyle("-fx-background-radius: 0; -fx-text-fill: #" + UI.BUTTON_PRIMARY_TEXT_COLOR + "; -fx-background-color: #" + UI.BUTTON_PRIMARY_BACKGOUND_HOVER_COLOR);
             try {
                 clickEvent.call();
@@ -135,6 +172,13 @@ public class LuggageMenu {
         return btn;
     }
 
+    /**
+     * Adds a dropdown, this is not working correctly
+     *
+     * @param text Value of the button
+     * @param active Active state of te button
+     * @param clickEvent Callable callback on click
+     */
     public void addDropDown(String text, Boolean active, Callable clickEvent) {
         Button btn = addMenuItem(text, active, clickEvent, true);
         Button btn2 = addMenuItem("test", active, clickEvent, true);
