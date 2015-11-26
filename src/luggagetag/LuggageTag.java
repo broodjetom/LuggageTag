@@ -26,7 +26,7 @@ import models.PassengerLuggage;
  */
 public class LuggageTag extends Application {
     private LuggageUI UI;
-    private boolean loggedIn = false;
+    private boolean loggedIn = true;
     
     /**
      * @param args the command line arguments
@@ -148,7 +148,17 @@ public class LuggageTag extends Application {
             userBalhaar();
             return true;
         });
-        
+        UI.setTop(
+            menu.toNode() // menu.getMenu geeft et menu terug
+        );
+    }
+    
+    // Hier onder staan de methodes om de pagina te genereren, hij voegt nu overal een button toe aan de center van de BorderPane
+    public void searchDatabase() {
+        // MAIN
+
+        UI.setTitle("Search Database");
+
         LuggageTable table = new LuggageTable();
 
         String[] topText = {"Test 1", "Test 2", "Test 3", "Gewicht"}; // texten die bovenaan de tabel verschijnen
@@ -180,29 +190,31 @@ public class LuggageTag extends Application {
         // Set de data voor in de tabel
         table.setContent(data);
         
-        // Zet in de top van de BorderPane
-        UI.setCenter(table.getTable());
-        UI.setTop(
-            menu.toNode() // menu.getMenu geeft et menu terug
-        );
-    }
-    
-    // Hier onder staan de methodes om de pagina te genereren, hij voegt nu overal een button toe aan de center van de BorderPane
-    public void searchDatabase() {
-        // MAIN
+        GridPane test = new GridPane();
+        test.setPadding(new Insets(50, 50, 50, 50));
 
-        UI.setTitle("Search Database");
+        Label heading = UI.createHeading("Zoeken");
 
-        Button center = UI.createSecondaryButton("Test", false, (Callable) () -> {
-            return true;
-        });
+        test.add(heading, 1, 1);
         
-        VBox test = new VBox();
-        test.getChildren().addAll(new Label("test1"), new Label("test2"), new Label("test3"));
-        test.setStyle("-fx-border-right: 1px; -fx-border-color: #2e8b57;");
+        LuggageForm form = new LuggageForm(UI);
+        form.addLabel("Voornaam: ");
+        form.addTextField("fname", false);
+        form.addRow();
+        form.addLabel("Achternaam: ");
+        form.addTextField("lname", false);
+        
+        form.addRow();
+        form.addLabel("Status:");
+        
+        
+        form.addVRadioButtons("status", new String[]{"Gevonden", "Gezocht", "Afgehandeld"}, "Gevonden");
+        
+        test.add(form.toNode(), 1, 2);
         
         UI.setLeft(test);
-        UI.setCenter(center);
+        // Zet in de top van de BorderPane
+        UI.setCenter(table.getTable());
     }
 
     public void addLuggage() {
