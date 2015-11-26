@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import database.DatabaseManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import javafx.collections.ObservableList;
 
@@ -41,7 +42,7 @@ public class LuggageTag extends Application {
         Start is de constructor, hier start de applicatie
     */
     @Override
-    public void start(Stage primaryStage) throws SQLException {
+    public void start(Stage primaryStage) throws SQLException, IOException {
         this.db = new DatabaseManager();
         // Maak een nieuwe UI, een UI maakt een scherm aan met daar in  BorderPane
         this.UI = new LuggageUI(primaryStage);
@@ -156,7 +157,7 @@ public class LuggageTag extends Application {
     }
     
     // Hier onder staan de methodes om de pagina te genereren, hij voegt nu overal een button toe aan de center van de BorderPane
-    public void searchDatabase() {
+    public void searchDatabase() throws SQLException {
         // MAIN
 
         UI.setTitle("Search Database");

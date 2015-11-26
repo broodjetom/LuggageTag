@@ -1,5 +1,6 @@
 package database;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
@@ -17,7 +18,7 @@ public class DatabaseManager {
      *
      * @throws SQLException
      */
-    public DatabaseManager() throws SQLException {
+    public DatabaseManager() throws SQLException, IOException {
         this.databaseconnection = new DatabaseConnection();
     }
 
