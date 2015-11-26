@@ -9,16 +9,15 @@ import UI.*;
 import java.util.concurrent.Callable;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import models.PassengerLuggage;
+import database.DatabaseManager;
+import java.sql.SQLException;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -27,6 +26,8 @@ import models.PassengerLuggage;
 public class LuggageTag extends Application {
     private LuggageUI UI;
     private boolean loggedIn = false;
+    
+    private DatabaseManager db;
     
     /**
      * @param args the command line arguments
@@ -40,7 +41,8 @@ public class LuggageTag extends Application {
         Start is de constructor, hier start de applicatie
     */
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws SQLException {
+        this.db = new DatabaseManager();
         // Maak een nieuwe UI, een UI maakt een scherm aan met daar in  BorderPane
         this.UI = new LuggageUI(primaryStage);
         
@@ -73,7 +75,7 @@ public class LuggageTag extends Application {
             form.addLabel("Wachtwoord: ");
             form.addPassField("password", true);
             
-            
+            /*
             form.addRow();
             form.addHRadioButtons("testing", new String[]{"test 1", "test 2", "test 3"});
             form.addRow();
@@ -88,7 +90,7 @@ public class LuggageTag extends Application {
             
             form.addLabel("Test dropdown: ");
             form.addComboBox("testArea", new String[]{"test 1", "test 2", "test 3"});
-            
+            */
             form.addRow(); 
             
             
@@ -126,7 +128,7 @@ public class LuggageTag extends Application {
 
     }
 
-    public void mainPage() {
+    public void mainPage() throws SQLException {
         // Maak een nieuwe menu aan met de LuggageMenu class, deze is wel beetje buggy nog
         LuggageMenu menu = new LuggageMenu(UI);
         
@@ -151,34 +153,27 @@ public class LuggageTag extends Application {
         
         LuggageTable table = new LuggageTable();
 
-        String[] topText = {"Test 1", "Test 2", "Test 3", "Gewicht"}; // texten die bovenaan de tabel verschijnen
-        String[] topVars = {"fname", "mname", "lname", "weight"}; // De variable namen van het object gesorteerd op de topText 
-
-        // Nieuwe obkecten die we in de table stoppen
-        PassengerLuggage thomas = new PassengerLuggage();
-        thomas.setFname("Thomas");
-        thomas.setMname("");
-        thomas.setLname("Kamp");
-        thomas.setWeight(25.50);
-
-        PassengerLuggage passenger = new PassengerLuggage();
-        passenger.setFname("Alex");
-        passenger.setMname("Bob");
-        passenger.setLname("Lisenkov");
-        passenger.setWeight(500);
+        String[] topText = {"Voornaam", "Tussenvoegsel", "Achternaam", "Vluchtnummer", "Merk", "Kleur", "Gewicht", "Materiaal", "Stickers"}; // texten die bovenaan de tabel verschijnen
+        String[] topVars = {"fname", "mname", "lname", "flight", "brand_id", "color_id", "weight", "material_id", "stickers"}; // De variable namen van het object gesorteerd op de topText 
         
-        // Maak een ObservableList van de objecten, is een soort van array
-        ObservableList<PassengerLuggage> data
-                = FXCollections.observableArrayList(
-                        passenger,
-                        thomas
-                );
+        // Zoeken naar passengerluggage
+        models.PassengerLuggage zoek = new models.PassengerLuggage();
+        
+        zoek.setFname("Jim");
+        
+        ObservableList<models.PassengerLuggage> passengers = db.getPassengerLuggage( zoek );
+        
+        for (models.PassengerLuggage rij: passengers) {
+            rij.setFname("Jimmy");
+            rij.setBrand_id(1);
+            rij = db.savePassengerLuggage(rij);
+        }
         
         // Set de top rij
         table.setTopRow(topText, topVars);
         
         // Set de data voor in de tabel
-        table.setContent(data);
+        table.setContent(passengers);
         
         // Zet in de top van de BorderPane
         UI.setCenter(table.getTable());
