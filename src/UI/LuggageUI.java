@@ -298,6 +298,14 @@ public class LuggageUI {
         this.root.setRight(value);
     }
     
+    public void reset(){
+        setTop(null);
+        setCenter(null);
+        setBottom(null);
+        setLeft(null);
+        setRight(null);
+    }
+    
     // Laat dan uiteindelijk de applicatie zien
     public void show() {
         scene = new Scene(root);
