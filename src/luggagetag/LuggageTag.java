@@ -55,7 +55,7 @@ public class LuggageTag extends Application {
         if (USER.getUser().getId() == 0) {
             Login login = new Login(UI, db);
         } else {
-            pages.menus.Employee menu = new pages.menus.Employee(UI, db);
+            pages.menus.Administrator menu = new pages.menus.Administrator(UI, db);
             SearchLuggage searchLuggage = new SearchLuggage(UI, db);
         }
         
