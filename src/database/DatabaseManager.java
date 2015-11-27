@@ -3,6 +3,7 @@ package database;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 public class DatabaseManager {
 
     private DatabaseConnection databaseconnection;
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * Creates a database manager.
