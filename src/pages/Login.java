@@ -50,6 +50,7 @@ public class Login {
         form.addRow();
         
         Button forgotPassword = UI.createGreyButton("Wachtwoord vergeten", false, (Callable) () -> {
+            ForgotPassword ForgotPassword = new ForgotPassword(UI, db);
             return true;
         });
 
