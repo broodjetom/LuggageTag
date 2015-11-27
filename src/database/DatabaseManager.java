@@ -3,6 +3,7 @@ package database;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -26,12 +27,13 @@ public class DatabaseManager {
      * Saves data, stored in passengerluggage object, to database. if id is stored, the data will be
      * updated, otherwise it will be saved as a new record.
      *
-     * @param model.Passengerluggage(), object of passengerluggage
+     * @param models.Passengerluggage(), object of passengerluggage
      * @return
      * @throws SQLException
      */
     public models.PassengerLuggage savePassengerLuggage(models.PassengerLuggage model) throws SQLException {
         if (model.getId() != 0) {
+            model.setDate_added(format.format(new Date()));
             databaseconnection.executeUpdate("UPDATE `passengerluggage` SET "
                     + "fname ='" + model.getFname() + "', mname = '" + model.getMname()
                     + "', lname = '" + model.getLname() + "', flight = '" + model.getFlight()
