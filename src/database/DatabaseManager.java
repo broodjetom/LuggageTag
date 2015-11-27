@@ -43,14 +43,15 @@ public class DatabaseManager {
                     + ", location_id =" + model.getLocation().getId() + ", comment ='"
                     + model.getComment() + "', users_id = " + model.getUsers_id()
                     + ", date_added =" + model.getDate_added() + ", date_changed ="
-                    + model.getDate_changed() + ", date_finished =" + model.getDate_finished()
-                    + " WHERE id = " + model.getId());
+                    + model.getDate_changed() + ", date_finished =" + model.getDate_finished() 
+                    + ", situation = \'" + model.getSituation()
+                    + "\' WHERE id = " + model.getId());
         } else {
             databaseconnection.executeQuery("INSERT INTO `passengerluggage`"
                     + "(`fname`, `mname`, `lname`, `flight`, `brand_id`, `color_id`, "
                     + "`weight`, `material_id`, `stickers`, `characteristic`, `belt`, "
                     + "`type_id`, `location_id`, `comment`, `users_id`, `date_added`, "
-                    + "`date_changed`, `date_finished`)"
+                    + "`date_changed`, `date_finished`, `situation`)"
                     + "VALUES"
                     + "(\"" + model.getFname() + "\", \"" + model.getMname()
                     + "\", \"" + model.getLname() + "\", \"" + model.getFlight()
@@ -61,7 +62,7 @@ public class DatabaseManager {
                     + model.getLocation_id() + ", \"" + model.getComment() + "\", "
                     + model.getUsers_id() + "," + "\"" + model.getDate_added()
                     + "\", \"" + model.getDate_changed() + "\", \""
-                    + model.getDate_finished() + "\")");
+                    + model.getDate_finished() + "\", '"+model.getSituation()+"\')");
             model.setId(getLastInsertId("passengerluggage"));
         }
         return model;
@@ -104,6 +105,7 @@ public class DatabaseManager {
             row.setPhone(getPhones(resultSet.getInt("id")));
             row.setEmail(getEmails(resultSet.getInt("id")));
             row.setAddress(getAddresses(resultSet.getInt("id")));
+            row.setSituation(resultSet.getString("situation"));
             results.add(row);
         }
         return results;
