@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
  * Author: Tom Scholten Class: Made on:
  */
 public class PassengerLuggage {
-
+    
     private int id = 0;
     private String fname;
     private String mname;
@@ -23,9 +23,11 @@ public class PassengerLuggage {
     private int location_id;
     private String comment;
     private int users_id;
-    private String date_added = "2012/12/12 12:12:12";
-    private String date_changed = "2012/12/12 12:12:12";
-    private String date_finished = "2012/12/12 12:12:12";
+
+    private String date_added;
+    private String date_changed;
+    private String date_finished;
+
     private String situation;
     private Locations location;
     private Colors color;
@@ -36,7 +38,6 @@ public class PassengerLuggage {
     public ObservableList<models.Phone> phone;
     public ObservableList<models.Email> email;
     public ObservableList<models.Address> address;
-    
 
     /**
      *
