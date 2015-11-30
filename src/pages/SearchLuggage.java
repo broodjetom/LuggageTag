@@ -39,8 +39,8 @@ public class SearchLuggage {
 
         LuggageTable table = new LuggageTable();
 
-        String[] topText = {"Voornaam", "Tussenvoegsel", "Achternaam", "Vluchtnummer", "Merk", "Kleur", "Gewicht", "Materiaal", "Stickers"}; // texten die bovenaan de tabel verschijnen
-        String[] topVars = {"fname", "mname", "lname", "flight", "brand_id", "color_id", "weight", "material_id", "stickers"}; // De variable namen van het object gesorteerd op de topText 
+        String[] topText = {"Voornaam", "Tussenvoegsel", "Achternaam", "Vluchtnummer", "Merk", "Kleur", "Gewicht", "Materiaal", "Stickers", "Kenmerken", "Kofferriem", "Koffer soort", "Vestiging", "Opmerkingen", "Gebruikers", "Datum toegevoegd", "Datum gewijzigd", "Datum geëindigd"}; // texten die bovenaan de tabel verschijnen
+        String[] topVars = {"fname", "mname", "lname", "flight", "brand_id", "color_id", "weight", "material_id", "stickers", "characteristic", "belt", "type_id", "location_id", "comment", "users_id", "date_added", "date_changed", "date_finished"}; // De variable namen van het object gesorteerd op de topText 
         
         // Zoeken naar passengerluggage
         models.PassengerLuggage zoek = new models.PassengerLuggage();
@@ -72,9 +72,60 @@ public class SearchLuggage {
         form.addLabel("Voornaam: ");
         form.addTextField("fname", false);
         form.addRow();
+        
+        form.addLabel("Tussenvoegsel: ");
+        form.addTextField("mname", false);
+        form.addRow();
+        
         form.addLabel("Achternaam: ");
         form.addTextField("lname", false);
+        form.addRow();
         
+        form.addLabel("Vluchtnummer: ");
+        form.addTextField("flight", false);
+        form.addRow();
+        
+        form.addLabel("Merk: ");
+        form.addComboBox("brand_id", new String[]{"Samsonite", "Rimowa", "Line", "Eastpak", 
+            "American Tourister", "Alumaxx", "Bamex", "Carryon", "Decent", "Delsey", 
+            "Ellehammer", "Enrico Benetti", "Kipling", "Okiedog", "Pick Pack", "Princess", 
+            "Saxoline", "Skoot", "Suitsuit", "The Cuties and Pals", "Titan", "Travelite", 
+            "Trunkie", "Tumi"});
+        form.addRow();
+        
+        form.addLabel("Kleur: ");
+        form.addComboBox("color_id", new String[]{"Zwart", "Wit", "Grijs", "Bruin", "Rood", 
+            "Oranje", "Geel", "Groen", "Blauw", "Paars", "Meerkleurig"});
+        form.addRow();
+        
+        form.addLabel("Gewicht: ");
+        form.addTextField("weight", false);
+        form.addRow();
+        
+        form.addLabel("Materiaal: ");
+        form.addTextField("material_id", false);
+        form.addRow();
+        
+        form.addLabel("Stickers: ");
+        form.addTextField("stickers", false);
+        form.addRow();  
+        
+        form.addLabel("Kenmerken: ");
+        form.addTextField("characteristic", false);
+        form.addRow();
+        
+        form.addLabel("Kofferriem: ");
+        form.addTextField("belt", false);
+        form.addRow();
+        
+        form.addLabel("Koffer soort: ");
+        form.addComboBox("type_id", new String[]{"Koffer", "Handtas", "Rugzak", "Elektronica"});
+        form.addRow();
+        
+        form.addLabel("Vestigingen");
+        form.addComboBox("location_id", new String[]{"Seattle", "Amsterdam", "Moskou", "Berlijn", "New York"});
+        form.addRow();
+       
         form.addRow();
         form.addLabel("Status:");
         
@@ -93,9 +144,29 @@ public class SearchLuggage {
             models.PassengerLuggage zoekNew = new models.PassengerLuggage();
             String emailValue = form.get("fname");
             
+            form.get("flight");
+            form.get("brand_id");
+            form.get("color_id");
+            form.get("material_id");
+            form.get("stickers");
+            form.get("location_id");
+            
             zoekNew.setFname(emailValue);
+            
+            zoekNew.setMname(form.get("mname"));
             zoekNew.setLname(form.get("lname"));
-
+            zoekNew.setFlight(form.get("flight"));
+            zoekNew.setBrand_id(form.get("brand_id"));
+            zoekNew.setColor_id(form.get("color_id"));
+            zoekNew.setWeight(form.get("weight"));
+            zoekNew.setMaterial_id(form.get("material_id"));
+            zoekNew.setStickers(form.get("stickers"));
+            zoekNew.setCharacteristic(form.get("characteristics"));
+            zoekNew.setBelt(form.get("belt"));
+            zoekNew.setType_id(form.get("type_id"));
+            zoekNew.setLocation_id(form.get("location_id"));
+            
+            
             ObservableList<models.PassengerLuggage> passengersZoek = db.getPassengerLuggage( zoekNew );
             
             table.setContent(passengersZoek);
