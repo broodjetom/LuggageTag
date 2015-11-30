@@ -49,6 +49,13 @@ public class Email {
     public String getEmail() {
         return email;
     }
+    
+    /**
+     * @return the email
+     */
+    public String toString() {
+        return email;
+    }
 
     /**
      * @param email the email to set

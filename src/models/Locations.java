@@ -36,6 +36,13 @@ public class Locations {
     public String getLocation() {
         return location;
     }
+    
+    /**
+     * @return the location
+     */
+    public String toString() {
+        return location;
+    }
 
     /**
      * @param location the location to set

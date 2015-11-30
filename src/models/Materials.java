@@ -37,6 +37,14 @@ public class Materials {
     public String getMaterial() {
         return material;
     }
+    
+    /**
+     *
+     * @return
+     */
+    public String toString() {
+        return material;
+    }
 
     /**
      *

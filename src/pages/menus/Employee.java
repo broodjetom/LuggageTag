@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package pages.menus;
 
 import UI.LuggageMenu;
@@ -48,6 +44,12 @@ public class Employee {
             pages.Login page = new pages.Login(UI, db);
             return true;
         });
+
+                menu.addMenuItem("Help", false, (Callable) () -> {
+            return true;
+        });
+        
+        
         UI.setTop(
             menu.toNode() // menu.getMenu geeft et menu terug
         );

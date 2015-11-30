@@ -37,6 +37,14 @@ public class Brands {
     public String getBrand() {
         return brand;
     }
+    
+    /**
+     *
+     * @return
+     */
+    public String toString() {
+        return brand;
+    }
 
     /**
      *

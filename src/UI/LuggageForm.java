@@ -7,9 +7,11 @@ package UI;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -114,6 +116,10 @@ public class LuggageForm {
 
         return keyValues.get(id);
     }
+    
+    public Object getComboBoxSelected(String id){
+        return this.comboBox.get(id).getSelectionModel().getSelectedItem();
+    }
 
     /**
      * Adds a label
@@ -133,7 +139,18 @@ public class LuggageForm {
      * @param required Make element required, or not
      */
     public void addTextField(String id, Boolean required) {
+        addTextField(id, required, "");
+    }
+
+    /**
+     * Adds a text field to the form
+     *
+     * @param id ID to set for this field
+     * @param required Make element required, or not
+     */
+    public void addTextField(String id, Boolean required, String value) {
         TextField textField = new TextField();
+        textField.setText(value);
         textField.setStyle("-fx-border-radius: 6px; -fx-background-color: white; -fx-border-color: #" + BORDER_COLOR);
         textFields.put(id, textField);
         textFieldsRequired.put(id, required);
@@ -181,6 +198,21 @@ public class LuggageForm {
         for (String el : elements) {
             theBox.getItems().add(el);
         }
+        comboBox.put(id, theBox);
+        add(theBox);
+    }
+    
+    /**
+     * Adds a combobox to the form
+     *
+     * @param id ID to set for this field
+     * @param elements The elements to add to the group of the combobox
+     */
+    public void addComboBox(String id, ObservableList elements) {
+        ComboBox theBox = new ComboBox(elements);
+        theBox.setPromptText("- Select -");
+        theBox.setEditable(true);
+        
         comboBox.put(id, theBox);
         add(theBox);
     }
