@@ -26,6 +26,7 @@ public class PassengerLuggage {
     private String date_added = "2012/12/12 12:12:12";
     private String date_changed = "2012/12/12 12:12:12";
     private String date_finished = "2012/12/12 12:12:12";
+    private String situation;
     private Locations location;
     private Colors color;
     private Brands brand;
@@ -35,6 +36,7 @@ public class PassengerLuggage {
     public ObservableList<models.Phone> phone;
     public ObservableList<models.Email> email;
     public ObservableList<models.Address> address;
+    
 
     /**
      *
@@ -432,6 +434,20 @@ public class PassengerLuggage {
      */
     public void setAddress(ObservableList<Address> address) {
         this.address = address;
+    }
+
+    /**
+     * @return the situation
+     */
+    public String getSituation() {
+        return situation;
+    }
+
+    /**
+     * @param situation the situation to set
+     */
+    public void setSituation(String situation) {
+        this.situation = situation;
     }
 
 }

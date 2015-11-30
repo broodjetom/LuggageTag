@@ -43,7 +43,7 @@ public class DatabaseManager {
                     + ", location_id =" + model.getLocation().getId() + ", comment ='"
                     + model.getComment() + "', users_id = " + model.getUsers_id()
                     + ", date_added =" + model.getDate_added() + ", date_changed ="
-                    + model.getDate_changed() + ", date_finished =" + model.getDate_finished() 
+                    + model.getDate_changed() + ", date_finished =" + model.getDate_finished()
                     + ", situation = \'" + model.getSituation()
                     + "\' WHERE id = " + model.getId());
         } else {
@@ -62,7 +62,7 @@ public class DatabaseManager {
                     + model.getLocation_id() + ", \"" + model.getComment() + "\", "
                     + model.getUsers_id() + "," + "\"" + model.getDate_added()
                     + "\", \"" + model.getDate_changed() + "\", \""
-                    + model.getDate_finished() + "\", '"+model.getSituation()+"\')");
+                    + model.getDate_finished() + "\", '" + model.getSituation() + "\')");
             model.setId(getLastInsertId("passengerluggage"));
         }
         return model;
@@ -124,13 +124,13 @@ public class DatabaseManager {
 
         String query = "SELECT * FROM passengerluggage WHERE ";
 
-        if ( model.getFname() != null) {
+        if (model.getFname() != null) {
             System.out.println("Wel");
             query += "fname LIKE '%" + model.getFname() + "%' AND ";
             addWhere = true;
         }
 
-        if ( model.getMname() != null) {
+        if (model.getMname() != null) {
             query += "mname LIKE '%" + model.getMname() + "%' AND ";
             addWhere = true;
         }
@@ -140,7 +140,7 @@ public class DatabaseManager {
             addWhere = true;
         }
 
-        if ( model.getFlight() != null) {
+        if (model.getFlight() != null) {
             query += "flight LIKE '%" + model.getFlight() + "%' AND ";
             addWhere = true;
         }
@@ -322,17 +322,53 @@ public class DatabaseManager {
             row.setEmployee(resultSet.getInt("employee"));
             row.setManager(resultSet.getInt("manager"));
             row.setAdmin(resultSet.getInt("admin"));
-            row.setLocation_id(resultSet.getInt("location_id"));
+            row.setLocation_id(resultSet.getInt("setting_id"));
             results.add(row);
         }
         return results;
     }
 
+    public models.Users getUserForLogin(String username, String password) throws SQLException {
+        String query = "SELECT * FROM users WHERE username ='" + username + "' AND password ='" + password + "' LIMIT 1";
+
+        ResultSet resultSet = databaseconnection.executeSelect(query);
+        
+        models.Users model = new models.Users();
+        
+        while (resultSet.next()){
+            model.setId(resultSet.getInt("id"));
+            model.setFname(resultSet.getString("fname"));
+            model.setMname(resultSet.getString("mname"));
+            model.setLname(resultSet.getString("lname"));
+            model.setPhone(resultSet.getString("phone"));
+            model.setEe_num(resultSet.getString("ee_num"));
+            model.setEmployee(resultSet.getInt("employee"));
+            model.setManager(resultSet.getInt("manager"));
+            model.setAdmin(resultSet.getInt("admin"));
+            model.setLocation_id(resultSet.getInt("setting_id"));
+        }
+        return model;
+    }
+    
+    public boolean getCorrectForLogin(String username, String password) throws SQLException {
+
+        String query = "SELECT * FROM users WHERE username ='" + username + "' AND password ='" + password + "' LIMIT 1";
+
+        ResultSet resultSet = databaseconnection.executeSelect(query);
+
+        models.Users row = new models.Users();
+        if (!resultSet.next()) {
+            return false;
+        }
+        return true;
+    }
+
     public models.Users getUser(int id) throws SQLException {
         // Krijg resultaten als PassengerLuggage
-        if( id == 0 )
+        if (id == 0) {
             return new models.Users();
-        
+        }
+
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM users "
                 + "WHERE id=" + id + " limit 1");
 
@@ -523,9 +559,10 @@ public class DatabaseManager {
 
     public models.Colors getColor(int id) throws SQLException {
         // Krijg resultaten als PassengerLuggage
-        if( id == 0 )
+        if (id == 0) {
             return new models.Colors();
-        
+        }
+
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM colors "
                 + "WHERE id=" + id + " limit 1");
 
@@ -582,9 +619,10 @@ public class DatabaseManager {
 
     public models.Materials getMaterial(int id) throws SQLException {
         // Krijg resultaten als PassengerLuggage
-        if( id == 0 )
+        if (id == 0) {
             return new models.Materials();
-        
+        }
+
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM materials "
                 + "WHERE id=" + id + " limit 1");
 
@@ -641,9 +679,10 @@ public class DatabaseManager {
 
     public models.Types getType(int id) throws SQLException {
         // Krijg resultaten als PassengerLuggage
-        if( id == 0 )
+        if (id == 0) {
             return new models.Types();
-        
+        }
+
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM types "
                 + "WHERE id=" + id + " limit 1");
 
