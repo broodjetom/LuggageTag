@@ -37,6 +37,14 @@ public class Types {
     public String getType() {
         return type;
     }
+    
+    /**
+     * Get String value
+     * @return
+     */
+    public String toString() {
+        return type;
+    }
 
     /**
      *

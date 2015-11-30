@@ -38,6 +38,14 @@ public class Colors {
     public String getColor() {
         return color;
     }
+    
+    /**
+     *
+     * @return
+     */
+    public String toString() {
+        return color;
+    }
 
     /**
      *

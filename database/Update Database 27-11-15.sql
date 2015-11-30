@@ -1,2 +1,1 @@
-ALTER TABLE `luggagetag`.`passengerluggage` 
-ADD COLUMN `homo` ENUM('Gevonden', 'Verloren', 'Afgehandeld') NULL AFTER `situation`;
+ALTER TABLE `luggagetag`.`passengerluggage` ADD COLUMN `situation` ENUM('Gevonden', 'Verloren', 'Afgehandeld') NOT NULL;

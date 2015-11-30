@@ -1,11 +1,12 @@
 package UI;
 
+import java.util.Map;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-class LuggageChart{
+public class LuggageChart{
     
     final CategoryAxis xAxis = new CategoryAxis();
     final NumberAxis yAxis = new NumberAxis();
@@ -19,20 +20,27 @@ class LuggageChart{
     }
     
     public void setLabelX( String label ){
-        xAxis.setLabel("Year");
+        xAxis.setLabel(label);
     }
     
     public void setLabelY( String label ){
-        yAxis.setLabel("Lost luggage");
+        yAxis.setLabel(label);
     }
     
     public void setXCoords( String[] values ){
         setXCoord = values;
     }
     
-    public void addSerie( String name ){
+    public void addSerie( String name, Map<String, Double> map ){
         XYChart.Series series1 = new XYChart.Series();
         series1.setName(name);
+        
+        for (Map.Entry<String, Double> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Double value = entry.getValue();
+            series1.getData().add(new XYChart.Data(key, value)); 
+        }
+        bc.getData().add(series1);
     }
     
     public BarChart<String, Number> getChart(){
