@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -26,8 +28,9 @@ public class DatabaseManager {
     }
 
     /**
-     * Saves data, stored in passengerluggage object, to database. if id is stored, the data will be
-     * updated, otherwise it will be saved as a new record.
+     * Saves data, stored in passengerluggage object, to database. if id is
+     * stored, the data will be updated, otherwise it will be saved as a new
+     * record.
      *
      * @param models.Passengerluggage(), object of passengerluggage
      * @return
@@ -47,7 +50,7 @@ public class DatabaseManager {
                     + ", location_id =" + model.getLocation().getId() + ", comment ='"
                     + model.getComment() + "', users_id = " + model.getUsers_id()
                     + ", date_added =" + model.getDate_added() + ", date_changed ="
-                    + model.getDate_changed() + ", date_finished =" + model.getDate_finished() 
+                    + model.getDate_changed() + ", date_finished =" + model.getDate_finished()
                     + ", situation = \'" + model.getSituation()
                     + "\' WHERE id = " + model.getId());
         } else {
@@ -66,7 +69,7 @@ public class DatabaseManager {
                     + model.getLocation_id() + ", \"" + model.getComment() + "\", "
                     + model.getUsers_id() + "," + "\"" + model.getDate_added()
                     + "\", \"" + model.getDate_changed() + "\", \""
-                    + model.getDate_finished() + "\", '"+model.getSituation()+"\')");
+                    + model.getDate_finished() + "\", '" + model.getSituation() + "\')");
             model.setId(getLastInsertId("passengerluggage"));
         }
         return model;
@@ -115,8 +118,42 @@ public class DatabaseManager {
         return results;
     }
 
+    public Map<String, Double> getLostStatistics(String start, String end) throws SQLException {
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_added FROM passengerluggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Verloren' GROUP BY date_added");
+
+        Map<String, Double> results = new HashMap<>();
+
+        while (resultSet.next()) {
+            results.put(resultSet.getString("date_added"), resultSet.getDouble("count"));
+        }
+        return results;
+    }
+
+    public Map<String, Double> getFoundStatistics(String start, String end) throws SQLException {
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_added FROM passengerluggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Gevonden' GROUP BY date_added");
+
+        Map<String, Double> results = new HashMap<>();
+
+        while (resultSet.next()) {
+            results.put(resultSet.getString("date_added"), resultSet.getDouble("count"));
+        }
+        return results;
+    }
+
+    public Map<String, Double> getFinishedStatistics(String start, String end) throws SQLException {
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_added FROM passengerluggage WHERE (date_finished BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Afgehandeld' GROUP BY date_finished");
+
+        Map<String, Double> results = new HashMap<>();
+
+        while (resultSet.next()) {
+            results.put(resultSet.getString("date_added"), resultSet.getDouble("count"));
+        }
+        return results;
+    }
+
     /**
-     * Returns a list of records form table passengerluggage, which can be presented in a table.
+     * Returns a list of records form table passengerluggage, which can be
+     * presented in a table.
      *
      * @param model
      * @return ObservableList
@@ -128,13 +165,13 @@ public class DatabaseManager {
 
         String query = "SELECT * FROM passengerluggage WHERE ";
 
-        if ( model.getFname() != null) {
+        if (model.getFname() != null) {
             System.out.println("Wel");
             query += "fname LIKE '%" + model.getFname() + "%' AND ";
             addWhere = true;
         }
 
-        if ( model.getMname() != null) {
+        if (model.getMname() != null) {
             query += "mname LIKE '%" + model.getMname() + "%' AND ";
             addWhere = true;
         }
@@ -144,7 +181,7 @@ public class DatabaseManager {
             addWhere = true;
         }
 
-        if ( model.getFlight() != null) {
+        if (model.getFlight() != null) {
             query += "flight LIKE '%" + model.getFlight() + "%' AND ";
             addWhere = true;
         }
@@ -181,6 +218,11 @@ public class DatabaseManager {
 
         if (model.getType_id() != 0) {
             query += "type_id = " + model.getType_id() + " AND ";
+            addWhere = true;
+        }
+        
+        if (model.getLocation_id() != 0) {
+            query += "location_id = " + model.getLocation_id() + " AND ";
             addWhere = true;
         }
 
@@ -244,8 +286,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Saves data, stored in Users object, to database. if id is stored, the data will be updated,
-     * otherwise it will be saved as a new record.
+     * Saves data, stored in Users object, to database. if id is stored, the
+     * data will be updated, otherwise it will be saved as a new record.
      *
      * @param model.Users(), object of Users.
      * @throws SQLException
@@ -274,7 +316,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Users, which can be presented in a table.
+     * Returns a list of records form table Users, which can be presented in a
+     * table.
      *
      * @return ObservableList
      * @throws SQLException
@@ -334,9 +377,10 @@ public class DatabaseManager {
 
     public models.Users getUser(int id) throws SQLException {
         // Krijg resultaten als PassengerLuggage
-        if( id == 0 )
+        if (id == 0) {
             return new models.Users();
-        
+        }
+
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM users "
                 + "WHERE id=" + id + " limit 1");
 
@@ -356,8 +400,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Saves data, stored in Locations object, to database. if id is stored, the data will be
-     * updated, otherwise it will be saved as a new record.
+     * Saves data, stored in Locations object, to database. if id is stored, the
+     * data will be updated, otherwise it will be saved as a new record.
      *
      * @param model.Locations(), object from Locations
      * @return
@@ -376,7 +420,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in a table.
+     * Returns a list of records form table Locations, which can be presented in
+     * a table.
      *
      * @return ObservableList
      * @throws SQLException
@@ -398,7 +443,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in a table.
+     * Returns a list of records form table Locations, which can be presented in
+     * a table.
      *
      * @param id
      * @return ObservableList
@@ -417,7 +463,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in a table.
+     * Returns a list of records form table Locations, which can be presented in
+     * a table.
      *
      * @param location
      * @return ObservableList
@@ -527,9 +574,10 @@ public class DatabaseManager {
 
     public models.Colors getColor(int id) throws SQLException {
         // Krijg resultaten als PassengerLuggage
-        if( id == 0 )
+        if (id == 0) {
             return new models.Colors();
-        
+        }
+
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM colors "
                 + "WHERE id=" + id + " limit 1");
 
@@ -586,9 +634,10 @@ public class DatabaseManager {
 
     public models.Materials getMaterial(int id) throws SQLException {
         // Krijg resultaten als PassengerLuggage
-        if( id == 0 )
+        if (id == 0) {
             return new models.Materials();
-        
+        }
+
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM materials "
                 + "WHERE id=" + id + " limit 1");
 
@@ -645,9 +694,10 @@ public class DatabaseManager {
 
     public models.Types getType(int id) throws SQLException {
         // Krijg resultaten als PassengerLuggage
-        if( id == 0 )
+        if (id == 0) {
             return new models.Types();
-        
+        }
+
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM types "
                 + "WHERE id=" + id + " limit 1");
 
