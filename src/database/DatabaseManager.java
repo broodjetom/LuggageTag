@@ -3,6 +3,10 @@ package database;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,6 +16,7 @@ import javafx.collections.ObservableList;
 public class DatabaseManager {
 
     private DatabaseConnection databaseconnection;
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * Creates a database manager.
@@ -23,15 +28,17 @@ public class DatabaseManager {
     }
 
     /**
-     * Saves data, stored in passengerluggage object, to database. if id is stored, the data will be
-     * updated, otherwise it will be saved as a new record.
+     * Saves data, stored in passengerluggage object, to database. if id is
+     * stored, the data will be updated, otherwise it will be saved as a new
+     * record.
      *
-     * @param model.Passengerluggage(), object of passengerluggage
+     * @param models.Passengerluggage(), object of passengerluggage
      * @return
      * @throws SQLException
      */
     public models.PassengerLuggage savePassengerLuggage(models.PassengerLuggage model) throws SQLException {
         if (model.getId() != 0) {
+            model.setDate_added(format.format(new Date()));
             databaseconnection.executeUpdate("UPDATE `passengerluggage` SET "
                     + "fname ='" + model.getFname() + "', mname = '" + model.getMname()
                     + "', lname = '" + model.getLname() + "', flight = '" + model.getFlight()
@@ -111,8 +118,42 @@ public class DatabaseManager {
         return results;
     }
 
+    public Map<String, Double> getLostStatistics(String start, String end) throws SQLException {
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_added FROM passengerluggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Verloren' GROUP BY date_added");
+
+        Map<String, Double> results = new HashMap<>();
+
+        while (resultSet.next()) {
+            results.put(resultSet.getString("date_added"), resultSet.getDouble("count"));
+        }
+        return results;
+    }
+
+    public Map<String, Double> getFoundStatistics(String start, String end) throws SQLException {
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_added FROM passengerluggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Gevonden' GROUP BY date_added");
+
+        Map<String, Double> results = new HashMap<>();
+
+        while (resultSet.next()) {
+            results.put(resultSet.getString("date_added"), resultSet.getDouble("count"));
+        }
+        return results;
+    }
+
+    public Map<String, Double> getFinishedStatistics(String start, String end) throws SQLException {
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_added FROM passengerluggage WHERE (date_finished BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Afgehandeld' GROUP BY date_finished");
+
+        Map<String, Double> results = new HashMap<>();
+
+        while (resultSet.next()) {
+            results.put(resultSet.getString("date_added"), resultSet.getDouble("count"));
+        }
+        return results;
+    }
+
     /**
-     * Returns a list of records form table passengerluggage, which can be presented in a table.
+     * Returns a list of records form table passengerluggage, which can be
+     * presented in a table.
      *
      * @param model
      * @return ObservableList
@@ -179,6 +220,11 @@ public class DatabaseManager {
             query += "type_id = " + model.getType_id() + " AND ";
             addWhere = true;
         }
+        
+        if (model.getLocation_id() != 0) {
+            query += "location_id = " + model.getLocation_id() + " AND ";
+            addWhere = true;
+        }
 
         if (addWhere) {
             query = query.substring(0, query.length() - 4);
@@ -240,8 +286,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Saves data, stored in Users object, to database. if id is stored, the data will be updated,
-     * otherwise it will be saved as a new record.
+     * Saves data, stored in Users object, to database. if id is stored, the
+     * data will be updated, otherwise it will be saved as a new record.
      *
      * @param model.Users(), object of Users.
      * @throws SQLException
@@ -270,7 +316,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Users, which can be presented in a table.
+     * Returns a list of records form table Users, which can be presented in a
+     * table.
      *
      * @return ObservableList
      * @throws SQLException
@@ -388,8 +435,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Saves data, stored in Locations object, to database. if id is stored, the data will be
-     * updated, otherwise it will be saved as a new record.
+     * Saves data, stored in Locations object, to database. if id is stored, the
+     * data will be updated, otherwise it will be saved as a new record.
      *
      * @param model.Locations(), object from Locations
      * @return
@@ -408,7 +455,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in a table.
+     * Returns a list of records form table Locations, which can be presented in
+     * a table.
      *
      * @return ObservableList
      * @throws SQLException
@@ -430,7 +478,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in a table.
+     * Returns a list of records form table Locations, which can be presented in
+     * a table.
      *
      * @param id
      * @return ObservableList
@@ -449,7 +498,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in a table.
+     * Returns a list of records form table Locations, which can be presented in
+     * a table.
      *
      * @param location
      * @return ObservableList
