@@ -39,6 +39,12 @@ public class SearchLuggage {
         UI.setTitle("Search Database");
 
         LuggageTable table = new LuggageTable();
+        
+        table.onClick((Callable) () -> {
+            models.PassengerLuggage row = (models.PassengerLuggage)table.getClicked();
+            System.out.println(row.getFname());
+            return true;
+        });
 
         String[] topText = {"Voornaam", "Tussenvoegsel", "Achternaam", "Vluchtnummer", "Merk", "Kleur", "Gewicht", "Materiaal", "Stickers", "Kofferriem", "Koffer soort", "Vestiging", "Opmerkingen", "Gebruikers", "Datum toegevoegd", "Datum gewijzigd", "Datum Afgehandeld"}; // texten die bovenaan de tabel verschijnen
         String[] topVars = {"fname", "mname", "lname", "flight", "brand", "color", "weight", "material", "stickers", "belt", "type", "location", "comment", "users", "date_added", "date_changed", "date_finished"}; // De variable namen van het object gesorteerd op de topText 
@@ -134,13 +140,6 @@ public class SearchLuggage {
         
         form.onSubmit((Callable) () -> {
             models.PassengerLuggage zoekNew = new models.PassengerLuggage();
-            
-            form.get("flight");
-            form.get("brand_id");
-            form.get("color_id");
-            form.get("material_id");
-            form.get("stickers");
-            form.get("location_id");
             
             zoekNew.setFname(form.get("fname"));
             zoekNew.setMname(form.get("mname"));
