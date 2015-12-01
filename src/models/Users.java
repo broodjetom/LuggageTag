@@ -7,13 +7,13 @@ package models;
 public class Users {
     
     private int id = 0;
-    private String username;
-    private String password;
-    private String fname;
-    private String mname;
-    private String lname;
-    private String phone;
-    private String ee_num;
+    private String username = "";
+    private String password = "";
+    private String fname = "";
+    private String mname = "";
+    private String lname = "";
+    private String phone = "";
+    private String ee_num = "";
     private int employee;
     private int manager;
     private int admin;

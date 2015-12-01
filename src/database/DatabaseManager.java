@@ -54,7 +54,7 @@ public class DatabaseManager {
                     + ", situation = \'" + model.getSituation()
                     + "\' WHERE id = " + model.getId());
         } else {
-            databaseconnection.executeQuery("INSERT INTO `passengerluggage`"
+            databaseconnection.executeUpdate("INSERT INTO `passengerluggage`"
                     + "(`fname`, `mname`, `lname`, `flight`, `brand_id`, `color_id`, "
                     + "`weight`, `material_id`, `stickers`, `characteristic`, `belt`, "
                     + "`type_id`, `location_id`, `comment`, `users_id`, `date_added`, "
@@ -102,7 +102,7 @@ public class DatabaseManager {
             row.setType(getType(resultSet.getInt("type_id")));
             row.setBelt(resultSet.getInt("belt"));
             row.setLocation_id(resultSet.getInt("location_id"));
-            row.setLocation(getLocation(resultSet.getInt("location_id")));
+            row.setLocation(DatabaseManager.this.getLocation(resultSet.getInt("location_id")));
             row.setComment(resultSet.getString("comment"));
             row.setUsers_id(resultSet.getInt("users_id"));
             row.setUser(getUser(resultSet.getInt("users_id")));
@@ -257,7 +257,7 @@ public class DatabaseManager {
             row.setType(getType(resultSet.getInt("type_id")));
             row.setBelt(resultSet.getInt("belt"));
             row.setLocation_id(resultSet.getInt("location_id"));
-            row.setLocation(getLocation(resultSet.getInt("location_id")));
+            row.setLocation(DatabaseManager.this.getLocation(resultSet.getInt("location_id")));
             row.setComment(resultSet.getString("comment"));
             row.setUsers_id(resultSet.getInt("users_id"));
             row.setUser(getUser(resultSet.getInt("users_id")));
@@ -293,25 +293,33 @@ public class DatabaseManager {
      * @throws SQLException
      */
     public void saveUsers(models.Users model) throws SQLException {
+        System.out.println("INSERT INTO users (`username`, `password`, `fname`, `mname`, `lname`, "
+                    + "`phone`, `ee_num`, `employee`, `manager`, `admin`, `setting_id`)"
+                    + " VALUES ('" + model.getUsername() + "', '" + model.getPassword().hashCode() + "', '"
+                    + model.getFname() + "', '" + model.getMname() + "', '"
+                    + model.getLname() + "', '" + model.getPhone() + "', '"
+                    + model.getEe_num() + "', " + model.getEmployee() + ", "
+                    + "" + model.getManager() + ", " + model.getAdmin() + ", "
+                    + "" + model.getLocation_id() + ")");
         if (model.getId() != 0) {
             databaseconnection.executeUpdate(
                     "UPDATE users SET username = \'" + model.getUsername() + "\', password =\'"
-                    + model.getPassword() + "\', fname = \'" + model.getFname() + "\', mname =\'"
+                    + model.getPassword().hashCode() + "\', fname = \'" + model.getFname() + "\', mname =\'"
                     + model.getMname() + "\', lname =\'" + model.getLname() + "\', phone=\'"
                     + model.getPhone() + "\', ee_num = \'" + model.getEe_num() + "\', employee ="
                     + model.getEmployee() + ", manager =" + model.getManager()
                     + ", admin =" + model.getAdmin() + ", setting_id =" + model.getLocation_id()
                     + " WHERE id = " + model.getId());
         } else {
-            databaseconnection.executeQuery(
+            databaseconnection.executeUpdate(
                     "INSERT INTO users (`username`, `password`, `fname`, `mname`, `lname`, "
                     + "`phone`, `ee_num`, `employee`, `manager`, `admin`, `setting_id`)"
-                    + "VALUES (\"" + model.getUsername() + "\", \"" + model.getPassword() + "\", \""
-                    + "\"" + model.getFname() + "\", \"" + model.getMname() + "\", \""
-                    + "\"" + model.getLname() + "\", \"" + model.getPhone() + "\", \""
-                    + "\"" + model.getEe_num() + "\", \"" + model.getEmployee() + "\", \""
-                    + "\"" + model.getManager() + "\", \"" + model.getAdmin() + "\", \""
-                    + "\"" + model.getLocation_id() + "\")");
+                    + " VALUES ('" + model.getUsername() + "', '" + model.getPassword().hashCode() + "', '"
+                    + model.getFname() + "', '" + model.getMname() + "', '"
+                    + model.getLname() + "', '" + model.getPhone() + "', '"
+                    + model.getEe_num() + "', " + model.getEmployee() + ", "
+                    + "" + model.getManager() + ", " + model.getAdmin() + ", "
+                    + "" + model.getLocation_id() + ")");
         }
     }
 
@@ -322,29 +330,55 @@ public class DatabaseManager {
      * @return ObservableList
      * @throws SQLException
      */
-    public ObservableList getUsers(models.Users model) throws SQLException {
+    public ObservableList<models.Users> getUsers(models.Users model) throws SQLException {
 
         boolean addWhere = false;
 
         String query = "SELECT * FROM users WHERE ";
 
-        if (!model.getFname().isEmpty()) {
+        if (model.getFname() != null) {
             query += "fname LIKE '%" + model.getFname() + "%' AND ";
             addWhere = true;
         }
 
-        if (!model.getMname().isEmpty()) {
-            query += "mname LIKE '%" + model.getMname() + "%' AND ";
+        if (model.getMname() != null) {
+            query += "(mname LIKE '%" + model.getMname() + "%' OR mname IS NULL) AND ";
             addWhere = true;
         }
 
-        if (!model.getLname().isEmpty()) {
+        if (model.getLname() != null) {
             query += "lname LIKE '%" + model.getLname() + "%' AND ";
             addWhere = true;
         }
 
+        if (model.getPhone() != null) {
+            query += "phone LIKE '%" + model.getPhone() + "%' AND ";
+            addWhere = true;
+        }
+        
+        if(model.getEe_num() != null){
+            query += "ee_num LIKE '%" + model.getEe_num() +"%' AND ";
+            addWhere = true;
+        }
+        
+        if(model.getEmployee() != 0){
+            query += "employee = "+ model.getEmployee() + " AND ";
+            addWhere = true;
+        }
+        
+        if(model.getManager() != 0){
+            query += "manager = "+ model.getManager() +" AND ";
+            addWhere = true;
+        }
+        
+        if(model.getAdmin() != 0){
+            query += "admin = "+ model.getAdmin() +" AND ";
+            addWhere = true;
+        }
+        
         if (model.getLocation_id() != 0) {
             query += "location_id = " + model.getLocation_id() + " AND ";
+            addWhere = true;
         }
 
         if (addWhere) {
@@ -353,6 +387,8 @@ public class DatabaseManager {
             query = query.substring(0, query.length() - 6);
         }
 
+        System.out.println(query);
+        
         ResultSet resultSet = databaseconnection.executeSelect(query);
 
         ObservableList<models.Users> results
@@ -370,6 +406,7 @@ public class DatabaseManager {
             row.setManager(resultSet.getInt("manager"));
             row.setAdmin(resultSet.getInt("admin"));
             row.setLocation_id(resultSet.getInt("setting_id"));
+            row.setLocation(DatabaseManager.this.getLocation(resultSet.getInt("setting_id")));
             results.add(row);
         }
         return results;
@@ -430,7 +467,7 @@ public class DatabaseManager {
         row.setManager(resultSet.getInt("manager"));
         row.setAdmin(resultSet.getInt("admin"));
         row.setLocation_id(resultSet.getInt("location_id"));
-        row.setLocation(getLocation(resultSet.getInt("location_id")));
+        row.setLocation(DatabaseManager.this.getLocation(resultSet.getInt("location_id")));
         return row;
     }
 
@@ -505,7 +542,7 @@ public class DatabaseManager {
      * @return ObservableList
      * @throws SQLException
      */
-    public ObservableList<models.Locations> getLocations(String location) throws SQLException {
+    public ObservableList<models.Locations> getLocation(String location) throws SQLException {
         // Krijg resultaten als PassengerLuggage
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM locations "
                 + "WHERE location=\"" + location + "\"");
