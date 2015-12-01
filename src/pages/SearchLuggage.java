@@ -10,6 +10,7 @@ import UI.LuggageTable;
 import UI.LuggageUI;
 import database.DatabaseManager;
 import java.sql.SQLException;
+import java.util.Vector;
 import java.util.concurrent.Callable;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -39,21 +40,15 @@ public class SearchLuggage {
 
         LuggageTable table = new LuggageTable();
 
-        String[] topText = {"Voornaam", "Tussenvoegsel", "Achternaam", "Vluchtnummer", "Merk", "Kleur", "Gewicht", "Materiaal", "Stickers"}; // texten die bovenaan de tabel verschijnen
-        String[] topVars = {"fname", "mname", "lname", "flight", "brand_id", "color_id", "weight", "material_id", "stickers"}; // De variable namen van het object gesorteerd op de topText 
+        String[] topText = {"Voornaam", "Tussenvoegsel", "Achternaam", "Vluchtnummer", "Merk", "Kleur", "Gewicht", "Materiaal", "Stickers", "Kofferriem", "Koffer soort", "Vestiging", "Opmerkingen", "Gebruikers", "Datum toegevoegd", "Datum gewijzigd", "Datum Afgehandeld"}; // texten die bovenaan de tabel verschijnen
+        String[] topVars = {"fname", "mname", "lname", "flight", "brand", "color", "weight", "material", "stickers", "belt", "type", "location", "comment", "users", "date_added", "date_changed", "date_finished"}; // De variable namen van het object gesorteerd op de topText 
         
         // Zoeken naar passengerluggage
         models.PassengerLuggage zoek = new models.PassengerLuggage();
         
-       // zoek.setFname("Jim");
         
         ObservableList<models.PassengerLuggage> passengers = db.getPassengerLuggage( zoek );
         
-       /* for (models.PassengerLuggage rij: passengers) {
-            rij.setFname("Jimmy");
-            rij.setBrand_id(1);
-            rij = db.savePassengerLuggage(rij);
-        } */
         
         // Set de top rij
         table.setTopRow(topText, topVars);
@@ -72,14 +67,62 @@ public class SearchLuggage {
         form.addLabel("Voornaam: ");
         form.addTextField("fname", false);
         form.addRow();
+        
+        form.addLabel("Tussenvoegsel: ");
+        form.addTextField("mname", false);
+        form.addRow();
+        
         form.addLabel("Achternaam: ");
         form.addTextField("lname", false);
+        form.addRow();
         
+        form.addLabel("Vluchtnummer: ");
+        form.addTextField("flight", false);
+        form.addRow();
+        
+        form.addLabel("Merk: ");
+        ObservableList<models.Brands> brandsModel = this.db.getBrands();
+        form.addComboBox("brand_id", brandsModel);
+        form.addRow();
+        
+        form.addLabel("Kleur: ");
+        ObservableList<models.Colors> colorsModel = this.db.getColors();
+        form.addComboBox("color_id", colorsModel);
+        form.addRow();
+        
+        form.addLabel("Gewicht: ");
+        form.addTextField("weight", false);
+        form.addRow();
+        
+        form.addLabel("Materiaal: ");
+        ObservableList<models.Materials> materialsModel = this.db.getMaterials();
+        form.addComboBox("material_id", materialsModel);
+        form.addRow();
+        
+        form.addLabel("Stickers: ");
+        form.addTextField("stickers", false);
+        form.addRow();  
+        
+        form.addLabel("Kofferriem: ");
+        form.addTextField("belt", false);
+        form.addRow();
+        
+        form.addLabel("Type bagage: ");
+        
+        ObservableList<models.Types> typeModel = this.db.getTypes();
+        form.addComboBox("type_id", typeModel);
+        form.addRow();
+        
+        form.addLabel("Vestigingen");
+        ObservableList<models.Locations> locationsModel = this.db.getLocations();
+        form.addComboBox("location_id", locationsModel);
+        form.addRow();
+       
         form.addRow();
         form.addLabel("Status:");
         
         
-        form.addComboBox("status", new String[]{"Gevonden", "Gezocht", "Afgehandeld"});
+        form.addComboBox("status", new String[]{"Gevonden", "Verloren", "Afgehandeld"});
         form.addRow();
         
         Button forgotPassword = UI.createGreyButton("Clear", false, (Callable) () -> {
@@ -91,11 +134,42 @@ public class SearchLuggage {
         
         form.onSubmit((Callable) () -> {
             models.PassengerLuggage zoekNew = new models.PassengerLuggage();
-            String emailValue = form.get("fname");
             
-            zoekNew.setFname(emailValue);
+            form.get("flight");
+            form.get("brand_id");
+            form.get("color_id");
+            form.get("material_id");
+            form.get("stickers");
+            form.get("location_id");
+            
+            zoekNew.setFname(form.get("fname"));
+            zoekNew.setMname(form.get("mname"));
             zoekNew.setLname(form.get("lname"));
-
+            zoekNew.setFlight(form.get("flight"));
+            //zoekNew.setWeight(Double.parseDouble(form.get("weight")));
+            //zoekNew.setStickers(Integer.parseInt(form.get("stickers")));
+           // zoekNew.setBelt(Integer.parseInt(form.get("belt")));
+           
+            models.Brands brandBox = (models.Brands)form.getComboBoxSelected("brand_id");
+            if( brandBox != null )
+                zoekNew.setBrand_id(brandBox.getId());
+            
+            models.Colors colorBox = (models.Colors)form.getComboBoxSelected("color_id");
+            if( colorBox != null )
+                zoekNew.setColor_id(colorBox.getId());
+            
+            models.Materials materialBox = (models.Materials)form.getComboBoxSelected("material_id");
+            if( materialBox != null )
+                zoekNew.setMaterial_id(materialBox.getId());
+            
+            models.Types typeBox = (models.Types)form.getComboBoxSelected("type_id");
+            if( typeBox != null )
+                zoekNew.setType_id(typeBox.getId());
+            
+            models.Locations locationsBox = (models.Locations)form.getComboBoxSelected("location_id");
+            if( locationsBox != null )
+                zoekNew.setLocation_id(locationsBox.getId());
+            
             ObservableList<models.PassengerLuggage> passengersZoek = db.getPassengerLuggage( zoekNew );
             
             table.setContent(passengersZoek);

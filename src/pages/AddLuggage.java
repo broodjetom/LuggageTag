@@ -3,7 +3,9 @@ package pages;
 import UI.LuggageForm;
 import UI.LuggageUI;
 import database.DatabaseManager;
+import java.sql.SQLException;
 import java.util.concurrent.Callable;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -21,7 +23,7 @@ public class AddLuggage {
 
     private static final user.Session USER = user.Session.getInstance();
 
-    public AddLuggage(LuggageUI UI, DatabaseManager db) {
+    public AddLuggage(LuggageUI UI, DatabaseManager db) throws SQLException {
 
         this.UI = UI;
         this.db = db;
@@ -48,22 +50,27 @@ public class AddLuggage {
         form.addRow();
         form.addLabel("Flight number: ");
         form.addTextField("flightnumber", false);
-
+        
         form.addRow();
-        form.addLabel("Brand ");
-        form.addTextField("Brand", false);
-
+        form.addLabel("Merk: ");
+        ObservableList<models.Brands> brandsModel = this.db.getBrands();
+        form.addComboBox("brand_id", brandsModel);
         form.addRow();
-        form.addLabel("Color ");
-        form.addTextField("Color", false);
+        
+        form.addLabel("Kleur: ");
+        ObservableList<models.Colors> colorsModel = this.db.getColors();
+        form.addComboBox("color_id", colorsModel);
+        form.addRow();
 
         form.addRow();
         form.addLabel("Weight ");
         form.addTextField("Weight", false);
-
+        
         form.addRow();
-        form.addLabel("Material ");
-        form.addTextField("Material", false);
+        form.addLabel("Materiaal: ");
+        ObservableList<models.Materials> materialsModel = this.db.getMaterials();
+        form.addComboBox("material_id", materialsModel);
+        form.addRow();
 
         form.addRow();
         form.addLabel("Stickers ");
@@ -76,14 +83,18 @@ public class AddLuggage {
         form.addRow();
         form.addLabel("Belt ");
         form.addTextField("Belt", false);
-
+        
         form.addRow();
-        form.addLabel("Type ");
-        form.addTextField("Type", false);
-
+        form.addLabel("Type bagage ");
+        ObservableList<models.Types> typeModel = this.db.getTypes();
+        form.addComboBox("type_id", typeModel);
         form.addRow();
-        form.addLabel("Setting ");
-        form.addTextField("Setting", false);
+        
+        form.addRow();
+        form.addLabel("Vestigingen");
+        ObservableList<models.Locations> locationsModel = this.db.getLocations();
+        form.addComboBox("location_id", locationsModel);
+        form.addRow();
 
         form.addRow();
         form.addLabel("Comment ");
