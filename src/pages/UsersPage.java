@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.concurrent.Callable;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
@@ -93,7 +94,11 @@ public class UsersPage {
         form.addComboBox("role", new String[]{"Mederwerker", "Manager", "Admin"});
         form.addRow();
 
-        form.addCol();
+        Button forgotPassword = UI.createGreyButton("Clear", false, (Callable) () -> {
+            return true;
+        });
+
+        form.add(forgotPassword);
         form.addSubmitButton("Search");
         
         form.onSubmit((Callable) () -> {
