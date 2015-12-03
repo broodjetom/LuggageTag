@@ -1,19 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package UI;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -23,9 +17,12 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 
 /**
+ * Create a Form
  *
  * @author Alex
  */
@@ -116,8 +113,8 @@ public class LuggageForm {
 
         return keyValues.get(id);
     }
-    
-    public Object getComboBoxSelected(String id){
+
+    public Object getComboBoxSelected(String id) {
         return this.comboBox.get(id).getSelectionModel().getSelectedItem();
     }
 
@@ -147,6 +144,7 @@ public class LuggageForm {
      *
      * @param id ID to set for this field
      * @param required Make element required, or not
+     * @param value Default value of the field
      */
     public void addTextField(String id, Boolean required, String value) {
         TextField textField = new TextField();
@@ -155,6 +153,14 @@ public class LuggageForm {
         textFields.put(id, textField);
         textFieldsRequired.put(id, required);
         add(textField);
+        textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                if (t.getCode() == KeyCode.ENTER) {
+                    fireSubmitEvent();
+                }
+            }
+        });
     }
 
     /**
@@ -169,6 +175,14 @@ public class LuggageForm {
         textFields.put(id, passwordField);
         textFieldsRequired.put(id, required);
         add(passwordField);
+        passwordField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                if (t.getCode() == KeyCode.ENTER) {
+                    fireSubmitEvent();
+                }
+            }
+        });
     }
 
     /**
@@ -201,7 +215,7 @@ public class LuggageForm {
         comboBox.put(id, theBox);
         add(theBox);
     }
-    
+
     /**
      * Adds a combobox to the form
      *
@@ -212,7 +226,7 @@ public class LuggageForm {
         ComboBox theBox = new ComboBox(elements);
         theBox.setPromptText("- Select -");
         theBox.setEditable(true);
-        
+
         comboBox.put(id, theBox);
         add(theBox);
     }

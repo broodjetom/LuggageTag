@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.concurrent.Callable;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
@@ -42,6 +41,7 @@ public class UsersPage {
         
         table.onClick((Callable) () -> {
             models.Users row = (models.Users)table.getClicked();
+            
             return true;
         });
 

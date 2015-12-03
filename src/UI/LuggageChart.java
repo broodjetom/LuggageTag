@@ -6,6 +6,10 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
+/**
+ * Create a Chart
+ * @author Kah Kit & Alex
+ */
 public class LuggageChart{
     
     final CategoryAxis xAxis = new CategoryAxis();
