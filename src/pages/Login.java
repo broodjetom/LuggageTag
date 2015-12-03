@@ -73,7 +73,7 @@ public class Login {
                     Logs logs = new Logs(UI, db);
                 } else if (USER.getUser().getAdmin() != 0) {
                     pages.menus.Administrator menu = new pages.menus.Administrator(UI, db);
-                    Users users = new Users(UI, db);
+                    pages.UsersPage users = new pages.UsersPage(UI, db);
                 }
             } else {
                 form.error("Email en/of wachtwoord incorrect\nProbeer het met andere gegevens\nOf ga naar uw manager");

@@ -41,7 +41,7 @@ public class UsersPage {
         
         table.onClick((Callable) () -> {
             models.Users row = (models.Users)table.getClicked();
-            
+            EditUser edit = new EditUser(UI, db, row);
             return true;
         });
 
