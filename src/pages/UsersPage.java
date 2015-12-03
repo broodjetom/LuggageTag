@@ -93,7 +93,11 @@ public class UsersPage {
         form.addComboBox("role", new String[]{"Mederwerker", "Manager", "Admin"});
         form.addRow();
 
-        form.addCol();
+        Button forgotPassword = UI.createGreyButton("Clear", false, (Callable) () -> {
+            return true;
+        });
+
+        form.add(forgotPassword);
         form.addSubmitButton("Search");
         
         form.onSubmit((Callable) () -> {
