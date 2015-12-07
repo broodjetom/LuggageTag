@@ -67,7 +67,7 @@ public class Login {
                 USER.setUser(db.getUserForLogin(emailValue, passwordValue));
                 if (USER.getUser().getEmployee() != 0) {
                     pages.menus.Employee menu = new pages.menus.Employee(UI, db);
-                    SearchLuggage searchLuggage = new SearchLuggage(UI, db);
+                    SearchCustomer searchLuggage = new SearchCustomer(UI, db);
                 } else if (USER.getUser().getManager() != 0) {
                     pages.menus.Manager menu = new pages.menus.Manager(UI, db);
                     Logs logs = new Logs(UI, db);

@@ -22,6 +22,10 @@ public class Luggage {
     private String date_changed;
     private String date_finished;
     private String situation;
+    private Brands brand;
+    private Colors color;
+    private Types type;
+    private Materials material;
 
     public Luggage(){
         
@@ -249,6 +253,62 @@ public class Luggage {
      */
     public void setSituation(String situation) {
         this.situation = situation;
+    }
+
+    /**
+     * @return the brand
+     */
+    public Brands getBrand() {
+        return brand;
+    }
+
+    /**
+     * @param brand the brand to set
+     */
+    public void setBrand(Brands brand) {
+        this.brand = brand;
+    }
+
+    /**
+     * @return the color
+     */
+    public Colors getColor() {
+        return color;
+    }
+
+    /**
+     * @param color the color to set
+     */
+    public void setColor(Colors color) {
+        this.color = color;
+    }
+
+    /**
+     * @return the type
+     */
+    public Types getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(Types type) {
+        this.type = type;
+    }
+
+    /**
+     * @return the material
+     */
+    public Materials getMaterial() {
+        return material;
+    }
+
+    /**
+     * @param material the material to set
+     */
+    public void setMaterial(Materials material) {
+        this.material = material;
     }
     
     
