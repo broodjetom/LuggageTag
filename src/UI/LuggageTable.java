@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package UI;
 
 import java.util.HashMap;
@@ -18,15 +13,19 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 /**
- *
- * @author Thomas
+ * Create a table
+ * @author Alex
  */
 public class LuggageTable {
 
     private TableView table;
     public Map<String, TableColumn> tableColumns = new HashMap<>();
     private Object clicked;
-
+    
+    /**
+     * Initialize <b>editable</b> table
+     * @param editable 
+     */
     public LuggageTable(Boolean editable) {
         this.table = new TableView();
 
@@ -35,17 +34,28 @@ public class LuggageTable {
         }
     }
 
+    /**
+     * Initialize <b>uneditable</b> form
+     */
     public LuggageTable() {
         this.table = new TableView<>();
     }
-    
-    public void onClick(Callable clickEvent){
+
+    /**
+     * The callable callback function is called when the user doubleclicks a
+     * filled row in the table
+     *
+     * Use the getClicked method to retrieve the clicked object
+     *
+     * @param clickEvent Callable clickevent
+     */
+    public void onClick(Callable clickEvent) {
         table.setRowFactory(tv -> {
             TableRow<Object> row = new TableRow<>();
             row.setOnMouseClicked((MouseEvent t) -> {
                 try {
                     this.clicked = row.getItem();
-                    if (t.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    if (t.getClickCount() == 2 && (!row.isEmpty())) {
                         clickEvent.call(); // Hier voert het programma de methode aan die je als parameter mee gaf.
                     }
                 } catch (Exception ex) {
@@ -55,11 +65,23 @@ public class LuggageTable {
             return row;
         });
     }
-    
-    public Object getClicked(){
+
+    /**
+     * Get last clicked object Returns empty Object when nothing is clicked
+     *
+     * @return clicked Object
+     */
+    public Object getClicked() {
         return this.clicked;
     }
 
+    /**
+     * Set the keys for the columns
+     *
+     * @param columnsName String array, =the titles in human readable
+     * strings this will be shown on the top of the table
+     * @param modelVars String array, the identifiers (the getters in your model)
+     */
     public void setTopRow(String[] columnsName, String[] modelVars) {
         int i = 0;
         for (String col : columnsName) {
@@ -74,10 +96,20 @@ public class LuggageTable {
         }
     }
 
+    /**
+     * Set elements in the table
+     *
+     * @param columns ObservabelList
+     */
     public void setContent(ObservableList columns) {
         this.table.setItems(columns);
     }
 
+    /**
+     * Returns the Node of the table to be used in JavaFX
+     *
+     * @return Node TableView
+     */
     public TableView getTable() {
         return this.table;
     }

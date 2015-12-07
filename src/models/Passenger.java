@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 /**
  * Author: Tom Scholten Class: Made on:
  */
-public class PassengerLuggage {
+public class Passenger {
     
     private int id = 0;
     private String fname;
@@ -20,7 +20,7 @@ public class PassengerLuggage {
     private String characteristic;
     private int belt;
     private int type_id;
-    private int location_id;
+    
     private String comment;
     private int users_id;
 
@@ -29,7 +29,6 @@ public class PassengerLuggage {
     private String date_finished;
 
     private String situation;
-    private Locations location;
     private Colors color;
     private Brands brand;
     private Materials material;
@@ -42,7 +41,7 @@ public class PassengerLuggage {
     /**
      *
      */
-    public PassengerLuggage() {
+    public Passenger() {
     }
 
     /**
@@ -228,20 +227,6 @@ public class PassengerLuggage {
     }
 
     /**
-     * @return the location_id
-     */
-    public int getLocation_id() {
-        return location_id;
-    }
-
-    /**
-     * @param location_id the location_id to set
-     */
-    public void setLocation_id(int location_id) {
-        this.location_id = location_id;
-    }
-
-    /**
      * @return the comment
      */
     public String getComment() {
@@ -309,20 +294,6 @@ public class PassengerLuggage {
      */
     public void setDate_finished(String date_finished) {
         this.date_finished = date_finished;
-    }
-
-    /**
-     * @return the location
-     */
-    public Locations getLocation() {
-        return location;
-    }
-
-    /**
-     * @param location the location to set
-     */
-    public void setLocation(Locations location) {
-        this.location = location;
     }
 
     /**

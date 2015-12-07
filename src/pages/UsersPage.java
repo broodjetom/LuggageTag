@@ -42,6 +42,7 @@ public class UsersPage {
         
         table.onClick((Callable) () -> {
             models.Users row = (models.Users)table.getClicked();
+            EditUser edit = new EditUser(UI, db, row);
             return true;
         });
 
@@ -93,7 +94,11 @@ public class UsersPage {
         form.addComboBox("role", new String[]{"Mederwerker", "Manager", "Admin"});
         form.addRow();
 
-        form.addCol();
+        Button forgotPassword = UI.createGreyButton("Clear", false, (Callable) () -> {
+            return true;
+        });
+
+        form.add(forgotPassword);
         form.addSubmitButton("Search");
         
         form.onSubmit((Callable) () -> {
