@@ -41,8 +41,8 @@ public class SearchLuggage {
         LuggageTable table = new LuggageTable();
         
         table.onClick((Callable) () -> {
-            models.Passenger row = (models.Passenger)table.getClicked();
-            System.out.println(row.getFname());
+            models.Luggage row = (models.Luggage)table.getClicked();
+            EditLuggage page = new EditLuggage(UI, db, row);
             return true;
         });
 

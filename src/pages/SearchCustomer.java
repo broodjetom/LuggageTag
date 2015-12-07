@@ -38,7 +38,7 @@ public class SearchCustomer {
         
         table.onClick((Callable) () -> {
             models.Passenger row = (models.Passenger)table.getClicked();
-            System.out.println(row.getFname());
+            EditPassenger page = new EditPassenger(UI, db, row);
             return true;
         });
 
