@@ -11,8 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * @author Tom Scholten 
- * @class Databasemanager, 
+ * @author Tom Scholten
+ * @class Databasemanager,
  * @date
  */
 public class DatabaseManager {
@@ -42,9 +42,9 @@ public class DatabaseManager {
             model.setDate_added(format.format(new Date()));
             databaseconnection.executeUpdate("UPDATE `passenger` SET "
                     + "fname ='" + model.getFname() + "', mname = '" + model.getMname()
-                    + "', lname = '" + model.getLname() + "', comment ='" + model.getComment() 
-                    + "', users_id = " + model.getUsers_id() + ", date_added =" 
-                    + model.getDate_added() + ", date_changed =" + model.getDate_changed() 
+                    + "', lname = '" + model.getLname() + "', comment ='" + model.getComment()
+                    + "', users_id = " + model.getUsers_id() + ", date_added ="
+                    + model.getDate_added() + ", date_changed =" + model.getDate_changed()
                     + " WHERE id = " + model.getId());
         } else {
             databaseconnection.executeUpdate("INSERT INTO `passenger`"
@@ -57,6 +57,9 @@ public class DatabaseManager {
                     + model.getUsers_id() + "," + "\"" + model.getDate_added()
                     + "\", \"" + model.getDate_changed() + "\")");
             model.setId(getLastInsertId("passenger"));
+
+            
+
         }
         return model;
     }
@@ -188,6 +191,8 @@ public class DatabaseManager {
     public int getLastInsertId(String table) throws SQLException {
         ResultSet resultSet = databaseconnection.executeSelect("SELECT id FROM "
                 + table + " WHERE id = last_insert_id()");
+        System.out.println(resultSet);
+        resultSet.next();
         int id = resultSet.getInt("id");
         return id;
     }
@@ -704,14 +709,18 @@ public class DatabaseManager {
 
     public models.Phone savePhone(models.Phone model) throws SQLException {
         if (model.getId() != 0) {
-            databaseconnection.executeUpdate("UPDATE phones SET phone = \""
+            databaseconnection.executeUpdate("UPDATE phone SET phone = \""
                     + model.getPhone() + "\" "
                     + "WHERE id = " + model.getId());
         } else {
-            databaseconnection.executeQuery("INSERT INTO phones (`passenger_id`, `phone`)"
+            databaseconnection.executeUpdate("INSERT INTO phone (`passenger_id`, `phone`)"
                     + " VALUES (" + model.getPassenger_id()
-                    + ", \"" + model.getPhone() + "\")");
-            model.setId(getLastInsertId("phones"));
+                    + ", '" + model.getPhone() + "')");
+            System.out.println("INSERT INTO phone (`passenger_id`, `phone`)"
+                    + " VALUES (" + model.getPassenger_id()
+                    + ", '" + model.getPhone() + "')");
+            System.out.println(model.getPhone());
+            model.setId(getLastInsertId("phone"));
         }
         return model;
     }
@@ -735,12 +744,12 @@ public class DatabaseManager {
 
     public models.Email saveEmail(models.Email model) throws SQLException {
         if (model.getId() != 0) {
-            databaseconnection.executeUpdate("UPDATE emails SET email = \"" + model.getEmail() + "\" "
+            databaseconnection.executeUpdate("UPDATE email SET email = \"" + model.getEmail() + "\" "
                     + "WHERE id =" + model.getId());
         } else {
-            databaseconnection.executeQuery("INSERT INTO emails (`email`) "
-                    + "VALUES (\"" + model.getEmail() + "\")");
-            model.getId();
+            databaseconnection.executeUpdate("INSERT INTO email (`email`, `passenger_id`) "
+                    + "VALUES (\"" + model.getEmail() + "\", '"+model.getPassenger_id()+"')");
+            model.setId(getLastInsertId("email"));
         }
         return model;
     }
@@ -755,7 +764,7 @@ public class DatabaseManager {
         while (resultSet.next()) {
             models.Email row = new models.Email();
             row.setId(resultSet.getInt("id"));
-            row.setPassengerluggage_id(resultSet.getInt("passenger_id"));
+            row.setPassenger_id(resultSet.getInt("passenger_id"));
             row.setEmail(resultSet.getString("email"));
             results.add(row);
         }
@@ -767,13 +776,16 @@ public class DatabaseManager {
             databaseconnection.executeUpdate("UPDATE address SET address = \"" + model.getAddress()
                     + "\", zip = \"" + model.getZip() + "\", land =\"" + model.getLand() + "\"");
         } else {
-
+            databaseconnection.executeUpdate("INSERT INTO address (`address`,`zip`,`land`, `passenger_id`) "
+                    + "VALUES ('"+model.getAddress()+"', '"+model.getZip()+"','"
+                    + model.getLand() +"', '"+model.getPassenger_id() +"')");
+            model.setId(getLastInsertId("address"));
         }
         return model;
     }
 
     public ObservableList<models.Address> getAddresses(int passenger_id) throws SQLException {
-        ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM phone "
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM address "
                 + "WHERE passenger_id=" + passenger_id);
 
         ObservableList<models.Address> results
@@ -782,7 +794,7 @@ public class DatabaseManager {
         while (resultSet.next()) {
             models.Address row = new models.Address();
             row.setId(resultSet.getInt("id"));
-            row.setPassengerluggage_id(resultSet.getInt("passenger_id"));
+            row.setPassenger_id(resultSet.getInt("passenger_id"));
             row.setAddress(resultSet.getString("address"));
             row.setZip(resultSet.getString("zip"));
             row.setLand(resultSet.getString("land"));
@@ -865,9 +877,9 @@ public class DatabaseManager {
         } else {
             query = query.substring(0, query.length() - 6);
         }
-        
+
         query += " ORDER BY date_changed DESC";
-        
+
         System.out.println(query);
         ResultSet resultSet = databaseconnection.executeSelect(query);
 
