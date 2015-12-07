@@ -34,7 +34,7 @@ public class Employee {
         
         // Je snapt het idee wel, maar hier is de active state false
         menu.addMenuItem("Add new Customer", false, (Callable) () -> {
-            pages.AddCustomer page = new pages.AddCustomer(UI, db);
+            pages.AddPassenger page = new pages.AddPassenger(UI, db);
             return true;
         });
         
