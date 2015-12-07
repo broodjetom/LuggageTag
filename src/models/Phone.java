@@ -6,7 +6,7 @@ package models;
  */
 public class Phone {
     private int id = 0;
-    private int passengerluggage_id;
+    private int passenger_id;
     private String phone;
 
     /**
@@ -30,17 +30,17 @@ public class Phone {
     }
 
     /**
-     * @return the passengerluggage_id
+     * @return the passenger_id
      */
-    public int getPassengerluggage_id() {
-        return passengerluggage_id;
+    public int getPassenger_id() {
+        return passenger_id;
     }
 
     /**
-     * @param passengerluggage_id the passengerluggage_id to set
+     * @param passenger_id the passenger_id to set
      */
-    public void setPassengerluggage_id(int passengerluggage_id) {
-        this.passengerluggage_id = passengerluggage_id;
+    public void setPassenger_id(int passenger_id) {
+        this.passenger_id = passenger_id;
     }
 
     /**

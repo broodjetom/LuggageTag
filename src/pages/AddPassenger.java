@@ -113,8 +113,9 @@ public class AddPassenger {
             passengerModel.setComment(form.get("comment"));
             passengerModel.setUsers_id(USER.getUser().getId());
             db.savePassenger(passengerModel);
-
+            System.out.println("passenger saved");
             int lastInsertId = db.getLastInsertId("passenger");
+            
             models.Phone phoneModel = new models.Phone();
             phoneModel.setPassenger_id(lastInsertId);
             phoneModel.setPhone(form.get("phone1"));

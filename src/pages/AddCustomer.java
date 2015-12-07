@@ -49,10 +49,6 @@ public class AddCustomer {
         form.addTextField("lname", false);
 
         form.addRow();
-        form.addLabel("Flight number: ");
-        form.addTextField("flightnumber", false);
-        
-        form.addRow();
         form.addLabel("Telephone ");
         ObservableList<models.Brands> brandsModel = this.db.getBrands();
         form.addComboBox("Telephone", brandsModel);
