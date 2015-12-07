@@ -11,29 +11,14 @@ public class Passenger {
     private String fname;
     private String mname;
     private String lname;
-    private String flight;
-    private int brand_id;
-    private int color_id;
-    private double weight;
-    private int material_id;
-    private int stickers;
-    private String characteristic;
-    private int belt;
-    private int type_id;
-    
     private String comment;
     private int users_id;
+    private Users user;
 
+    
     private String date_added;
     private String date_changed;
-    private String date_finished;
-
-    private String situation;
-    private Colors color;
-    private Brands brand;
-    private Materials material;
-    private Types type;
-    private Users user;
+    
     public ObservableList<models.Phone> phone;
     public ObservableList<models.Email> email;
     public ObservableList<models.Address> address;
@@ -44,6 +29,14 @@ public class Passenger {
     public Passenger() {
     }
 
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+    
     /**
      * @return the id
      */
@@ -98,132 +91,6 @@ public class Passenger {
      */
     public void setLname(String lname) {
         this.lname = lname;
-    }
-
-    /**
-     * @return the flight
-     */
-    public String getFlight() {
-        return flight;
-    }
-
-    /**
-     * @param flight the flight to set
-     */
-    public void setFlight(String flight) {
-        this.flight = flight;
-    }
-
-    /**
-     * @return the brand_id
-     */
-    public int getBrand_id() {
-        return brand_id;
-    }
-
-    /**
-     * @param brand_id the brand_id to set
-     */
-    public void setBrand_id(int brand_id) {
-        this.brand_id = brand_id;
-    }
-
-    /**
-     * @return the color_id
-     */
-    public int getColor_id() {
-        return color_id;
-    }
-
-    /**
-     * @param color_id the color_id to set
-     */
-    public void setColor_id(int color_id) {
-        this.color_id = color_id;
-    }
-
-    /**
-     * @return the weight
-     */
-    public double getWeight() {
-        return weight;
-    }
-
-    /**
-     * @param weight the weight to set
-     */
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    /**
-     * @return the material_id
-     */
-    public int getMaterial_id() {
-        return material_id;
-    }
-
-    /**
-     * @param material_id the material_id to set
-     */
-    public void setMaterial_id(int material_id) {
-        this.material_id = material_id;
-    }
-
-    /**
-     * @return the stickers
-     */
-    public int getStickers() {
-        return stickers;
-    }
-
-    /**
-     * @param stickers the stickers to set
-     */
-    public void setStickers(int stickers) {
-        this.stickers = stickers;
-    }
-
-    /**
-     * @return the characteristic
-     */
-    public String getCharacteristic() {
-        return characteristic;
-    }
-
-    /**
-     * @param characteristic the characteristic to set
-     */
-    public void setCharacteristic(String characteristic) {
-        this.characteristic = characteristic;
-    }
-
-    /**
-     * @return the belt
-     */
-    public int getBelt() {
-        return belt;
-    }
-
-    /**
-     * @param belt the belt to set
-     */
-    public void setBelt(int belt) {
-        this.belt = belt;
-    }
-
-    /**
-     * @return the type_id
-     */
-    public int getType_id() {
-        return type_id;
-    }
-
-    /**
-     * @param type_id the type_id to set
-     */
-    public void setType_id(int type_id) {
-        this.type_id = type_id;
     }
 
     /**
@@ -283,20 +150,6 @@ public class Passenger {
     }
 
     /**
-     * @return the date_finished
-     */
-    public String getDate_finished() {
-        return date_finished;
-    }
-
-    /**
-     * @param date_finished the date_finished to set
-     */
-    public void setDate_finished(String date_finished) {
-        this.date_finished = date_finished;
-    }
-
-    /**
      * @return the phone
      */
     public ObservableList<Phone> getPhone() {
@@ -308,76 +161,6 @@ public class Passenger {
      */
     public void setPhone(ObservableList<Phone> phone) {
         this.phone = phone;
-    }
-
-    /**
-     * @return the color
-     */
-    public Colors getColor() {
-        return color;
-    }
-
-    /**
-     * @param color the color to set
-     */
-    public void setColor(Colors color) {
-        this.color = color;
-    }
-
-    /**
-     * @return the brand
-     */
-    public Brands getBrand() {
-        return brand;
-    }
-
-    /**
-     * @param brand the brand to set
-     */
-    public void setBrand(Brands brand) {
-        this.brand = brand;
-    }
-
-    /**
-     * @return the material
-     */
-    public Materials getMaterial() {
-        return material;
-    }
-
-    /**
-     * @param material the material to set
-     */
-    public void setMaterial(Materials material) {
-        this.material = material;
-    }
-
-    /**
-     * @return the type
-     */
-    public Types getType() {
-        return type;
-    }
-
-    /**
-     * @param type the type to set
-     */
-    public void setType(Types type) {
-        this.type = type;
-    }
-
-    /**
-     * @return the user
-     */
-    public Users getUser() {
-        return user;
-    }
-
-    /**
-     * @param user the user to set
-     */
-    public void setUser(Users user) {
-        this.user = user;
     }
 
     /**
@@ -407,19 +190,4 @@ public class Passenger {
     public void setAddress(ObservableList<Address> address) {
         this.address = address;
     }
-
-    /**
-     * @return the situation
-     */
-    public String getSituation() {
-        return situation;
-    }
-
-    /**
-     * @param situation the situation to set
-     */
-    public void setSituation(String situation) {
-        this.situation = situation;
-    }
-
 }

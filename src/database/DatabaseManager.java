@@ -33,7 +33,7 @@ public class DatabaseManager {
      * Saves data, stored in passenger object, to database. if id is stored, the data will be
      * updated, otherwise it will be saved as a new record.
      *
-     * @param models.Passengerluggage(), object of passenger
+     * @param models.Passenger(), object of passenger
      * @return
      * @throws SQLException
      */
@@ -42,34 +42,20 @@ public class DatabaseManager {
             model.setDate_added(format.format(new Date()));
             databaseconnection.executeUpdate("UPDATE `passenger` SET "
                     + "fname ='" + model.getFname() + "', mname = '" + model.getMname()
-                    + "', lname = '" + model.getLname() + "', flight = '" + model.getFlight()
-                    + "', brand_id = " + model.getBrand_id() + ", color_id = "
-                    + model.getColor_id() + ", weight = " + model.getWeight()
-                    + ", material_id = " + model.getMaterial_id() + ", stickers = "
-                    + model.getStickers() + ", characteristic = '" + model.getCharacteristic()
-                    + "', belt = " + model.getBelt() + ", type_id = " + model.getType_id()
-                    + ", comment ='" + model.getComment() + "', users_id = " + model.getUsers_id()
-                    + ", date_added =" + model.getDate_added() + ", date_changed ="
-                    + model.getDate_changed() + ", date_finished =" + model.getDate_finished()
-                    + ", situation = \'" + model.getSituation()
-                    + "\' WHERE id = " + model.getId());
+                    + "', lname = '" + model.getLname() + "', comment ='" + model.getComment() 
+                    + "', users_id = " + model.getUsers_id() + ", date_added =" 
+                    + model.getDate_added() + ", date_changed =" + model.getDate_changed() 
+                    + " WHERE id = " + model.getId());
         } else {
             databaseconnection.executeUpdate("INSERT INTO `passenger`"
-                    + "(`fname`, `mname`, `lname`, `flight`, `brand_id`, `color_id`, "
-                    + "`weight`, `material_id`, `stickers`, `characteristic`, `belt`, "
-                    + "`type_id`,  `comment`, `users_id`, `date_added`, "
-                    + "`date_changed`, `date_finished`, `situation`)"
+                    + "(`fname`, `mname`, `lname`, `comment`, `users_id`, `date_added`, "
+                    + "`date_changed`)"
                     + "VALUES"
                     + "(\"" + model.getFname() + "\", \"" + model.getMname()
-                    + "\", \"" + model.getLname() + "\", \"" + model.getFlight()
-                    + "\"," + model.getBrand_id() + "," + model.getColor_id()
-                    + ", " + model.getWeight() + ", " + model.getMaterial_id() + ","
-                    + "" + model.getStickers() + ", \"" + model.getCharacteristic()
-                    + "\", " + model.getBelt() + ", " + model.getType_id() + ", \""
+                    + "\", \"" + model.getLname() + "\", \""
                     + model.getComment() + "\", "
                     + model.getUsers_id() + "," + "\"" + model.getDate_added()
-                    + "\", \"" + model.getDate_changed() + "\", \""
-                    + model.getDate_finished() + "\", '" + model.getSituation() + "\')");
+                    + "\", \"" + model.getDate_changed() + "\")");
             model.setId(getLastInsertId("passenger"));
         }
         return model;
@@ -88,29 +74,14 @@ public class DatabaseManager {
             row.setFname(resultSet.getString("fname"));
             row.setMname(resultSet.getString("mname"));
             row.setLname(resultSet.getString("lname"));
-            row.setFlight(resultSet.getString("flight"));
-            row.setBrand_id(resultSet.getInt("brand_id"));
-            row.setBrand(getBrand(resultSet.getInt("brands_id")));
-            row.setColor_id(resultSet.getInt("color_id"));
-            row.setColor(getColor(resultSet.getInt("color_id")));
-            row.setWeight(resultSet.getDouble("weight"));
-            row.setMaterial_id(resultSet.getInt("material_id"));
-            row.setMaterial(getMaterial(resultSet.getInt("material_id")));
-            row.setStickers(resultSet.getInt("stickers"));
-            row.setCharacteristic(resultSet.getString("characteristic"));
-            row.setType_id(resultSet.getInt("type_id"));
-            row.setType(getType(resultSet.getInt("type_id")));
-            row.setBelt(resultSet.getInt("belt"));
             row.setComment(resultSet.getString("comment"));
             row.setUsers_id(resultSet.getInt("users_id"));
             row.setUser(getUser(resultSet.getInt("users_id")));
             row.setDate_added(resultSet.getString("date_added"));
             row.setDate_changed(resultSet.getString("date_changed"));
-            row.setDate_finished(resultSet.getString("date_finished"));
             row.setPhone(getPhones(resultSet.getInt("id")));
             row.setEmail(getEmails(resultSet.getInt("id")));
             row.setAddress(getAddresses(resultSet.getInt("id")));
-            row.setSituation(resultSet.getString("situation"));
             results.add(row);
         }
         return results;
@@ -178,46 +149,6 @@ public class DatabaseManager {
             addWhere = true;
         }
 
-        if (model.getFlight() != null) {
-            query += "flight LIKE '%" + model.getFlight() + "%' AND ";
-            addWhere = true;
-        }
-
-        if (model.getBrand_id() != 0) {
-            query += "brand_id = " + model.getBrand_id() + " AND ";
-            addWhere = true;
-        }
-
-        if (model.getColor_id() != 0) {
-            query += "color_id = " + model.getColor_id() + " AND ";
-            addWhere = true;
-        }
-
-        if (model.getWeight() != 0) {
-            query += "weight = " + model.getWeight() + " AND ";
-            addWhere = true;
-        }
-
-        if (model.getMaterial_id() != 0) {
-            query += "material_id = " + model.getMaterial_id() + " AND ";
-            addWhere = true;
-        }
-
-        if (model.getStickers() != 0) {
-            query += "stickers = " + model.getStickers() + " AND ";
-            addWhere = true;
-        }
-
-        if (model.getBelt() != 0) {
-            query += "belt = " + model.getBelt() + " AND ";
-            addWhere = true;
-        }
-
-        if (model.getType_id() != 0) {
-            query += "type_id = " + model.getType_id() + " AND ";
-            addWhere = true;
-        }
-
         if (addWhere) {
             query = query.substring(0, query.length() - 4);
         } else {
@@ -235,25 +166,11 @@ public class DatabaseManager {
             row.setFname(resultSet.getString("fname"));
             row.setMname(resultSet.getString("mname"));
             row.setLname(resultSet.getString("lname"));
-            row.setFlight(resultSet.getString("flight"));
-            row.setBrand_id(resultSet.getInt("brand_id"));
-            row.setBrand(getBrand(resultSet.getInt("brand_id")));
-            row.setColor_id(resultSet.getInt("color_id"));
-            row.setColor(getColor(resultSet.getInt("color_id")));
-            row.setWeight(resultSet.getDouble("weight"));
-            row.setMaterial_id(resultSet.getInt("material_id"));
-            row.setMaterial(getMaterial(resultSet.getInt("material_id")));
-            row.setStickers(resultSet.getInt("stickers"));
-            row.setCharacteristic(resultSet.getString("characteristic"));
-            row.setType_id(resultSet.getInt("type_id"));
-            row.setType(getType(resultSet.getInt("type_id")));
-            row.setBelt(resultSet.getInt("belt"));
             row.setComment(resultSet.getString("comment"));
             row.setUsers_id(resultSet.getInt("users_id"));
             row.setUser(getUser(resultSet.getInt("users_id")));
             row.setDate_added(resultSet.getString("date_added"));
             row.setDate_changed(resultSet.getString("date_changed"));
-            row.setDate_finished(resultSet.getString("date_finished"));
             row.setPhone(getPhones(resultSet.getInt("id")));
             row.setEmail(getEmails(resultSet.getInt("id")));
             row.setAddress(getAddresses(resultSet.getInt("id")));
@@ -878,7 +795,7 @@ public class DatabaseManager {
 
         if (model.getId() != 0) {
             model.setDate_added(format.format(new Date()));
-            databaseconnection.executeUpdate("UPDATE `passenger` SET "
+            databaseconnection.executeUpdate("UPDATE `luggage` SET "
                     + "`brand_id`= " + model.getBrand_id() + ", `color_id`=" + model.getColor_id() + ", "
                     + "`weight`=" + model.getWeight() + ", `material_id`=" + model.getMaterial_id() + ", "
                     + "`stickers`=" + model.getStickers() + ", `characteristic`='"
@@ -979,6 +896,7 @@ public class DatabaseManager {
             row.setColor(getColor(resultSet.getInt("color_id")));
             row.setType(getType(resultSet.getInt("type_id")));
             row.setMaterial(getMaterial(resultSet.getInt("material_id")));
+            row.setPassenger_id(resultSet.getInt("passenger_id"));
             results.add(row);
         }
 
@@ -1019,22 +937,5 @@ public class DatabaseManager {
         }
 
         return results;
-    }
-
-    public ObservableList<models.Luggage> getOvereenkomsten(models.Passenger passengerModel) throws SQLException{
-        models.Luggage luggageModel = new models.Luggage();
-        
-        luggageModel.setBrand_id(passengerModel.getBrand_id());
-        luggageModel.setColor_id(passengerModel.getColor_id());
-        luggageModel.setBelt(passengerModel.getBelt());
-        luggageModel.setType_id(passengerModel.getType_id());
-        luggageModel.setWeight(passengerModel.getWeight());
-        luggageModel.setMaterial_id(passengerModel.getMaterial_id());
-        luggageModel.setStickers(passengerModel.getStickers());
-        
-        ObservableList<models.Luggage> results
-                = FXCollections.observableArrayList();
-        
-        return getLuggage(luggageModel);
     }
 }

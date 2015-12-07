@@ -46,8 +46,8 @@ public class SearchLuggage {
             return true;
         });
 
-        String[] topText = {"Vluchtnummer", "Merk", "Kleur", "Gewicht", "Materiaal", "Bevat stickers", "Heeft kofferriem", "Type", "Status", "Datum toegevoegd", "Datum gewijzigd", "Datum Afgehandeld"}; // texten die bovenaan de tabel verschijnen
-        String[] topVars = {"flight", "brand", "color", "weight", "material", "stickers", "belt", "type", "situation", "date_added", "date_changed", "date_finished"}; // De variable namen van het object gesorteerd op de topText 
+        String[] topText = {"Merk", "Kleur", "Gewicht", "Materiaal", "Bevat stickers", "Heeft kofferriem", "Type", "Status", "Datum toegevoegd", "Datum gewijzigd"}; // texten die bovenaan de tabel verschijnen
+        String[] topVars = {"brand", "color", "weight", "material", "stickers", "belt", "type", "situation", "date_added", "date_changed"}; // De variable namen van het object gesorteerd op de topText 
         
         // Zoeken naar passenger
         models.Luggage zoek = new models.Luggage();
@@ -80,10 +80,6 @@ public class SearchLuggage {
         
         form.addLabel("Achternaam: ");
         form.addTextField("lname", false);
-        form.addRow();
-        
-        form.addLabel("Vluchtnummer: ");
-        form.addTextField("flight", false);
         form.addRow();
         
         form.addLabel("Merk: ");
@@ -134,15 +130,7 @@ public class SearchLuggage {
         form.addSubmitButton("Search");
         
         form.onSubmit((Callable) () -> {
-            models.Passenger zoekNew = new models.Passenger();
-            
-            zoekNew.setFname(form.get("fname"));
-            zoekNew.setMname(form.get("mname"));
-            zoekNew.setLname(form.get("lname"));
-            zoekNew.setFlight(form.get("flight"));
-            //zoekNew.setWeight(Double.parseDouble(form.get("weight")));
-            //zoekNew.setStickers(Integer.parseInt(form.get("stickers")));
-           // zoekNew.setBelt(Integer.parseInt(form.get("belt")));
+            models.Luggage zoekNew = new models.Luggage();
            
             models.Brands brandBox = (models.Brands)form.getComboBoxSelected("brand_id");
             if( brandBox != null )
@@ -162,7 +150,7 @@ public class SearchLuggage {
             
             
             
-            ObservableList<models.Passenger> passengersZoek = db.getPassenger( zoekNew );
+            ObservableList<models.Luggage> passengersZoek = db.getLuggage( zoekNew );
             
             table.setContent(passengersZoek);
             return true;

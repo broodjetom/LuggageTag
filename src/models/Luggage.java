@@ -26,9 +26,18 @@ public class Luggage {
     private Colors color;
     private Types type;
     private Materials material;
+    private int passenger_id;
 
     public Luggage(){
         
+    }
+    
+    public int getPassenger_id(){
+        return passenger_id;
+    }
+    
+    public void setPassenger_id(int passenger_id){
+        this.passenger_id = passenger_id;
     }
     
     /**
