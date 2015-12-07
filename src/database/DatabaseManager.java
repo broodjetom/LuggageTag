@@ -709,7 +709,7 @@ public class DatabaseManager {
                     + "WHERE id = " + model.getId());
         } else {
             databaseconnection.executeQuery("INSERT INTO phones (`passenger_id`, `phone`)"
-                    + " VALUES (" + model.getPassengerluggage_id()
+                    + " VALUES (" + model.getPassenger_id()
                     + ", \"" + model.getPhone() + "\")");
             model.setId(getLastInsertId("phones"));
         }
@@ -726,7 +726,7 @@ public class DatabaseManager {
         while (resultSet.next()) {
             models.Phone row = new models.Phone();
             row.setId(resultSet.getInt("id"));
-            row.setPassengerluggage_id(resultSet.getInt("passenger_id"));
+            row.setPassenger_id(resultSet.getInt("passenger_id"));
             row.setPhone(resultSet.getString("phone"));
             results.add(row);
         }

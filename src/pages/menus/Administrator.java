@@ -35,6 +35,16 @@ public class Administrator {
             return true;
         });
         
+        menu.addMenuItem("Add user", false, (Callable) () -> {
+            pages.AddUser page = new pages.AddUser(UI, db);
+            return true;
+        });
+        
+        menu.addMenuItem("Add category", false, (Callable) () -> {
+            pages.AddCategory page = new pages.AddCategory(UI, db);
+            return true;
+        });
+        
         // Je snapt het idee wel, maar hier is de active state false
         menu.addMenuItem("Backup", false, (Callable) () -> {
             pages.BackupManager page = new pages.BackupManager(UI, db);

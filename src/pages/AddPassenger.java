@@ -12,9 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
 
 /**
- * @author ________ Jimmy van Wieringen
- * Student nummer:_ 500728110
- * Groep:__________ IS102
+ * @author ________ Jimmy van Wieringen Student nummer:_ 500728110 Groep:__________ IS102
  */
 public class AddPassenger {
 
@@ -47,48 +45,110 @@ public class AddPassenger {
         form.addRow();
         form.addLabel("Last name: ");
         form.addTextField("lname", true);
-        
+
         form.addRow();
-        form.addLabel("Telephone 1 ");
+        form.addLabel("Telephone 1: ");
         form.addTextField("phone", true);
-        
-        form.addRow();
-        form.addLabel("Telephone 2 ");
+
+        form.addLabel("Telephone 2: ");
         form.addTextField("phone2", false);
-        
-        form.addRow();
-        form.addLabel("Telephone 3 ");
+
+        form.addLabel("Telephone 3: ");
         form.addTextField("phone3", false);
-        
+
         form.addRow();
-        form.addLabel("E-mail ");
-        form.addTextField("email", true);
-        
+        form.addLabel("E-mail 1:");
+        form.addTextField("email1", true);
+
+        form.addLabel("E-mail 2:");
+        form.addTextField("email2", false);
+
+        form.addLabel("E-mail 3:");
+        form.addTextField("email3", false);
+
         form.addRow();
-        form.addLabel("Adress ");
-        form.addTextField("address", true);
+        form.addLabel("Adres 1: ");
+        form.addTextField("address1", true);
+
+        form.addLabel("ZIP / City 1: ");
+        form.addTextField("zip1", true);
+
+        form.addLabel("Nationality 1: ");
+        form.addTextField("land1", true);
+        form.addRow();
+
+        form.addLabel("Adres 2: ");
+        form.addTextField("address2", false);
+
+        form.addLabel("ZIP / City 2: ");
+        form.addTextField("zip2", false);
+
+        form.addLabel("Nationality 2: ");
+        form.addTextField("land2", false);
+
+        form.addRow();
+        form.addLabel("Adres 3: ");
+        form.addTextField("address3", false);
+
+        form.addLabel("ZIP / City 3: ");
+        form.addTextField("zip3", false);
+
+        form.addLabel("Nationality 3: ");
+        form.addTextField("land3", false);
         form.addRow();
 
         form.addRow();
-        form.addLabel("ZIP / City ");
-        form.addTextField("zip", true);
-        
-        form.addRow();
-        form.addLabel("Nationality ");
-        form.addTextField("land", true);
-        form.addRow();
-        
-        form.addRow();
         form.addLabel("Comment ");
         form.addTextArea("comment", false);
-        
-        form.addRow();
+
         form.addRow();
         form.addCol();
         form.addSubmitButton("Save");
         form.addRow();
         form.onSubmit((Callable) () -> {
-            
+            models.Passenger passengerModel = new models.Passenger();
+            passengerModel.setFname(form.get("fname"));
+            passengerModel.setMname(form.get("mname"));
+            passengerModel.setLname(form.get("lname"));
+            passengerModel.setComment(form.get("comment"));
+            passengerModel.setUsers_id(USER.getUser().getId());
+            db.savePassenger(passengerModel);
+
+            int lastInsertId = db.getLastInsertId("passenger");
+            models.Phone phoneModel = new models.Phone();
+            phoneModel.setPassenger_id(lastInsertId);
+            phoneModel.setPhone(form.get("phone1"));
+            db.savePhone(phoneModel);
+
+            if (form.get("phone2") != null) {
+                phoneModel.setPassenger_id(lastInsertId);
+                phoneModel.setPhone(form.get("phone2"));
+                db.savePhone(phoneModel);
+            }
+
+            if (form.get("phone3") != null) {
+                phoneModel.setPassenger_id(lastInsertId);
+                phoneModel.setPhone(form.get("phone3"));
+                db.savePhone(phoneModel);
+            }
+
+            models.Email emailModel = new models.Email();
+            phoneModel.setPassenger_id(lastInsertId);
+            phoneModel.setPhone(form.get("phone1"));
+            db.savePhone(phoneModel);
+
+            if (form.get("phone2") != null) {
+                phoneModel.setPassenger_id(lastInsertId);
+                phoneModel.setPhone(form.get("phone2"));
+                db.savePhone(phoneModel);
+            }
+
+            if (form.get("phone3") != null) {
+                phoneModel.setPassenger_id(lastInsertId);
+                phoneModel.setPhone(form.get("phone3"));
+                db.savePhone(phoneModel);
+            }
+
             return true;
         });
 
@@ -99,5 +159,3 @@ public class AddPassenger {
         UI.setCenter(form.toNode());
     }
 }
-
-

@@ -78,50 +78,6 @@ public class SearchCustomer {
         form.addTextField("lname", false);
         form.addRow();
         
-        form.addLabel("Vluchtnummer: ");
-        form.addTextField("flight", false);
-        form.addRow();
-        
-        form.addLabel("Merk: ");
-        ObservableList<models.Brands> brandsModel = this.db.getBrands();
-        form.addComboBox("brand_id", brandsModel);
-        form.addRow();
-        
-        form.addLabel("Kleur: ");
-        ObservableList<models.Colors> colorsModel = this.db.getColors();
-        form.addComboBox("color_id", colorsModel);
-        form.addRow();
-        
-        form.addLabel("Gewicht: ");
-        form.addTextField("weight", false);
-        form.addRow();
-        
-        form.addLabel("Materiaal: ");
-        ObservableList<models.Materials> materialsModel = this.db.getMaterials();
-        form.addComboBox("material_id", materialsModel);
-        form.addRow();
-        
-        form.addLabel("Stickers: ");
-        form.addTextField("stickers", false);
-        form.addRow();  
-        
-        form.addLabel("Kofferriem: ");
-        form.addTextField("belt", false);
-        form.addRow();
-        
-        form.addLabel("Type bagage: ");
-        
-        ObservableList<models.Types> typeModel = this.db.getTypes();
-        form.addComboBox("type_id", typeModel);
-        form.addRow();
-       
-        form.addRow();
-        form.addLabel("Status:");
-        
-        
-        form.addComboBox("status", new String[]{"Gevonden", "Verloren", "Afgehandeld"});
-        form.addRow();
-        
         Button forgotPassword = UI.createGreyButton("Clear", false, (Callable) () -> {
             return true;
         });
@@ -135,28 +91,6 @@ public class SearchCustomer {
             zoekNew.setFname(form.get("fname"));
             zoekNew.setMname(form.get("mname"));
             zoekNew.setLname(form.get("lname"));
-            zoekNew.setFlight(form.get("flight"));
-            //zoekNew.setWeight(Double.parseDouble(form.get("weight")));
-            //zoekNew.setStickers(Integer.parseInt(form.get("stickers")));
-           // zoekNew.setBelt(Integer.parseInt(form.get("belt")));
-           
-            models.Brands brandBox = (models.Brands)form.getComboBoxSelected("brand_id");
-            if( brandBox != null )
-                zoekNew.setBrand_id(brandBox.getId());
-            
-            models.Colors colorBox = (models.Colors)form.getComboBoxSelected("color_id");
-            if( colorBox != null )
-                zoekNew.setColor_id(colorBox.getId());
-            
-            models.Materials materialBox = (models.Materials)form.getComboBoxSelected("material_id");
-            if( materialBox != null )
-                zoekNew.setMaterial_id(materialBox.getId());
-            
-            models.Types typeBox = (models.Types)form.getComboBoxSelected("type_id");
-            if( typeBox != null )
-                zoekNew.setType_id(typeBox.getId());
-            
-            
             
             ObservableList<models.Passenger> passengersZoek = db.getPassenger( zoekNew );
             
