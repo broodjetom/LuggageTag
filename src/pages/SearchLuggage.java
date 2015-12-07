@@ -41,19 +41,19 @@ public class SearchLuggage {
         LuggageTable table = new LuggageTable();
         
         table.onClick((Callable) () -> {
-            models.PassengerLuggage row = (models.PassengerLuggage)table.getClicked();
+            models.Passenger row = (models.Passenger)table.getClicked();
             System.out.println(row.getFname());
             return true;
         });
 
-        String[] topText = {"Voornaam", "Tussenvoegsel", "Achternaam", "Vluchtnummer", "Merk", "Kleur", "Gewicht", "Materiaal", "Stickers", "Kofferriem", "Koffer soort", "Vestiging", "Opmerkingen", "Gebruikers", "Datum toegevoegd", "Datum gewijzigd", "Datum Afgehandeld"}; // texten die bovenaan de tabel verschijnen
-        String[] topVars = {"fname", "mname", "lname", "flight", "brand", "color", "weight", "material", "stickers", "belt", "type", "location", "comment", "users", "date_added", "date_changed", "date_finished"}; // De variable namen van het object gesorteerd op de topText 
+        String[] topText = {"Voornaam", "Tussenvoegsel", "Achternaam", "Vluchtnummer", "Merk", "Kleur", "Gewicht", "Materiaal", "Stickers", "Kofferriem", "Koffer soort", "Opmerkingen", "Gebruikers", "Datum toegevoegd", "Datum gewijzigd", "Datum Afgehandeld"}; // texten die bovenaan de tabel verschijnen
+        String[] topVars = {"fname", "mname", "lname", "flight", "brand", "color", "weight", "material", "stickers", "belt", "type", "comment", "users_id", "date_added", "date_changed", "date_finished"}; // De variable namen van het object gesorteerd op de topText 
         
-        // Zoeken naar passengerluggage
-        models.PassengerLuggage zoek = new models.PassengerLuggage();
+        // Zoeken naar passenger
+        models.Passenger zoek = new models.Passenger();
         
         
-        ObservableList<models.PassengerLuggage> passengers = db.getPassengerLuggage( zoek );
+        ObservableList<models.Passenger> passengers = db.getPassenger( zoek );
         
         
         // Set de top rij
@@ -118,11 +118,6 @@ public class SearchLuggage {
         ObservableList<models.Types> typeModel = this.db.getTypes();
         form.addComboBox("type_id", typeModel);
         form.addRow();
-        
-        form.addLabel("Vestigingen");
-        ObservableList<models.Locations> locationsModel = this.db.getLocations();
-        form.addComboBox("location_id", locationsModel);
-        form.addRow();
        
         form.addRow();
         form.addLabel("Status:");
@@ -139,7 +134,7 @@ public class SearchLuggage {
         form.addSubmitButton("Search");
         
         form.onSubmit((Callable) () -> {
-            models.PassengerLuggage zoekNew = new models.PassengerLuggage();
+            models.Passenger zoekNew = new models.Passenger();
             
             zoekNew.setFname(form.get("fname"));
             zoekNew.setMname(form.get("mname"));
@@ -165,11 +160,9 @@ public class SearchLuggage {
             if( typeBox != null )
                 zoekNew.setType_id(typeBox.getId());
             
-            models.Locations locationsBox = (models.Locations)form.getComboBoxSelected("location_id");
-            if( locationsBox != null )
-                zoekNew.setLocation_id(locationsBox.getId());
             
-            ObservableList<models.PassengerLuggage> passengersZoek = db.getPassengerLuggage( zoekNew );
+            
+            ObservableList<models.Passenger> passengersZoek = db.getPassenger( zoekNew );
             
             table.setContent(passengersZoek);
             return true;
