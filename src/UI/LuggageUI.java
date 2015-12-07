@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -279,19 +280,39 @@ public class LuggageUI {
     }
     // Functie om Nodes (elementen) in de center te zetten
     public void setCenter(Node value) {
-        this.root.setCenter(value);
+        ScrollPane s1 = new ScrollPane();
+        s1.setStyle("-fx-padding: 0; -fx-background: #ffffff;");
+        s1.setFitToHeight(true);
+        s1.setFitToWidth(true);
+        s1.setContent(value);
+        this.root.setCenter(s1);
     }
     // etc
     public void setBottom(Node value) {
-        this.root.setBottom(value);
+        ScrollPane s1 = new ScrollPane();
+        s1.setStyle("-fx-padding: 0; -fx-background: #ffffff;");
+        s1.setFitToHeight(true);
+        s1.setFitToWidth(true);
+        s1.setContent(value);
+        this.root.setBottom(s1);
     }
     
     public void setLeft(Node value) {
-        this.root.setLeft(value);
+        ScrollPane s1 = new ScrollPane();
+        s1.setStyle("-fx-padding: 0; -fx-background: #ffffff;");
+        s1.setFitToHeight(true);
+        s1.setFitToWidth(true);
+        s1.setContent(value);
+        this.root.setLeft(s1);
     }
     
     public void setRight(Node value) {
-        this.root.setRight(value);
+        ScrollPane s1 = new ScrollPane();
+        s1.setStyle("-fx-padding: 0; -fx-background: #ffffff;");
+        s1.setFitToHeight(true);
+        s1.setFitToWidth(true);
+        s1.setContent(value);
+        this.root.setRight(s1);
     }
     
     public void reset(){

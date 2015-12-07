@@ -31,7 +31,7 @@ public class Administrator {
         // Active state is waar
         // En weer op dezelfde methode een eventlistener
         menu.addMenuItem("Users", true, (Callable) () -> {
-            pages.Users page = new pages.Users(UI, db);
+            pages.UsersPage page = new pages.UsersPage(UI, db);
             return true;
         });
         
