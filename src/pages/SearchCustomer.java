@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package pages;
 
 import UI.LuggageForm;
@@ -22,14 +18,14 @@ import javafx.scene.layout.GridPane;
  *
  * @author Alex
  */
-public class SearchLuggage {
+public class SearchCustomer {
     private LuggageUI UI;
     private DatabaseManager db;
     public GridPane view = new GridPane();
 
     private static final user.Session USER = user.Session.getInstance();
 
-    public SearchLuggage(LuggageUI UI, DatabaseManager db) throws SQLException {
+    public SearchCustomer(LuggageUI UI, DatabaseManager db) throws SQLException {
 
         this.UI = UI;
         this.db = db;
@@ -46,21 +42,21 @@ public class SearchLuggage {
             return true;
         });
 
-        String[] topText = {"Vluchtnummer", "Merk", "Kleur", "Gewicht", "Materiaal", "Bevat stickers", "Heeft kofferriem", "Type", "Status", "Datum toegevoegd", "Datum gewijzigd", "Datum Afgehandeld"}; // texten die bovenaan de tabel verschijnen
-        String[] topVars = {"flight", "brand", "color", "weight", "material", "stickers", "belt", "type", "situation", "date_added", "date_changed", "date_finished"}; // De variable namen van het object gesorteerd op de topText 
+        String[] topText = {"Voornaam", "Tussenvoegsel", "Achternaam", "Datum toegevoegd", "Datum gewijzigd"}; // texten die bovenaan de tabel verschijnen
+        String[] topVars = {"fname", "mname", "lname", "date_added", "date_changed"}; // De variable namen van het object gesorteerd op de topText 
         
         // Zoeken naar passenger
-        models.Luggage zoek = new models.Luggage();
+        models.Passenger zoek = new models.Passenger();
         
         
-        ObservableList<models.Luggage> luggage = db.getLuggage( zoek );
+        ObservableList<models.Passenger> passengers = db.getPassenger( zoek );
         
         
         // Set de top rij
         table.setTopRow(topText, topVars);
         
         // Set de data voor in de tabel
-        table.setContent(luggage);
+        table.setContent(passengers);
         
         GridPane test = new GridPane();
         test.setPadding(new Insets(50, 50, 50, 50));

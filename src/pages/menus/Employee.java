@@ -28,7 +28,7 @@ public class Employee {
         // Active state is waar
         // En weer op dezelfde methode een eventlistener
         menu.addMenuItem("Search Customer", true, (Callable) () -> {
-            pages.SearchLuggage page = new pages.SearchLuggage(UI, db);
+            pages.SearchCustomer page = new pages.SearchCustomer(UI, db);
             return true;
         });
         

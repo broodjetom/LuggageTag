@@ -946,6 +946,9 @@ public class DatabaseManager {
         } else {
             query = query.substring(0, query.length() - 6);
         }
+        
+        query += " ORDER BY date_changed DESC";
+        
         System.out.println(query);
         ResultSet resultSet = databaseconnection.executeSelect(query);
 
@@ -970,6 +973,10 @@ public class DatabaseManager {
             row.setDate_changed(resultSet.getString("date_changed"));
             row.setDate_finished(resultSet.getString("date_finished"));
             row.setSituation(resultSet.getString("situation"));
+            row.setBrand(getBrand(resultSet.getInt("brand_id")));
+            row.setColor(getColor(resultSet.getInt("color_id")));
+            row.setType(getType(resultSet.getInt("type_id")));
+            row.setMaterial(getMaterial(resultSet.getInt("material_id")));
             results.add(row);
         }
 
@@ -1002,6 +1009,10 @@ public class DatabaseManager {
             row.setDate_changed(resultSet.getString("date_changed"));
             row.setDate_finished(resultSet.getString("date_finished"));
             row.setSituation(resultSet.getString("situation"));
+            row.setBrand(getBrand(resultSet.getInt("brand_id")));
+            row.setColor(getColor(resultSet.getInt("color_id")));
+            row.setType(getType(resultSet.getInt("type_id")));
+            row.setMaterial(getMaterial(resultSet.getInt("material_id")));
             results.add(row);
         }
 
