@@ -125,13 +125,15 @@ public class AddPassenger {
 
             
             System.out.println("phone saved" + form.get("phone1"));
-            if (form.get("phone2") != null) {
+            if (form.get("phone2").length() != 0 ) {
+                phoneModel.setId(0);
                 phoneModel.setPassenger_id(id);
                 phoneModel.setPhone(form.get("phone2"));
                 phoneModel = db.savePhone(phoneModel);
             }
 
-            if (form.get("phone3") != null) {
+            if (form.get("phone3").length() != 0 ) {
+                phoneModel.setId(0);
                 phoneModel.setPassenger_id(id);
                 phoneModel.setPhone(form.get("phone3"));
                 phoneModel = db.savePhone(phoneModel);
@@ -141,15 +143,17 @@ public class AddPassenger {
             emailModel.setPassenger_id(id);
             emailModel.setEmail(form.get("email1"));
             db.saveEmail(emailModel);
-
+            
             System.out.println("email saved");
-            if (form.get("email2") != null) {
+            if (form.get("email2").length() != 0) {
+                phoneModel.setId(0);
                 emailModel.setPassenger_id(id);
                 emailModel.setEmail(form.get("email2"));
                 db.saveEmail(emailModel);
             }
 
-            if (form.get("email3") != null) {
+            if (form.get("email3").length() != 0) {
+                phoneModel.setId(0);
                 emailModel.setPassenger_id(id);
                 emailModel.setEmail(form.get("email3"));
                 db.saveEmail(emailModel);
@@ -163,7 +167,8 @@ public class AddPassenger {
             db.saveAddress(addressModel);
 
             System.out.println("address saved");
-            if (form.get("address2") != null) {
+            if (form.get("address2").length() != 0) {
+                phoneModel.setId(0);
                 addressModel.setPassenger_id(id);
                 addressModel.setAddress(form.get("address2"));
                 addressModel.setZip(form.get("zip2"));
@@ -171,7 +176,8 @@ public class AddPassenger {
                 db.saveAddress(addressModel);
             }
 
-            if (form.get("address3") != null) {
+            if (form.get("address3").length() != 0) {
+                phoneModel.setId(0);
                 addressModel.setPassenger_id(id);
                 addressModel.setAddress(form.get("address3"));
                 addressModel.setZip(form.get("zip3"));
