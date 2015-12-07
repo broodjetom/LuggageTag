@@ -21,6 +21,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
+import pages.F1Screen;
 
 /**
  * Create main UI
@@ -319,5 +320,9 @@ public class LuggageUI {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(LuggageUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Button createRedButton(Button help, Boolean TRUE, F1Screen page) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
