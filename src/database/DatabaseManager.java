@@ -11,7 +11,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Author: Tom Scholten Class: Made on:
+ * @author Tom Scholten 
+ * @class Databasemanager, 
+ * @date
  */
 public class DatabaseManager {
 
@@ -1008,4 +1010,20 @@ public class DatabaseManager {
         return results;
     }
 
+    public ObservableList<models.Luggage> getOvereenkomsten(models.Passenger passengerModel) throws SQLException{
+        models.Luggage luggageModel = new models.Luggage();
+        
+        luggageModel.setBrand_id(passengerModel.getBrand_id());
+        luggageModel.setColor_id(passengerModel.getColor_id());
+        luggageModel.setBelt(passengerModel.getBelt());
+        luggageModel.setType_id(passengerModel.getType_id());
+        luggageModel.setWeight(passengerModel.getWeight());
+        luggageModel.setMaterial_id(passengerModel.getMaterial_id());
+        luggageModel.setStickers(passengerModel.getStickers());
+        
+        ObservableList<models.Luggage> results
+                = FXCollections.observableArrayList();
+        
+        return getLuggage(luggageModel);
+    }
 }
