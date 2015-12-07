@@ -1,10 +1,12 @@
 package models;
+
 /**
  * @Author Tom Scholten
  * @Class
- * @Date 
+ * @Date
  */
 public class Address {
+
     private int id = 0;
     private int passenger_id;
     private String address;
@@ -16,14 +18,16 @@ public class Address {
      */
     public Address() {
     }
-    
-    
 
     /**
      * @return the id
      */
     public int getId() {
         return id;
+    }
+
+    public String getFormattedAddress() {
+        return address + " " + zip + " " + land;
     }
 
     /**

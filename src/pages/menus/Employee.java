@@ -27,13 +27,13 @@ public class Employee {
         // Maak nieuw element aan, met de text Search Database
         // Active state is waar
         // En weer op dezelfde methode een eventlistener
-        menu.addMenuItem("Search Customer", true, (Callable) () -> {
+        menu.addMenuItem("Search Passenger", true, (Callable) () -> {
             pages.SearchCustomer page = new pages.SearchCustomer(UI, db);
             return true;
         });
         
         // Je snapt het idee wel, maar hier is de active state false
-        menu.addMenuItem("Add new Customer", false, (Callable) () -> {
+        menu.addMenuItem("Add new Passenger", false, (Callable) () -> {
             pages.AddPassenger page = new pages.AddPassenger(UI, db);
             return true;
         });

@@ -871,6 +871,16 @@ public class DatabaseManager {
             query += "type_id = " + model.getType_id() + " AND ";
             addWhere = true;
         }
+        
+        if (model.getPassenger_id() != 0) {
+            query += "passenger_id = " + model.getPassenger_id() + " AND ";
+            addWhere = true;
+        }
+        
+        if (model.getLocation_id() != 0) {
+            query += "passenger_id = " + model.getLocation_id() + " AND ";
+            addWhere = true;
+        }
 
         if (addWhere) {
             query = query.substring(0, query.length() - 4);

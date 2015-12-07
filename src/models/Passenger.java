@@ -125,6 +125,13 @@ public class Passenger {
     public int getUsers_id() {
         return users_id;
     }
+    
+    /**
+     * @return the the full name formatted correctly
+     */
+    public String getFullName() {
+        return this.getFname() + (this.getMname().length() != 0 ? " "+this.getMname()+" " : " ") + this.getLname();
+    }
 
     /**
      * @param users_id
