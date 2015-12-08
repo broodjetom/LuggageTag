@@ -30,49 +30,49 @@ public class AddUser {
 
         view.setPadding(new Insets(50, 50, 50, 50));
 
-        Label heading = UI.createHeading("Gebruiker toevoegen");
+        Label heading = UI.createHeading("Add user");
 
         LuggageForm form = new LuggageForm(UI);
         form.add(heading);
         form.addRow();
 
-        form.addLabel("Gebruikersnaam: ");
+        form.addLabel("Username: ");
         form.addTextField("username", true);
 
         form.addRow();
-        form.addLabel("Wachtwoord: ");
+        form.addLabel("Password: ");
         form.addPassField("password", true);
 
         form.addRow();
-        form.addLabel("Herhaal wachtwoord: ");
+        form.addLabel("Repeat password: ");
         form.addPassField("password2", Boolean.TRUE);
 
         form.addRow();
-        form.addLabel("Voornaam: ");
+        form.addLabel("First name: ");
         form.addTextField("fname", true);
 
         form.addRow();
-        form.addLabel("Tussenvoegsel: ");
+        form.addLabel("Insertion: ");
         form.addTextField("mname", false);
 
         form.addRow();
-        form.addLabel("Achternaam: ");
+        form.addLabel("Last name: ");
         form.addTextField("lname", true);
 
         form.addRow();
-        form.addLabel("Telefoonnummer: ");
+        form.addLabel("Phone number: ");
         form.addTextField("phone", true);
 
         form.addRow();
-        form.addLabel("Medewerkersnummer: ");
+        form.addLabel("Employee number: ");
         form.addTextField("ee_num", true);
 
         form.addRow();
-        form.addLabel("Rol: ");
-        form.addComboBox("role", new String[]{"Medewerker", "Manager", "Admin"});
+        form.addLabel("Role: ");
+        form.addComboBox("role", new String[]{"Employee", "Manager", "Administrator"});
 
         form.addRow();
-        form.addLabel("Vestiging: ");
+        form.addLabel("Location: ");
         ObservableList<models.Locations> locationModel = this.db.getLocations();
         form.addComboBox("location_id", locationModel);
 
@@ -92,7 +92,7 @@ public class AddUser {
                 newUser.setEe_num(form.get("ee_num"));
                 String roleString = roleBox.toString();
                 switch (roleString) {
-                    case "Mederwerker":
+                    case "Employee":
                         newUser.setEmployee(1);
                         newUser.setAdmin(0);
                         newUser.setManager(0);
@@ -117,7 +117,7 @@ public class AddUser {
                 db.saveUsers(newUser);
                 form.error("User saved");
             } else {
-                form.error("Wachtwoord incorrect en/of geen rol toegekend!");
+                form.error("Incorrect passwords and/or no role specified");
             }
             return true;
         });

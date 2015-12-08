@@ -42,7 +42,7 @@ public class SearchCustomer {
             return true;
         });
 
-        String[] topText = {"Voornaam", "Tussenvoegsel", "Achternaam", "Datum toegevoegd", "Datum gewijzigd"}; // texten die bovenaan de tabel verschijnen
+        String[] topText = {"First name", "Insertion", "Last name", "Date added", "Date edited"}; // texten die bovenaan de tabel verschijnen
         String[] topVars = {"fname", "mname", "lname", "date_added", "date_changed"}; // De variable namen van het object gesorteerd op de topText 
         
         // Zoeken naar passenger
@@ -61,20 +61,20 @@ public class SearchCustomer {
         GridPane test = new GridPane();
         test.setPadding(new Insets(50, 50, 50, 50));
 
-        Label heading = UI.createHeading("Zoeken");
+        Label heading = UI.createHeading("Search");
 
         test.add(heading, 1, 1);
         
         LuggageForm form = new LuggageForm(UI);
-        form.addLabel("Voornaam: ");
+        form.addLabel("First name: ");
         form.addTextField("fname", false);
         form.addRow();
         
-        form.addLabel("Tussenvoegsel: ");
+        form.addLabel("Insertion: ");
         form.addTextField("mname", false);
         form.addRow();
         
-        form.addLabel("Achternaam: ");
+        form.addLabel("Last name: ");
         form.addTextField("lname", false);
         form.addRow();
         

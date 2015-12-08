@@ -30,8 +30,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Saves data, stored in passenger object, to database. if id is stored, the data will be
-     * updated, otherwise it will be saved as a new record.
+     * Saves data, stored in passenger object, to database. if id is stored, the
+     * data will be updated, otherwise it will be saved as a new record.
      *
      * @param models.Passenger(), object of passenger
      * @return
@@ -39,14 +39,14 @@ public class DatabaseManager {
      */
     public models.Passenger savePassenger(models.Passenger model) throws SQLException {
         if (model.getId() != 0) {
-            model.setDate_added(format.format(new Date()));
             databaseconnection.executeUpdate("UPDATE `passenger` SET "
                     + "fname ='" + model.getFname() + "', mname = '" + model.getMname()
                     + "', lname = '" + model.getLname() + "', comment ='" + model.getComment()
-                    + "', users_id = " + model.getUsers_id() + ", date_added ="
-                    + model.getDate_added() + ", date_changed =" + model.getDate_changed()
-                    + " WHERE id = " + model.getId());
+                    + "', users_id = " + model.getUsers_id()
+                    + ", date_changed ='" + model.getDate_changed()
+                    + "' WHERE id = " + model.getId());
         } else {
+            model.setDate_added(format.format(new Date()));
             databaseconnection.executeUpdate("INSERT INTO `passenger`"
                     + "(`fname`, `mname`, `lname`, `comment`, `users_id`, `date_added`, "
                     + "`date_changed`)"
@@ -58,36 +58,33 @@ public class DatabaseManager {
                     + "\", \"" + model.getDate_changed() + "\")");
             model.setId(getLastInsertId("passenger"));
 
-            
-
         }
         return model;
     }
 
-    public ObservableList<models.Passenger> getPassenger(int id) throws SQLException {
+    public models.Passenger getPassenger(int id) throws SQLException {
+        if (id == 0) {
+            return null;
+        }
+
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM passenger "
                 + "WHERE id =" + id);
 
-        ObservableList<models.Passenger> results
-                = FXCollections.observableArrayList();
-
-        while (resultSet.next()) {
-            models.Passenger row = new models.Passenger();
-            row.setId(resultSet.getInt("id"));
-            row.setFname(resultSet.getString("fname"));
-            row.setMname(resultSet.getString("mname"));
-            row.setLname(resultSet.getString("lname"));
-            row.setComment(resultSet.getString("comment"));
-            row.setUsers_id(resultSet.getInt("users_id"));
-            row.setUser(getUser(resultSet.getInt("users_id")));
-            row.setDate_added(resultSet.getString("date_added"));
-            row.setDate_changed(resultSet.getString("date_changed"));
-            row.setPhone(getPhones(resultSet.getInt("id")));
-            row.setEmail(getEmails(resultSet.getInt("id")));
-            row.setAddress(getAddresses(resultSet.getInt("id")));
-            results.add(row);
-        }
-        return results;
+        resultSet.next();
+        models.Passenger row = new models.Passenger();
+        row.setId(resultSet.getInt("id"));
+        row.setFname(resultSet.getString("fname"));
+        row.setMname(resultSet.getString("mname"));
+        row.setLname(resultSet.getString("lname"));
+        row.setComment(resultSet.getString("comment"));
+        row.setUsers_id(resultSet.getInt("users_id"));
+        row.setUser(getUser(resultSet.getInt("users_id")));
+        row.setDate_added(resultSet.getString("date_added"));
+        row.setDate_changed(resultSet.getString("date_changed"));
+        row.setPhone(getPhones(resultSet.getInt("id")));
+        row.setEmail(getEmails(resultSet.getInt("id")));
+        row.setAddress(getAddresses(resultSet.getInt("id")));
+        return row;
     }
 
     public Map<String, Double> getLostStatistics(String start, String end) throws SQLException {
@@ -124,7 +121,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table passenger, which can be presented in a table.
+     * Returns a list of records form table passenger, which can be presented in
+     * a table.
      *
      * @param model
      * @return ObservableList
@@ -198,8 +196,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Saves data, stored in Users object, to database. if id is stored, the data will be updated,
-     * otherwise it will be saved as a new record.
+     * Saves data, stored in Users object, to database. if id is stored, the
+     * data will be updated, otherwise it will be saved as a new record.
      *
      * @param model.Users(), object of Users.
      * @throws SQLException
@@ -236,7 +234,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Users, which can be presented in a table.
+     * Returns a list of records form table Users, which can be presented in a
+     * table.
      *
      * @return ObservableList
      * @throws SQLException
@@ -385,8 +384,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Saves data, stored in Locations object, to database. if id is stored, the data will be
-     * updated, otherwise it will be saved as a new record.
+     * Saves data, stored in Locations object, to database. if id is stored, the
+     * data will be updated, otherwise it will be saved as a new record.
      *
      * @param model.Locations(), object from Locations
      * @return
@@ -405,7 +404,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in a table.
+     * Returns a list of records form table Locations, which can be presented in
+     * a table.
      *
      * @return ObservableList
      * @throws SQLException
@@ -427,7 +427,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in a table.
+     * Returns a list of records form table Locations, which can be presented in
+     * a table.
      *
      * @param id
      * @return ObservableList
@@ -446,7 +447,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in a table.
+     * Returns a list of records form table Locations, which can be presented in
+     * a table.
      *
      * @param location
      * @return ObservableList
@@ -499,6 +501,10 @@ public class DatabaseManager {
 
     public models.Brands getBrand(int id) throws SQLException {
         // Krijg resultaten als Passenger
+        if (id == 0) {
+            return null;
+        }
+
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM brands "
                 + "WHERE id=" + id + " limit 1");
 
@@ -748,7 +754,7 @@ public class DatabaseManager {
                     + "WHERE id =" + model.getId());
         } else {
             databaseconnection.executeUpdate("INSERT INTO email (`email`, `passenger_id`) "
-                    + "VALUES (\"" + model.getEmail() + "\", '"+model.getPassenger_id()+"')");
+                    + "VALUES (\"" + model.getEmail() + "\", '" + model.getPassenger_id() + "')");
             model.setId(getLastInsertId("email"));
         }
         return model;
@@ -777,8 +783,8 @@ public class DatabaseManager {
                     + "\", zip = \"" + model.getZip() + "\", land =\"" + model.getLand() + "\"");
         } else {
             databaseconnection.executeUpdate("INSERT INTO address (`address`,`zip`,`land`, `passenger_id`) "
-                    + "VALUES ('"+model.getAddress()+"', '"+model.getZip()+"','"
-                    + model.getLand() +"', '"+model.getPassenger_id() +"')");
+                    + "VALUES ('" + model.getAddress() + "', '" + model.getZip() + "','"
+                    + model.getLand() + "', '" + model.getPassenger_id() + "')");
             model.setId(getLastInsertId("address"));
         }
         return model;
@@ -804,20 +810,19 @@ public class DatabaseManager {
     }
 
     public models.Luggage saveLuggage(models.Luggage model) throws SQLException {
-
         if (model.getId() != 0) {
-            model.setDate_added(format.format(new Date()));
             databaseconnection.executeUpdate("UPDATE `luggage` SET "
                     + "`brand_id`= " + model.getBrand_id() + ", `color_id`=" + model.getColor_id() + ", "
                     + "`weight`=" + model.getWeight() + ", `material_id`=" + model.getMaterial_id() + ", "
                     + "`stickers`=" + model.getStickers() + ", `characteristic`='"
                     + model.getCharacteristic() + "', `belt`=" + model.getBelt() + ", `type_id`="
                     + "" + model.getType_id() + ", `location_id`=" + model.getLocation_id() + ", `comment`="
-                    + "" + model.getComment() + ", `users_id`=" + model.getUsers_id() + ", `date_added`="
-                    + "" + model.getDate_added() + ", `date_changed`=" + model.getDate_changed()
-                    + ", `date_finished`=" + model.getDate_finished() + ", `situation`='"
-                    + model.getSituation() + "', passenger_id = "+model.getPassenger_id()+" WHERE id = " + model.getId());
+                    + "'" + model.getComment() + "', `users_id`=" + model.getUsers_id() + ", `date_added`=\""
+                    + "" + model.getDate_added() + "\", `date_changed`=\"" + model.getDate_changed()
+                    + "\", `date_finished`=\"" + model.getDate_finished() + "\", `situation`='"
+                    + model.getSituation() + "', passenger_id = " + model.getPassenger_id() + " WHERE id = " + model.getId());
         } else {
+            model.setDate_added(format.format(new Date()));
             databaseconnection.executeUpdate("INSERT INTO `luggage`"
                     + "(`brand_id`,`color_id`,`weight`,`material_id`,`stickers`,`characteristic`,"
                     + "`belt`,`type_id`,`location_id`,`comment`,`users_id`,`date_added`,"
@@ -826,8 +831,8 @@ public class DatabaseManager {
                     + model.getMaterial_id() + ", " + model.getStickers() + ", '"
                     + model.getCharacteristic() + "', " + model.getBelt() + ", " + model.getType_id() + ", "
                     + model.getLocation_id() + ", '" + model.getComment() + "', " + model.getUsers_id() + ", '"
-                    + model.getDate_added() + "', '" + model.getDate_changed() + "', '" 
-                    + model.getDate_finished() + "', '" + model.getSituation() + "', "+model.getPassenger_id()+")");
+                    + model.getDate_added() + "', '" + model.getDate_changed() + "', '"
+                    + model.getDate_finished() + "', '" + model.getSituation() + "', " + model.getPassenger_id() + ")");
             model.setId(getLastInsertId("luggage"));
         }
         return model;
@@ -872,12 +877,12 @@ public class DatabaseManager {
             query += "type_id = " + model.getType_id() + " AND ";
             addWhere = true;
         }
-        
+
         if (model.getPassenger_id() != 0) {
             query += "passenger_id = " + model.getPassenger_id() + " AND ";
             addWhere = true;
         }
-        
+
         if (model.getLocation_id() != 0) {
             query += "passenger_id = " + model.getLocation_id() + " AND ";
             addWhere = true;
@@ -920,6 +925,7 @@ public class DatabaseManager {
             row.setType(getType(resultSet.getInt("type_id")));
             row.setMaterial(getMaterial(resultSet.getInt("material_id")));
             row.setPassenger_id(resultSet.getInt("passenger_id"));
+            row.setLocation(getLocation(resultSet.getInt("location_id")));
             results.add(row);
         }
 

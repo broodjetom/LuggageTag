@@ -31,7 +31,7 @@ public class AddCustomer {
 
         view.setPadding(new Insets(50, 50, 50, 50));
 
-        Label heading = UI.createHeading("Add Customer");
+        Label heading = UI.createHeading("Add Passenger");
 
         LuggageForm form = new LuggageForm(UI);
         form.add(heading);

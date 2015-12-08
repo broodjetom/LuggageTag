@@ -46,7 +46,7 @@ public class UsersPage {
             return true;
         });
 
-        String[] topText = {"Voornaam", "Tussenvoegsel", "Achternaam", "Telefoonnummer", "Medewerkersnummer", "Medewerker", "Manager", "Admin", "Vestiging"};
+        String[] topText = {"First name", "Insertion", "Last name", "Phone number", "Employee number", "Is employee", "Is manager", "Is admin", "Location"};
         String[] topVars = {"fname", "mname", "lname", "phone", "ee_num", "employee", "manager", "admin", "location"};
 
         models.Users zoek = new models.Users();
@@ -60,37 +60,37 @@ public class UsersPage {
         GridPane test = new GridPane();
         test.setPadding(new Insets(50, 50, 50, 50));
 
-        Label heading = UI.createHeading("Zoeken");
+        Label heading = UI.createHeading("Search");
 
         test.add(heading, 1, 1);
 
         LuggageForm form = new LuggageForm(UI);
-        form.addLabel("Voornaam: ");
+        form.addLabel("First name: ");
         form.addTextField("fname", false);
         form.addRow();
 
-        form.addLabel("Tussenvoegsel: ");
+        form.addLabel("Instertion: ");
         form.addTextField("mname", false);
         form.addRow();
 
-        form.addLabel("Achternaam: ");
+        form.addLabel("Last name: ");
         form.addTextField("lname", false);
         form.addRow();
 
-        form.addLabel("Telefoon: ");
+        form.addLabel("Phone: ");
         form.addTextField("phone", false);
         form.addRow();
 
-        form.addLabel("Vestiging: ");
+        form.addLabel("Location: ");
         ObservableList<models.Locations> locationModel = this.db.getLocations();
         form.addComboBox("location", locationModel);
         form.addRow();
 
-        form.addLabel("Medewerkersnummer: ");
+        form.addLabel("Employee number: ");
         form.addTextField("ee_num", false);
         form.addRow();
 
-        form.addLabel("Rol: ");
+        form.addLabel("Role: ");
         form.addComboBox("role", new String[]{"Mederwerker", "Manager", "Admin"});
         form.addRow();
 

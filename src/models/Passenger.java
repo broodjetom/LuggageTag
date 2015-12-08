@@ -29,8 +29,8 @@ public class Passenger {
      */
     public Passenger() {
 
-        this.date_added = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_added = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 
     public Users getUser() {
@@ -39,7 +39,7 @@ public class Passenger {
 
     public void setUser(Users user) {
         this.user = user;
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 
     /**
@@ -54,7 +54,7 @@ public class Passenger {
      */
     public void setId(int id) {
         this.id = id;
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 
     /**
@@ -62,7 +62,7 @@ public class Passenger {
      */
     public String getFname() {
 
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
         return fname;
     }
 
@@ -71,7 +71,7 @@ public class Passenger {
      */
     public void setFname(String fname) {
         this.fname = fname;
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 
     /**
@@ -86,7 +86,7 @@ public class Passenger {
      */
     public void setMname(String mname) {
         this.mname = mname;
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 
     /**
@@ -101,7 +101,7 @@ public class Passenger {
      */
     public void setLname(String lname) {
         this.lname = lname;
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 
     /**
@@ -116,7 +116,7 @@ public class Passenger {
      */
     public void setComment(String comment) {
         this.comment = comment;
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 
     /**
@@ -138,7 +138,7 @@ public class Passenger {
      */
     public void setUsers_id(int users_id) {
         this.users_id = users_id;
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 
     /**
@@ -153,7 +153,7 @@ public class Passenger {
      */
     public void setDate_added(String date_added) {
         this.date_added = date_added;
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 
     /**
@@ -168,7 +168,7 @@ public class Passenger {
      */
     public void setDate_changed(String date_changed) {
         this.date_changed = date_changed;
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 
     /**
@@ -183,7 +183,7 @@ public class Passenger {
      */
     public void setPhone(ObservableList<Phone> phone) {
         this.phone = phone;
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 
     /**
@@ -198,7 +198,7 @@ public class Passenger {
      */
     public void setEmail(ObservableList<Email> email) {
         this.email = email;
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 
     /**
@@ -213,6 +213,6 @@ public class Passenger {
      */
     public void setAddress(ObservableList<Address> address) {
         this.address = address;
-        this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+        this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 }

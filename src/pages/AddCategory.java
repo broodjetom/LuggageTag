@@ -35,17 +35,17 @@ public class AddCategory {
         form.add(heading);
         form.addRow();
 
-        form.addLabel("Merk: ");
+        form.addLabel("Brand: ");
         form.addTextField("brand", false);
         form.addSubmitButton("Toevoegen");
         form.addRow();
 
-        form.addLabel("Kleur: ");
+        form.addLabel("Color: ");
         form.addTextField("color", false);
         form.addSubmitButton("Toevoegen");
         form.addRow();
 
-        form.addLabel("Materiaal: ");
+        form.addLabel("Material: ");
         form.addTextField("material", false);
         form.addSubmitButton("Toevoegen");
         form.addRow();

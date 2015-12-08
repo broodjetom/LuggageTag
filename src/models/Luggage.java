@@ -30,6 +30,7 @@ public class Luggage {
     private Colors color;
     private Types type;
     private Materials material;
+    private Locations location;
     private int passenger_id;
 
     public Luggage(){
@@ -345,6 +346,20 @@ public class Luggage {
     public void setMaterial(Materials material) {
         this.material = material;
         this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
+    }
+
+    /**
+     * @return the location
+     */
+    public Locations getLocation() {
+        return location;
+    }
+
+    /**
+     * @param location the location to set
+     */
+    public void setLocation(Locations location) {
+        this.location = location;
     }
     
     

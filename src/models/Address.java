@@ -27,7 +27,7 @@ public class Address {
     }
 
     public String getFormattedAddress() {
-        return address + " " + zip + " " + land;
+        return address + "\n" + zip + "\n" + land;
     }
 
     /**

@@ -42,12 +42,12 @@ public class AddLuggage {
         form.addRow();
 
         form.addRow();
-        form.addLabel("Merk: ");
+        form.addLabel("Brand: ");
         ObservableList<models.Brands> brandsModel = this.db.getBrands();
         form.addComboBox("brand_id", brandsModel);
         form.addRow();
 
-        form.addLabel("Kleur: ");
+        form.addLabel("Color: ");
         ObservableList<models.Colors> colorsModel = this.db.getColors();
         form.addComboBox("color_id", colorsModel);
         form.addRow();
@@ -71,8 +71,8 @@ public class AddLuggage {
         form.addTextArea("characteristics", false);
 
         form.addRow();
-        form.addLabel("Riem: ");
-        form.addComboBox("belt", new String[]{"Ja", "Nee"});
+        form.addLabel("Belt: ");
+        form.addComboBox("belt", new String[]{"Yes", "No"});
 
         form.addRow();
         form.addLabel("Type: ");
@@ -81,7 +81,7 @@ public class AddLuggage {
         form.addRow();
 
         form.addRow();
-        form.addLabel("Vestigingen");
+        form.addLabel("Location: ");
         ObservableList<models.Locations> locationsModel = this.db.getLocations();
         form.addComboBox("location_id", locationsModel);
         form.addRow();
@@ -103,7 +103,7 @@ public class AddLuggage {
             return true;
         });
 
-        String[] topText = {"Voornaam", "Tussenvoegsel", "Achternaam", "Datum toegevoegd", "Datum gewijzigd"}; // texten die bovenaan de tabel verschijnen
+        String[] topText = {"First name", "Insertion", "Last name", "Date added", "Date changed"}; // texten die bovenaan de tabel verschijnen
         String[] topVars = {"fname", "mname", "lname", "date_added", "date_changed"}; // De variable namen van het object gesorteerd op de topText 
 
         models.Passenger zoek = new models.Passenger();
@@ -145,10 +145,10 @@ public class AddLuggage {
 
             String beltString = beltBox.toString();
             switch (beltString) {
-                case "Ja":
+                case "Yes":
                     luggageModel.setBelt(1);
                     break;
-                case "Nee":
+                case "No":
                     luggageModel.setBelt(0);
                     break;
                 default:
@@ -156,7 +156,7 @@ public class AddLuggage {
                     break;
             }
             System.out.println(form.get("belt"));
-            luggageModel.setBelt((form.get("belt") == ("Ja")) ? 1 : 0);
+            luggageModel.setBelt((form.get("belt") == ("Yes")) ? 1 : 0);
             models.Types typesBox = (models.Types) form.getComboBoxSelected("type_id");
             if (typesBox != null) {
                 luggageModel.setType_id(typesBox.getId());

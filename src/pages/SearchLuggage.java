@@ -42,12 +42,12 @@ public class SearchLuggage {
         
         table.onClick((Callable) () -> {
             models.Luggage row = (models.Luggage)table.getClicked();
-            EditLuggage page = new EditLuggage(UI, db, row);
+            LuggageDetails page = new LuggageDetails(UI, db, row);
             return true;
         });
 
-        String[] topText = {"Merk", "Kleur", "Gewicht", "Materiaal", "Bevat stickers", "Heeft kofferriem", "Type", "Status", "Datum toegevoegd", "Datum gewijzigd"}; // texten die bovenaan de tabel verschijnen
-        String[] topVars = {"brand", "color", "weight", "material", "stickers", "belt", "type", "situation", "date_added", "date_changed"}; // De variable namen van het object gesorteerd op de topText 
+        String[] topText = {"Brand", "Color", "Weight", "Material", "Amount of Stickers", "Has belt", "Type", "Status", "Location", "Date adeed", "Date changed"}; // texten die bovenaan de tabel verschijnen
+        String[] topVars = {"brand", "color", "weight", "material", "stickers", "belt", "type", "situation", "location", "date_added", "date_changed"}; // De variable namen van het object gesorteerd op de topText 
         
         // Zoeken naar passenger
         models.Luggage zoek = new models.Luggage();
@@ -65,38 +65,27 @@ public class SearchLuggage {
         GridPane test = new GridPane();
         test.setPadding(new Insets(50, 50, 50, 50));
 
-        Label heading = UI.createHeading("Zoeken");
+        Label heading = UI.createHeading("Search");
 
         test.add(heading, 1, 1);
         
         LuggageForm form = new LuggageForm(UI);
-        form.addLabel("Voornaam: ");
-        form.addTextField("fname", false);
-        form.addRow();
         
-        form.addLabel("Tussenvoegsel: ");
-        form.addTextField("mname", false);
-        form.addRow();
-        
-        form.addLabel("Achternaam: ");
-        form.addTextField("lname", false);
-        form.addRow();
-        
-        form.addLabel("Merk: ");
+        form.addLabel("Brand: ");
         ObservableList<models.Brands> brandsModel = this.db.getBrands();
         form.addComboBox("brand_id", brandsModel);
         form.addRow();
         
-        form.addLabel("Kleur: ");
+        form.addLabel("Color: ");
         ObservableList<models.Colors> colorsModel = this.db.getColors();
         form.addComboBox("color_id", colorsModel);
         form.addRow();
         
-        form.addLabel("Gewicht: ");
+        form.addLabel("Weight: ");
         form.addTextField("weight", false);
         form.addRow();
         
-        form.addLabel("Materiaal: ");
+        form.addLabel("Material: ");
         ObservableList<models.Materials> materialsModel = this.db.getMaterials();
         form.addComboBox("material_id", materialsModel);
         form.addRow();
@@ -105,11 +94,11 @@ public class SearchLuggage {
         form.addTextField("stickers", false);
         form.addRow();  
         
-        form.addLabel("Kofferriem: ");
+        form.addLabel("Belt: ");
         form.addTextField("belt", false);
         form.addRow();
         
-        form.addLabel("Type bagage: ");
+        form.addLabel("Type: ");
         
         ObservableList<models.Types> typeModel = this.db.getTypes();
         form.addComboBox("type_id", typeModel);

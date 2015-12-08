@@ -200,7 +200,23 @@ public class LuggageForm {
         textAreasRequired.put(id, required);
         add(textArea);
     }
-
+    
+    /**
+     * Adds a text area to the form
+     *
+     * @param id ID to set for this field
+     * @param required Make element required, or not
+     * @param text Default text
+     * @param prefColumnCount Width of text area in columns
+     */
+    public void addTextArea(String id, Boolean required, String text) {
+        TextArea textArea = new TextArea(text);
+        textArea.setStyle("-fx-border-radius: 6px; -fx-background-color: white; -fx-border-color: #" + BORDER_COLOR);
+        textAreas.put(id, textArea);
+        textAreasRequired.put(id, required);
+        add(textArea);
+    }
+    
     /**
      * Adds a text area to the form
      *

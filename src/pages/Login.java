@@ -35,17 +35,17 @@ public class Login {
 
         view.setPadding(new Insets(50, 50, 50, 50));
 
-        Label heading = UI.createHeading("Inloggen");
-        Label subtext = UI.createText("Log in met uw account");
+        Label heading = UI.createHeading("Log in");
+        Label subtext = UI.createText("Log in with your log-in credentials");
 
         view.add(heading, 1, 1);
         view.add(subtext, 1, 2);
 
         LuggageForm form = new LuggageForm(UI);
-        form.addLabel("Email: ");
+        form.addLabel("Username: ");
         form.addTextField("email", true);
         form.addRow();
-        form.addLabel("Wachtwoord: ");
+        form.addLabel("Password: ");
         form.addPassField("password", true);
 
         form.addRow();
@@ -55,7 +55,8 @@ public class Login {
             return true;
         });
 
-        form.add(forgotPassword);
+        //form.add(forgotPassword);
+        form.addCol();
 
         form.addSubmitButton("Log In");
         form.onSubmit((Callable) () -> {

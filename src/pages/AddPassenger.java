@@ -140,6 +140,7 @@ public class AddPassenger {
             }
 
             models.Email emailModel = new models.Email();
+            phoneModel.setId(0);
             emailModel.setPassenger_id(id);
             emailModel.setEmail(form.get("email1"));
             db.saveEmail(emailModel);
