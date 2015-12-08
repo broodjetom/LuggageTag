@@ -815,18 +815,19 @@ public class DatabaseManager {
                     + "" + model.getType_id() + ", `location_id`=" + model.getLocation_id() + ", `comment`="
                     + "" + model.getComment() + ", `users_id`=" + model.getUsers_id() + ", `date_added`="
                     + "" + model.getDate_added() + ", `date_changed`=" + model.getDate_changed()
-                    + ", `date_finished`=" + model.getDate_finished() + ", `situation`="
-                    + "" + model.getSituation() + " WHERE id = " + model.getId());
+                    + ", `date_finished`=" + model.getDate_finished() + ", `situation`='"
+                    + model.getSituation() + "', passenger_id = "+model.getPassenger_id()+" WHERE id = " + model.getId());
         } else {
             databaseconnection.executeUpdate("INSERT INTO `luggage`"
                     + "(`brand_id`,`color_id`,`weight`,`material_id`,`stickers`,`characteristic`,"
                     + "`belt`,`type_id`,`location_id`,`comment`,`users_id`,`date_added`,"
-                    + "`date_changed`,`date_finished`,`situation`) VALUES "
+                    + "`date_changed`,`date_finished`,`situation`, `passenger_id`) VALUES "
                     + "(" + model.getBrand_id() + ", " + model.getColor_id() + ", " + model.getWeight() + ", "
                     + model.getMaterial_id() + ", " + model.getStickers() + ", '"
                     + model.getCharacteristic() + "', " + model.getBelt() + ", " + model.getType_id() + ", "
                     + model.getLocation_id() + ", '" + model.getComment() + "', " + model.getUsers_id() + ", '"
-                    + model.getDate_added() + "', '" + model.getDate_changed() + "', '" + model.getDate_finished() + "', '" + model.getSituation() + "')");
+                    + model.getDate_added() + "', '" + model.getDate_changed() + "', '" 
+                    + model.getDate_finished() + "', '" + model.getSituation() + "', "+model.getPassenger_id()+")");
             model.setId(getLastInsertId("luggage"));
         }
         return model;
@@ -951,6 +952,7 @@ public class DatabaseManager {
             row.setDate_changed(resultSet.getString("date_changed"));
             row.setDate_finished(resultSet.getString("date_finished"));
             row.setSituation(resultSet.getString("situation"));
+            row.setPassenger_id(resultSet.getInt("passenger_id"));
             row.setBrand(getBrand(resultSet.getInt("brand_id")));
             row.setColor(getColor(resultSet.getInt("color_id")));
             row.setType(getType(resultSet.getInt("type_id")));

@@ -25,7 +25,7 @@ public class AddLuggage {
     private DatabaseManager db;
     public GridPane view = new GridPane();
 
-    models.Passenger passengerModel = new models.Passenger();
+    private models.Passenger passengerModel = new models.Passenger();
     private static final user.Session USER = user.Session.getInstance();
 
     public AddLuggage(LuggageUI UI, DatabaseManager db) throws SQLException {
@@ -99,7 +99,7 @@ public class AddLuggage {
         
         table.onClick((Callable) () -> {
             passengerModel = (models.Passenger) table.getClicked();
-            
+            System.out.println(passengerModel.getId());
             return true;
         });
 
@@ -167,9 +167,12 @@ public class AddLuggage {
             }
             luggageModel.setComment(form.get("comment"));
             luggageModel.setSituation(form.get("status"));
-            if (form.get("status") == "Verloren") {
+            if ("Verloren".equals(form.get("status"))) {
+                System.out.println("in de if statement");
                 luggageModel.setPassenger_id(passengerModel.getId());
+                form.error("Passenger" + passengerModel.getFname() + passengerModel.getMname() + passengerModel.getLname());
             }
+            form.error("overgeslagen");
             luggageModel.setUsers_id(USER.getUser().getId());
 
             db.saveLuggage(luggageModel);
@@ -177,6 +180,8 @@ public class AddLuggage {
             return true;
         });
 
+        
+        
         HBox box = new HBox();
         box.getChildren().addAll(form.toNode(), table.getTable());
 
