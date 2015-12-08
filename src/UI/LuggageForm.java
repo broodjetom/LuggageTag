@@ -257,16 +257,6 @@ public class LuggageForm {
      * @param id ID to set for this field
      * @param elements The elements to add to the group of the combobox
      */
-    public void addComboBox(String id, ObservableList elements, Object selected, Boolean required) {
-        addComboBox(id, elements, required, selected);
-    }
-    
-    /**
-     * Adds a combobox to the form
-     *
-     * @param id ID to set for this field
-     * @param elements The elements to add to the group of the combobox
-     */
     public void addComboBox(String id, ObservableList elements) {
         addComboBox(id, elements, false, null);
     }
