@@ -818,7 +818,7 @@ public class DatabaseManager {
                     + ", `date_finished`=" + model.getDate_finished() + ", `situation`="
                     + "" + model.getSituation() + " WHERE id = " + model.getId());
         } else {
-            databaseconnection.executeUpdate("INSERT INTO `passenger`"
+            databaseconnection.executeUpdate("INSERT INTO `luggage`"
                     + "(`brand_id`,`color_id`,`weight`,`material_id`,`stickers`,`characteristic`,"
                     + "`belt`,`type_id`,`location_id`,`comment`,`users_id`,`date_added`,"
                     + "`date_changed`,`date_finished`,`situation`) VALUES "
@@ -827,7 +827,7 @@ public class DatabaseManager {
                     + model.getCharacteristic() + "', " + model.getBelt() + ", " + model.getType_id() + ", "
                     + model.getLocation_id() + ", '" + model.getComment() + "', " + model.getUsers_id() + ", '"
                     + model.getDate_added() + "', '" + model.getDate_changed() + "', '" + model.getDate_finished() + "', '" + model.getSituation() + "')");
-            model.setId(getLastInsertId("passenger"));
+            model.setId(getLastInsertId("luggage"));
         }
         return model;
     }
