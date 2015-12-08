@@ -45,6 +45,7 @@ public class LuggageForm {
 
     public Map<String, ToggleGroup> radioFields = new HashMap<>();
     public Map<String, ComboBox> comboBox = new HashMap<>();
+    public Map<String, Boolean> comboBoxRequired = new HashMap<>();
 
     private Map<String, String> keyValues = new HashMap<>();
     private Map<String, Object> keyElement = new HashMap<>();
@@ -199,14 +200,15 @@ public class LuggageForm {
         textAreasRequired.put(id, required);
         add(textArea);
     }
-/**
- * Adds a text area to the form
- * 
- * @param id ID to set for this field
- * @param required Make element required, or not
- * @param text Default text
- * @param prefColumnCount Width of text area in columns
- */
+
+    /**
+     * Adds a text area to the form
+     *
+     * @param id ID to set for this field
+     * @param required Make element required, or not
+     * @param text Default text
+     * @param prefColumnCount Width of text area in columns
+     */
     public void addTextArea(String id, Boolean required, String text, int prefColumnCount) {
         TextArea textArea = new TextArea(text);
         textArea.setStyle("-fx-border-radius: 6px; -fx-background-color: white; -fx-border-color: #" + BORDER_COLOR);
@@ -216,23 +218,49 @@ public class LuggageForm {
         add(textArea);
     }
     
+    public void addComboBox(String id, String[] elements) {
+        addComboBox(id, elements, false);
+    }
+    
     /**
      * Adds a combobox to the form
      *
      * @param id ID to set for this field
      * @param elements The elements to add to the group of the combobox
      */
-    public void addComboBox(String id, String[] elements) {
+    public void addComboBox(String id, String[] elements, Boolean required) {
         ComboBox theBox = new ComboBox();
         theBox.setPromptText("- Select -");
         theBox.setEditable(true);
         for (String el : elements) {
             theBox.getItems().add(el);
         }
+        comboBoxRequired.put(id, required);
         comboBox.put(id, theBox);
         add(theBox);
     }
-
+    
+    /**
+     * Adds a combobox to the form
+     *
+     * @param id ID to set for this field
+     * @param elements The elements to add to the group of the combobox
+     * @param selected The default selected object
+     */
+    public void addComboBox(String id, ObservableList elements, Object selected) {
+        addComboBox(id, elements, false, selected);
+    }
+    
+    /**
+     * Adds a combobox to the form
+     *
+     * @param id ID to set for this field
+     * @param elements The elements to add to the group of the combobox
+     */
+    public void addComboBox(String id, ObservableList elements, Object selected, Boolean required) {
+        addComboBox(id, elements, required, selected);
+    }
+    
     /**
      * Adds a combobox to the form
      *
@@ -240,10 +268,24 @@ public class LuggageForm {
      * @param elements The elements to add to the group of the combobox
      */
     public void addComboBox(String id, ObservableList elements) {
+        addComboBox(id, elements, false, null);
+    }
+
+    /**
+     * Adds a combobox to the form
+     *
+     * @param id ID to set for this field
+     * @param elements The elements to add to the group of the combobox
+     * @param required Field is required
+     */
+    public void addComboBox(String id, ObservableList elements, Boolean required, Object selected) {
         ComboBox theBox = new ComboBox(elements);
         theBox.setPromptText("- Select -");
         theBox.setEditable(true);
-
+        
+        theBox.setValue(selected);
+        
+        comboBoxRequired.put(id, required);
         comboBox.put(id, theBox);
         add(theBox);
     }
@@ -380,6 +422,15 @@ public class LuggageForm {
                 keyValues.put(entry.getKey(), value);
 
                 if (textFieldsRequired.get(entry.getKey()) && value.equals("")) {
+                    entry.getValue().setStyle("-fx-border-color: red; -fx-border-radius: 6px;");
+                } else {
+                    entry.getValue().setStyle("-fx-border-color: #" + BORDER_COLOR + "; -fx-border-radius: 6px;");
+                }
+            }
+
+            for (Map.Entry<String, ComboBox> entry : comboBox.entrySet()) {
+
+                if (comboBoxRequired.get(entry.getKey()) && entry.getValue().getSelectionModel().getSelectedIndex() == -1) {
                     entry.getValue().setStyle("-fx-border-color: red; -fx-border-radius: 6px;");
                 } else {
                     entry.getValue().setStyle("-fx-border-color: #" + BORDER_COLOR + "; -fx-border-radius: 6px;");
