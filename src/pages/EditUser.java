@@ -81,12 +81,12 @@ public class EditUser {
 
         form.addRow();
         form.addLabel("Role: ");
-        form.addComboBox("role", new String[]{"Employee", "Manager", "Administrator"}, true, role);
+        form.addComboBox("role", new String[]{"Employee", "Manager", "Administrator"}, false, role);
 
         form.addRow();
         form.addLabel("location");
         ObservableList<models.Locations> locationModel = this.db.getLocations();
-        form.addComboBox("location_id", locationModel, true, model.getLocation());
+        form.addComboBox("location_id", locationModel, false, model.getLocation());
 
         form.addCol();
         form.addSubmitButton("Save");
@@ -106,7 +106,7 @@ public class EditUser {
                 model.setPhone(form.get("phone"));
                 model.setEe_num(form.get("ee_num"));
                 models.Locations locationsBox = (models.Locations) form.getComboBoxSelected("location_id");
-
+                model.setLocation_id(locationsBox.getId());
                 Object roleBox = form.getComboBoxSelected("role");
                 String roleString = roleBox.toString();
                 switch (roleString) {
