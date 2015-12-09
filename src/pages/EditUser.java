@@ -81,7 +81,7 @@ public class EditUser {
 
         form.addRow();
         form.addLabel("Role: ");
-        form.addComboBox("role", new String[]{"Employee", "Manager", "Admin"}, true, role);
+        form.addComboBox("role", new String[]{"Employee", "Manager", "Administrator"}, true, role);
 
         form.addRow();
         form.addLabel("location");
