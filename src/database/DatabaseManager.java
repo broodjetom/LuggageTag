@@ -135,7 +135,7 @@ public class DatabaseManager {
         String query = "SELECT * FROM passenger WHERE ";
 
         if (model.getFname() != null) {
-            System.out.println("Wel");
+            
             query += "fname LIKE '%" + model.getFname() + "%' AND ";
             addWhere = true;
         }
@@ -155,7 +155,7 @@ public class DatabaseManager {
         } else {
             query = query.substring(0, query.length() - 6);
         }
-        System.out.println(query);
+        
         ResultSet resultSet = databaseconnection.executeSelect(query);
 
         ObservableList<models.Passenger> results
@@ -189,7 +189,7 @@ public class DatabaseManager {
     public int getLastInsertId(String table) throws SQLException {
         ResultSet resultSet = databaseconnection.executeSelect("SELECT id FROM "
                 + table + " WHERE id = last_insert_id()");
-        System.out.println(resultSet);
+        
         resultSet.next();
         int id = resultSet.getInt("id");
         return id;
@@ -203,20 +203,12 @@ public class DatabaseManager {
      * @throws SQLException
      */
     public void saveUsers(models.Users model) throws SQLException {
-        System.out.println("INSERT INTO users (`username`, `password`, `fname`, `mname`, `lname`, "
-                + "`phone`, `ee_num`, `employee`, `manager`, `admin`, `setting_id`)"
-                + " VALUES ('" + model.getUsername() + "', '" + model.getPassword().hashCode() + "', '"
-                + model.getFname() + "', '" + model.getMname() + "', '"
-                + model.getLname() + "', '" + model.getPhone() + "', '"
-                + model.getEe_num() + "', " + model.getEmployee() + ", "
-                + "" + model.getManager() + ", " + model.getAdmin() + ", "
-                + "" + model.getLocation_id() + ")");
         if (model.getId() != 0) {
             databaseconnection.executeUpdate(
-                    "UPDATE users SET username = \'" + model.getUsername() + "\', password =\'"
-                    + model.getPassword().hashCode() + "\', fname = \'" + model.getFname() + "\', mname =\'"
-                    + model.getMname() + "\', lname =\'" + model.getLname() + "\', phone=\'"
-                    + model.getPhone() + "\', ee_num = \'" + model.getEe_num() + "\', employee ="
+                    "UPDATE users SET username = '" + model.getUsername() + "', password ='"
+                    + model.getPassword().hashCode() + "', fname = '" + model.getFname() + "', mname ='"
+                    + model.getMname() + "', lname ='" + model.getLname() + "', phone='"
+                    + model.getPhone() + "', ee_num = '" + model.getEe_num() + "', employee ="
                     + model.getEmployee() + ", manager =" + model.getManager()
                     + ", admin =" + model.getAdmin() + ", setting_id =" + model.getLocation_id()
                     + " WHERE id = " + model.getId());
@@ -297,7 +289,7 @@ public class DatabaseManager {
             query = query.substring(0, query.length() - 6);
         }
 
-        System.out.println(query);
+        
 
         ResultSet resultSet = databaseconnection.executeSelect(query);
 
@@ -725,10 +717,7 @@ public class DatabaseManager {
             databaseconnection.executeUpdate("INSERT INTO phone (`passenger_id`, `phone`)"
                     + " VALUES (" + model.getPassenger_id()
                     + ", '" + model.getPhone() + "')");
-            System.out.println("INSERT INTO phone (`passenger_id`, `phone`)"
-                    + " VALUES (" + model.getPassenger_id()
-                    + ", '" + model.getPhone() + "')");
-            System.out.println(model.getPhone());
+            
             model.setId(getLastInsertId("phone"));
         }
         return model;
@@ -903,7 +892,7 @@ public class DatabaseManager {
 
         query += " ORDER BY date_changed DESC";
 
-        System.out.println(query);
+        
         ResultSet resultSet = databaseconnection.executeSelect(query);
 
         ObservableList<models.Luggage> results
