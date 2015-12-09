@@ -890,6 +890,10 @@ public class DatabaseManager {
             query += "passenger_id = " + model.getLocation_id() + " AND ";
             addWhere = true;
         }
+        
+        if (model.getSituation() != null){
+            query += "situation = " + model.getSituation() + " AND ";
+        }
 
         if (addWhere) {
             query = query.substring(0, query.length() - 4);
