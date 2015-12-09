@@ -332,7 +332,7 @@ public class DatabaseManager {
 
         while (resultSet.next()) {
             model.setId(resultSet.getInt("id"));
-            model.setUsername(resultSet.getString(username));
+            model.setUsername(resultSet.getString("username"));
             model.setFname(resultSet.getString("fname"));
             model.setMname(resultSet.getString("mname"));
             model.setLname(resultSet.getString("lname"));
