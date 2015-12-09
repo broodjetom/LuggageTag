@@ -307,6 +307,7 @@ public class DatabaseManager {
         while (resultSet.next()) {
             models.Users row = new models.Users();
             row.setId(resultSet.getInt("id"));
+            row.setUsername(resultSet.getString("username"));
             row.setFname(resultSet.getString("fname"));
             row.setMname(resultSet.getString("mname"));
             row.setLname(resultSet.getString("lname"));
@@ -331,6 +332,7 @@ public class DatabaseManager {
 
         while (resultSet.next()) {
             model.setId(resultSet.getInt("id"));
+            model.setUsername(resultSet.getString(username));
             model.setFname(resultSet.getString("fname"));
             model.setMname(resultSet.getString("mname"));
             model.setLname(resultSet.getString("lname"));
@@ -369,6 +371,7 @@ public class DatabaseManager {
         models.Users row = new models.Users();
         while (resultSet.next()) {
             row.setId(resultSet.getInt("id"));
+            row.setUsername(resultSet.getString("username"));
             row.setFname(resultSet.getString("fname"));
             row.setMname(resultSet.getString("mname"));
             row.setLname(resultSet.getString("lname"));
