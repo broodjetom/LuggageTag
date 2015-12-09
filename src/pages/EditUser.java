@@ -91,54 +91,61 @@ public class EditUser {
         form.addCol();
         form.addSubmitButton("Save");
         form.onSubmit((Callable) () -> {
-
-            if (form.get("password").equals(form.get("repeatpassword"))) {
-                
-                if(form.get("password") != null){
-                model.setPassword(form.get("password"));
-                
-               }
-
-                model.setUsername(form.get("username"));
-                model.setFname(form.get("fname"));
-                model.setMname(form.get("mname"));
-                model.setLname(form.get("lname"));
-                model.setPhone(form.get("phone"));
-                model.setEe_num(form.get("ee_num"));
-                models.Locations locationsBox = (models.Locations) form.getComboBoxSelected("location_id");
-                model.setLocation_id(locationsBox.getId());
-                Object roleBox = form.getComboBoxSelected("role");
-                String roleString = roleBox.toString();
-                switch (roleString) {
-                    case "Employee":
-                        model.setEmployee(1);
-                        model.setAdmin(0);
-                        model.setManager(0);
-                        break;
-                    case "Manager":
-                        model.setManager(1);
-                        model.setEmployee(0);
-                        model.setAdmin(0);
-                        break;
-                    case "Administrator":
-                        model.setAdmin(1);
-                        model.setManager(0);
-                        model.setEmployee(0);
-                        break;
+            
+            if (!(form.get("username").isEmpty() || form.get("fname").isEmpty()
+                    || form.get("lname").isEmpty() || form.get("phone").isEmpty()
+                    || form.get("ee_num").isEmpty())) {
+                if (form.get("password").equals(form.get("repeatpassword"))) {
+                    if (form.get("password") != null) {
+                        model.setPassword(form.get("password"));
+                    }
+                    model.setUsername(form.get("username"));
+                    model.setFname(form.get("fname"));
+                    model.setMname(form.get("mname"));
+                    model.setLname(form.get("lname"));
+                    model.setPhone(form.get("phone"));
+                    model.setEe_num(form.get("ee_num"));
+                    models.Locations locationsBox = (models.Locations) form.getComboBoxSelected("location_id");
+                    model.setLocation_id(locationsBox.getId());
+                    Object roleBox = form.getComboBoxSelected("role");
+                    String roleString = roleBox.toString();
+                    if (!roleString.isEmpty()) {
+                        switch (roleString) {
+                            case "Employee":
+                                model.setEmployee(1);
+                                model.setAdmin(0);
+                                model.setManager(0);
+                                break;
+                            case "Manager":
+                                model.setManager(1);
+                                model.setEmployee(0);
+                                model.setAdmin(0);
+                                break;
+                            case "Administrator":
+                                model.setAdmin(1);
+                                model.setManager(0);
+                                model.setEmployee(0);
+                                break;
+                        }
+                        db.saveUsers(model);
+                        form.error("User Saved.");
+                    } else {
+                        form.error("Geen rol toegewezen.");
+                    }
+                } else {
+                    form.error("Wachtwoord incorrect.");
                 }
-              db.saveUsers(model);
-              form.error("User Saved.");
-            }
-            else {
-            form.error("Wachtwoord incorrect.");
+            } else {
+                form.error("Niet alle velden ingevuld.");
             }
             return true;
-
-        });
+        }
+        );
 
         view.add(form.toNode(), 1, 2);
 
         UI.setLeft(view);
+
         UI.setCenter(form.toNode());
 
     }
