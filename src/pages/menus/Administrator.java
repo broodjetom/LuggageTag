@@ -40,6 +40,12 @@ public class Administrator {
             return true;
         });
         
+        // Je snapt het idee wel, maar hier is de active state false
+        menu.addMenuItem("Locations", false, (Callable) () -> {
+            pages.Locations page = new pages.Locations(UI, db);
+            return true;
+        });
+        
         menu.addMenuItem("Add category", false, (Callable) () -> {
             pages.AddCategory page = new pages.AddCategory(UI, db);
             return true;

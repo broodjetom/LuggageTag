@@ -32,11 +32,7 @@ public class Manager {
             return true;
         });
 
-        // Je snapt het idee wel, maar hier is de active state false
-        menu.addMenuItem("Locations", false, (Callable) () -> {
-            pages.Locations page = new pages.Locations(UI, db);
-            return true;
-        });
+        
 
         menu.addMenuItem("Stats", false, (Callable) () -> {
             pages.Stats page = new pages.Stats(UI, db);

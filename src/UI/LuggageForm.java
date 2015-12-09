@@ -261,6 +261,25 @@ public class LuggageForm {
      *
      * @param id ID to set for this field
      * @param elements The elements to add to the group of the combobox
+     */
+    public void addComboBox(String id, String[] elements, Boolean required, Object selected) {
+        ComboBox theBox = new ComboBox();
+        theBox.setPromptText("- Select -");
+        theBox.setEditable(true);
+        for (String el : elements) {
+            theBox.getItems().add(el);
+        }
+        theBox.setValue(selected);
+        comboBoxRequired.put(id, required);
+        comboBox.put(id, theBox);
+        add(theBox);
+    }
+    
+    /**
+     * Adds a combobox to the form
+     *
+     * @param id ID to set for this field
+     * @param elements The elements to add to the group of the combobox
      * @param selected The default selected object
      */
     public void addComboBox(String id, ObservableList elements, Object selected) {

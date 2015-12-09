@@ -55,6 +55,9 @@ public class AddCategory {
         form.addSubmitButton("Toevoegen");
         form.addRow();
 
+        form.addLabel("Location: ");
+        form.addTextField("location", false);
+        form.addRow();
         
         
         view.add(form.toNode(), 1, 2);
