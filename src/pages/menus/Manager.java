@@ -27,13 +27,6 @@ public class Manager {
         // Maak nieuw element aan, met de text Search Database
         // Active state is waar
         // En weer op dezelfde methode een eventlistener
-        menu.addMenuItem("Logs", true, (Callable) () -> {
-            pages.Logs page = new pages.Logs(UI, db);
-            return true;
-        });
-
-        
-
         menu.addMenuItem("Stats", false, (Callable) () -> {
             pages.Stats page = new pages.Stats(UI, db);
             return true;

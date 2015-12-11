@@ -133,7 +133,13 @@ public class DatabaseManager {
         boolean addWhere = false;
 
         String query = "SELECT * FROM passenger WHERE ";
-
+        
+        if (model.getId() != 0) {
+            
+            query += "id = " + model.getId() + " AND ";
+            addWhere = true;
+        }
+        
         if (model.getFname() != null) {
             
             query += "fname LIKE '%" + model.getFname() + "%' AND ";
@@ -928,40 +934,37 @@ public class DatabaseManager {
         return results;
     }
 
-    public ObservableList<models.Luggage> getLuggage(int id) throws SQLException {
+    public models.Luggage getLuggage(int id) throws SQLException {
 
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM luggage "
-                + "WHERE id =" + id);
+                + "WHERE id =" + id +" LIMIT 1");
 
-        ObservableList<models.Luggage> results
-                = FXCollections.observableArrayList();
 
-        while (resultSet.next()) {
-            models.Luggage row = new models.Luggage();
-            row.setId(resultSet.getInt("id"));
-            row.setBrand_id(resultSet.getInt("brand_id"));
-            row.setColor_id(resultSet.getInt("color_id"));
-            row.setWeight(resultSet.getInt("weight"));
-            row.setMaterial_id(resultSet.getInt("material_id"));
-            row.setStickers(resultSet.getInt("stickers"));
-            row.setCharacteristic(resultSet.getString("characteristic"));
-            row.setBelt(resultSet.getInt("belt"));
-            row.setType_id(resultSet.getInt("type_id"));
-            row.setLocation_id(resultSet.getInt("location_id"));
-            row.setComment(resultSet.getString("comment"));
-            row.setUsers_id(resultSet.getInt("users_id"));
-            row.setDate_added(resultSet.getString("date_added"));
-            row.setDate_changed(resultSet.getString("date_changed"));
-            row.setDate_finished(resultSet.getString("date_finished"));
-            row.setSituation(resultSet.getString("situation"));
-            row.setPassenger_id(resultSet.getInt("passenger_id"));
-            row.setBrand(getBrand(resultSet.getInt("brand_id")));
-            row.setColor(getColor(resultSet.getInt("color_id")));
-            row.setType(getType(resultSet.getInt("type_id")));
-            row.setMaterial(getMaterial(resultSet.getInt("material_id")));
-            results.add(row);
-        }
+        resultSet.next();
+        models.Luggage row = new models.Luggage();
+        row.setId(resultSet.getInt("id"));
+        row.setBrand_id(resultSet.getInt("brand_id"));
+        row.setColor_id(resultSet.getInt("color_id"));
+        row.setWeight(resultSet.getInt("weight"));
+        row.setMaterial_id(resultSet.getInt("material_id"));
+        row.setStickers(resultSet.getInt("stickers"));
+        row.setCharacteristic(resultSet.getString("characteristic"));
+        row.setBelt(resultSet.getInt("belt"));
+        row.setType_id(resultSet.getInt("type_id"));
+        row.setLocation_id(resultSet.getInt("location_id"));
+        row.setComment(resultSet.getString("comment"));
+        row.setUsers_id(resultSet.getInt("users_id"));
+        row.setDate_added(resultSet.getString("date_added"));
+        row.setDate_changed(resultSet.getString("date_changed"));
+        row.setDate_finished(resultSet.getString("date_finished"));
+        row.setSituation(resultSet.getString("situation"));
+        row.setPassenger_id(resultSet.getInt("passenger_id"));
+        row.setBrand(getBrand(resultSet.getInt("brand_id")));
+        row.setColor(getColor(resultSet.getInt("color_id")));
+        row.setType(getType(resultSet.getInt("type_id")));
+        row.setMaterial(getMaterial(resultSet.getInt("material_id")));
+        row.setLocation(getLocation(resultSet.getInt("location_id")));
 
-        return results;
+        return row;
     }
 }

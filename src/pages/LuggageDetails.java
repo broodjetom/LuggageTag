@@ -90,6 +90,78 @@ public class LuggageDetails {
         form.addLabel("Status:");
         form.addLabel(model.getSituation());
         
+        LuggageForm passengerForm = new LuggageForm(UI);
+        
+        
+        
+        Label heading1 = UI.createHeading("Linked passenger");
+        passengerForm.add(heading1);
+        passengerForm.addRow();
+        
+        if(model.getPassenger_id() != 0){
+            models.Passenger passengerModel = db.getPassenger(model.getPassenger_id());
+            passengerForm.addLabel("Information: ");
+            passengerForm.addLabel(passengerModel.getComment());
+            passengerForm.addRow();
+
+            passengerForm.addLabel("First name:");
+            passengerForm.addLabel(passengerModel.getFname());
+            passengerForm.addRow();
+            passengerForm.addLabel("Insertion:");
+            passengerForm.addLabel(passengerModel.getMname());
+            passengerForm.addRow();
+            passengerForm.addLabel("Last name:");
+            passengerForm.addLabel(passengerModel.getLname());
+            passengerForm.addRow();
+
+            passengerForm.addLabel("Phone number(s):");
+            for (int i = 0; i < passengerModel.getPhone().size(); i++) {
+                if (passengerModel.getPhone().get(i).getPhone().length() != 0) {
+                    passengerForm.addLabel(passengerModel.getPhone().get(i).getPhone());
+                }
+                if (i != passengerModel.getPhone().size()) {
+                    passengerForm.addRow();
+                    passengerForm.addCol();
+                }
+            }
+
+            passengerForm.addRow();
+            passengerForm.addLabel("Address(es):");
+            for (int i = 0; i < passengerModel.getAddress().size(); i++) {
+                if (passengerModel.getAddress().get(i).getAddress().length() != 0) {
+                    passengerForm.addLabel(passengerModel.getAddress().get(i).getFormattedAddress());
+                }
+                if (i != passengerModel.getAddress().size()) {
+                    passengerForm.addRow();
+                    passengerForm.addCol();
+                }
+            }
+            passengerForm.addRow();
+
+            passengerForm.addLabel("Email address(es):");
+            for (int i = 0; i < passengerModel.getEmail().size(); i++) {
+                if (passengerModel.getEmail().get(i).getEmail().length() != 0) {
+                    passengerForm.addLabel(passengerModel.getEmail().get(i).getEmail());
+                }
+                if (i != passengerModel.getEmail().size()) {
+                    passengerForm.addRow();
+                    passengerForm.addCol();
+                }
+            }
+
+            passengerForm.addRow();
+            passengerForm.addSubmitButton("Edit passenger");
+            passengerForm.addRow();
+            passengerForm.addCol();
+            passengerForm.addCol();
+            passengerForm.addLabel("    ");
+            passengerForm.onSubmit((Callable) () -> {
+                EditPassenger page = new EditPassenger(UI, db, passengerModel);
+                return true;
+            });
+        } else {
+            passengerForm.addLabel("No passenger linked to this luggage");
+        }
         
         LuggageTable table = new LuggageTable();
 
@@ -101,31 +173,38 @@ public class LuggageDetails {
 
         String[] topText = {"First name", "Insertion", "Last name", "Date added", "Date edited"}; // texten die bovenaan de tabel verschijnen
         String[] topVars = {"fname", "mname", "lname", "date_added", "date_changed"}; // De variable namen van het object gesorteerd op de topText 
-        // Zoeken naar passenger
-        models.Passenger zoek = new models.Passenger();
-        zoek.setId(model.getPassenger_id());
+        
 
         table.onClick((Callable) () -> {
             models.Passenger row = (models.Passenger) table.getClicked();
             PassengerDetails page = new PassengerDetails(UI, db, row);
             return true;
         });
-
-        ObservableList<models.Passenger> passenger = db.getPassenger(zoek);
+        
+        // Zoeken naar passenger
+        models.Passenger zoek = new models.Passenger();
+        
+        if( model.getPassenger_id() == 0 ){
+            ObservableList<models.Passenger> passenger = null;
+            table.setContent(passenger);
+        } else {
+            zoek.setId(model.getPassenger_id());
+            ObservableList<models.Passenger> passenger = db.getPassenger(zoek);
+            table.setContent(passenger);
+        }
+        
 
         // Set de top rij
         table.setTopRow(topText, topVars);
         // Set de data voor in de tabel
-        table.setContent(passenger);
+        
         
         HBox box = new HBox();
-        LuggageForm form1 = new LuggageForm(UI);
-        Label heading1 = UI.createHeading("Linked passenger");
-        form1.add(heading1);
-        form1.addRow();
-        form1.add(table.getTable());
         
-        box.getChildren().addAll(form.toNode(), form1.toNode());
+        form.setPrefWidth(400.0);
+        passengerForm.setPrefWidth(400.0);
+        
+        box.getChildren().addAll(form.toNode(), passengerForm.toNode());
 
         view.add(box, 0, 0);
         

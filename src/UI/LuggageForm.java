@@ -486,4 +486,12 @@ public class LuggageForm {
             Logger.getLogger(LuggageUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void setPrefWidth(Double width){
+        this.grid.prefWidth(width);
+    }
+    
+    public void setPrefHeight(Double height){
+        this.grid.prefHeight(height);
+    }
 }

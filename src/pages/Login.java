@@ -71,7 +71,7 @@ public class Login {
                     SearchCustomer searchLuggage = new SearchCustomer(UI, db);
                 } else if (USER.getUser().getManager() != 0) {
                     pages.menus.Manager menu = new pages.menus.Manager(UI, db);
-                    Logs logs = new Logs(UI, db);
+                    Stats stats = new Stats(UI, db);
                 } else if (USER.getUser().getAdmin() != 0) {
                     pages.menus.Administrator menu = new pages.menus.Administrator(UI, db);
                     pages.UsersPage users = new pages.UsersPage(UI, db);
