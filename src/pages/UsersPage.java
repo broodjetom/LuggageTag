@@ -147,4 +147,14 @@ public class UsersPage {
         // Zet in de top van de BorderPane
         UI.setCenter(table.getTable());
     }
+    
+//    public String checkmark(String input){
+//        char mark;
+//        if (input.equals("1")) {
+//            mark = '\u2713';
+//        } else {
+//            mark = '\u2717';
+//        }
+//        return ""+mark;
+//    }
 }
