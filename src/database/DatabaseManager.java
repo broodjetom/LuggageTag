@@ -472,7 +472,7 @@ public class DatabaseManager {
                     + "WHERE id = " + model.getId());
 
         } else {
-            databaseconnection.executeQuery("INSERT INTO brands (`brand`) "
+            databaseconnection.executeUpdate("INSERT INTO brands (`brand`) "
                     + "VALUES ('" + model.getBrand() + "')");
 
         }
@@ -533,7 +533,7 @@ public class DatabaseManager {
                     + "WHERE id =" + model.getId());
 
         } else {
-            databaseconnection.executeQuery("INSERT INTO colors (`color`) "
+            databaseconnection.executeUpdate("INSERT INTO colors (`color`) "
                     + "VALUES (\"" + model.getColor() + "\")");
 
         }
@@ -654,7 +654,7 @@ public class DatabaseManager {
                     + "WHERE id =" + model.getId());
 
         } else {
-            databaseconnection.executeQuery("INSERT INTO types (`type`) "
+            databaseconnection.executeUpdate("INSERT INTO types (`type`) "
                     + "VALUES (\"" + model.getType() + "\")");
         }
     }

@@ -12,7 +12,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
 
 /**
- * @author ________ Jimmy van Wieringen Student nummer:_ 500728110 Groep:__________ IS102
+ * @author Tom Scholten
+ * @class screen to add a passenger to database
+ * @date 07-12-15
  */
 public class AddPassenger {
 

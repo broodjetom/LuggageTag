@@ -12,8 +12,8 @@ import javafx.scene.layout.GridPane;
 
 /**
  * @Author Tom Scholten
- * @Class
- * @Date
+ * @Class add user
+ * @Date 04-12-15
  */
 public class AddUser {
 
@@ -71,6 +71,8 @@ public class AddUser {
         form.addLabel("Role: ");
         form.addComboBox("role", new String[]{"Employee", "Manager", "Administrator"});
 
+        
+        
         form.addRow();
         form.addLabel("Location: ");
         ObservableList<models.Locations> locationModel = this.db.getLocations();
