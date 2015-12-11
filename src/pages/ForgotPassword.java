@@ -16,7 +16,9 @@ import javafx.scene.layout.GridPane;
 
 /**
  *
- * @author Thomas
+ * @author Tom Scholten
+ * @class Forgot password screen
+ * @date 11-12-15
  */
 public class ForgotPassword {
 
@@ -28,36 +30,26 @@ public class ForgotPassword {
 
     public ForgotPassword(LuggageUI UI, DatabaseManager db) {
         view.setPadding(new Insets(50, 50, 50, 50));
-        
+
         Label heading = UI.createHeading("Recover password");
         view.add(heading, 1, 1);
-        
+
         LuggageForm form = new LuggageForm(UI);
         form.add(heading);
         form.addRow();
-        
-        form.addLabel("Email: ");
-        form.addTextField("email", true);
+
+        form.addLabel("If you forgot your password, go to a administrator to change it.");
         form.addRow();
-        
-        Button goBack = UI.createGreyButton("Cancel", true, (Callable) () -> {
-            Login login = new Login(UI, db);
+        form.addSubmitButton("Back");
+        form.onSubmit((Callable) () -> {
+
+            pages.Login page = new pages.Login(UI, db);
             return true;
         });
-
-        form.add(goBack);
-        
-        form.addSubmitButton("Recover");
-        form.onSubmit( (Callable) () -> {
-            String emailValue = form.get("email");
-
-            return true;
-        });
-            
 
         view.add(form.toNode(), 1, 3);
-        
+
         UI.setCenter(view);
-        
+
     }
 }

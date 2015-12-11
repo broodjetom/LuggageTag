@@ -55,8 +55,8 @@ public class Login {
             return true;
         });
 
-        //form.add(forgotPassword);
-        form.addCol();
+        form.add(forgotPassword);
+        
 
         form.addSubmitButton("Log In");
         form.onSubmit((Callable) () -> {
