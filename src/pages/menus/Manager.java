@@ -32,6 +32,11 @@ public class Manager {
             return true;
         });
         
+        menu.addMenuItem("Help", false, (Callable)()-> {
+            pages.F1Screen page = new pages.F1Screen(UI, db);
+            return true;
+        });
+        
         menu.addMenuItem("Logout", false, (Callable) () -> {
             USER.logout();
             UI.reset();
