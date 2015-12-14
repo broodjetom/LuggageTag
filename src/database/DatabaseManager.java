@@ -30,8 +30,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Saves data, stored in passenger object, to database. if id is stored, the
-     * data will be updated, otherwise it will be saved as a new record.
+     * Saves data, stored in passenger object, to database. if id is stored, the data will be
+     * updated, otherwise it will be saved as a new record.
      *
      * @param models.Passenger(), object of passenger
      * @return
@@ -121,8 +121,7 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table passenger, which can be presented in
-     * a table.
+     * Returns a list of records form table passenger, which can be presented in a table.
      *
      * @param model
      * @return ObservableList
@@ -133,15 +132,15 @@ public class DatabaseManager {
         boolean addWhere = false;
 
         String query = "SELECT * FROM passenger WHERE ";
-        
+
         if (model.getId() != 0) {
-            
+
             query += "id = " + model.getId() + " AND ";
             addWhere = true;
         }
-        
+
         if (model.getFname() != null) {
-            
+
             query += "fname LIKE '%" + model.getFname() + "%' AND ";
             addWhere = true;
         }
@@ -161,7 +160,7 @@ public class DatabaseManager {
         } else {
             query = query.substring(0, query.length() - 6);
         }
-        
+
         ResultSet resultSet = databaseconnection.executeSelect(query);
 
         ObservableList<models.Passenger> results
@@ -195,15 +194,15 @@ public class DatabaseManager {
     public int getLastInsertId(String table) throws SQLException {
         ResultSet resultSet = databaseconnection.executeSelect("SELECT id FROM "
                 + table + " WHERE id = last_insert_id()");
-        
+
         resultSet.next();
         int id = resultSet.getInt("id");
         return id;
     }
 
     /**
-     * Saves data, stored in Users object, to database. if id is stored, the
-     * data will be updated, otherwise it will be saved as a new record.
+     * Saves data, stored in Users object, to database. if id is stored, the data will be updated,
+     * otherwise it will be saved as a new record.
      *
      * @param model.Users(), object of Users.
      * @throws SQLException
@@ -232,8 +231,7 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Users, which can be presented in a
-     * table.
+     * Returns a list of records form table Users, which can be presented in a table.
      *
      * @return ObservableList
      * @throws SQLException
@@ -294,8 +292,6 @@ public class DatabaseManager {
         } else {
             query = query.substring(0, query.length() - 6);
         }
-
-        
 
         ResultSet resultSet = databaseconnection.executeSelect(query);
 
@@ -385,8 +381,8 @@ public class DatabaseManager {
     }
 
     /**
-     * Saves data, stored in Locations object, to database. if id is stored, the
-     * data will be updated, otherwise it will be saved as a new record.
+     * Saves data, stored in Locations object, to database. if id is stored, the data will be
+     * updated, otherwise it will be saved as a new record.
      *
      * @param model.Locations(), object from Locations
      * @return
@@ -394,19 +390,21 @@ public class DatabaseManager {
      */
     public models.Locations saveLocation(models.Locations model) throws SQLException {
         if (model.getId() != 0) {
-            databaseconnection.executeUpdate("UPDATE locations SET location = \'" + model.getLocation() + "\' "
+            databaseconnection.executeUpdate("UPDATE locations SET location = '"
+                    + model.getLocation() + "', address='" + model.getAddress() + "', zip ='"
+                    + model.getZip() + "', land ='" + model.getLand() + "'"
                     + "WHERE id = " + model.getId());
 
         } else {
-            databaseconnection.executeQuery("INSERT INTO locations (`location`) "
-                    + "VALUES (\"" + model.getLocation() + "\")");
+            databaseconnection.executeUpdate("INSERT INTO locations (`location`, `address`,`zip`,`land`) "
+                    + "VALUES ('" + model.getLocation() + "', '" + model.getAddress() + "', '"
+                    + model.getZip() + "', '" + model.getLand() + "')");
         }
         return model;
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in
-     * a table.
+     * Returns a list of records form table Locations, which can be presented in a table.
      *
      * @return ObservableList
      * @throws SQLException
@@ -422,14 +420,16 @@ public class DatabaseManager {
             models.Locations row = new models.Locations();
             row.setId(resultSet.getInt("id"));
             row.setLocation(resultSet.getString("location"));
+            row.setAddress(resultSet.getString("address"));
+            row.setZip(resultSet.getString("zip"));
+            row.setLand(resultSet.getString("land"));
             results.add(row);
         }
         return results;
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in
-     * a table.
+     * Returns a list of records form table Locations, which can be presented in a table.
      *
      * @param id
      * @return ObservableList
@@ -444,21 +444,23 @@ public class DatabaseManager {
         models.Locations row = new models.Locations();
         row.setId(resultSet.getInt("id"));
         row.setLocation(resultSet.getString("location"));
+        row.setAddress(resultSet.getString("address"));
+        row.setZip(resultSet.getString("zip"));
+        row.setLand(resultSet.getString("land"));
         return row;
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in
-     * a table.
+     * Returns a list of records form table Locations, which can be presented in a table.
      *
      * @param location
      * @return ObservableList
      * @throws SQLException
      */
-    public ObservableList<models.Locations> getLocation(String location) throws SQLException {
+    public ObservableList<models.Locations> getLocation(models.Locations model) throws SQLException {
         // Krijg resultaten als Passenger
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM locations "
-                + "WHERE location=\"" + location + "\"");
+                + "WHERE location = '" + model.getLocation() + "'");
 
         ObservableList<models.Locations> results
                 = FXCollections.observableArrayList();
@@ -467,6 +469,9 @@ public class DatabaseManager {
             models.Locations row = new models.Locations();
             row.setId(resultSet.getInt("id"));
             row.setLocation(resultSet.getString("location"));
+            row.setAddress(resultSet.getString("address"));
+            row.setZip(resultSet.getString("zip"));
+            row.setLand(resultSet.getString("land"));
             results.add(row);
         }
         return results;
@@ -600,7 +605,7 @@ public class DatabaseManager {
                     + model.getMaterial() + " WHERE id = " + model.getId());
 
         } else {
-            databaseconnection.executeQuery("INSERT INTO materials (`material`) "
+            databaseconnection.executeUpdate("INSERT INTO materials (`material`) "
                     + "VALUES (\"" + model.getMaterial() + "\")");
         }
     }
@@ -723,7 +728,7 @@ public class DatabaseManager {
             databaseconnection.executeUpdate("INSERT INTO phone (`passenger_id`, `phone`)"
                     + " VALUES (" + model.getPassenger_id()
                     + ", '" + model.getPhone() + "')");
-            
+
             model.setId(getLastInsertId("phone"));
         }
         return model;
@@ -885,8 +890,8 @@ public class DatabaseManager {
             query += "passenger_id = " + model.getLocation_id() + " AND ";
             addWhere = true;
         }
-        
-        if (model.getSituation() != null){
+
+        if (model.getSituation() != null) {
             query += "situation = " + model.getSituation() + " AND ";
         }
 
@@ -898,7 +903,6 @@ public class DatabaseManager {
 
         query += " ORDER BY date_changed DESC";
 
-        
         ResultSet resultSet = databaseconnection.executeSelect(query);
 
         ObservableList<models.Luggage> results
@@ -937,8 +941,7 @@ public class DatabaseManager {
     public models.Luggage getLuggage(int id) throws SQLException {
 
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM luggage "
-                + "WHERE id =" + id +" LIMIT 1");
-
+                + "WHERE id =" + id + " LIMIT 1");
 
         resultSet.next();
         models.Luggage row = new models.Luggage();

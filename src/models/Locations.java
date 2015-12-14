@@ -9,6 +9,33 @@ public class Locations {
 
     private int id = 0;
     private String location;
+    private String address;
+    private String zip;
+    private String land;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getLand() {
+        return land;
+    }
+
+    public void setLand(String land) {
+        this.land = land;
+    }
 
     /**
      *

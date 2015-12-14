@@ -36,7 +36,7 @@ public class AddCategory {
 
         LuggageForm form = new LuggageForm(UI);
         form.add(heading);
-        
+
         form.addRow();
         LuggageForm brandForm = new LuggageForm(UI);
         brandForm.addLabel("Brand:\t\t");
@@ -46,13 +46,14 @@ public class AddCategory {
             if (brandForm.get("brand").isEmpty()) {
                 brandForm.error("Field is empty");
             } else {
-            models.Brands brandModel = new models.Brands();
-            brandModel.setBrand(brandForm.get("brand"));
-            db.saveBrand(brandModel);
-            brandForm.error("Brand saved!"); }
+                models.Brands brandModel = new models.Brands();
+                brandModel.setBrand(brandForm.get("brand"));
+                db.saveBrand(brandModel);
+                brandForm.error("Brand saved!");
+            }
             return true;
         });
-        
+
         brandForm.addRow();
         LuggageForm colorForm = new LuggageForm(UI);
         colorForm.addLabel("Color:\t\t");
@@ -62,37 +63,38 @@ public class AddCategory {
             if (colorForm.get("color").isEmpty()) {
                 colorForm.error("Field is empty!");
             } else {
-            models.Colors colorModel = new models.Colors();
-            colorModel.setColor(colorForm.get("color"));
-            db.saveColor(colorModel);
-            colorForm.error("Color saved!");}
+                models.Colors colorModel = new models.Colors();
+                colorModel.setColor(colorForm.get("color"));
+                db.saveColor(colorModel);
+                colorForm.error("Color saved!");
+            }
             return true;
         });
-        
+
         colorForm.addRow();
         LuggageForm materialForm = new LuggageForm(UI);
         materialForm.addLabel("Material:\t");
         materialForm.addTextField("material", false);
         materialForm.addSubmitButton("Toevoegen");
-        materialForm.onSubmit((Callable)()-> {
+        materialForm.onSubmit((Callable) () -> {
             if (materialForm.get("material").isEmpty()) {
                 materialForm.error("Field is empty!");
             } else {
-            models.Materials materialModel = new models.Materials();
-            materialModel.setMaterial(materialForm.get("material"));
-            db.saveMaterial(materialModel);
-            materialForm.error("Material saved!");
-            } 
+                models.Materials materialModel = new models.Materials();
+                materialModel.setMaterial(materialForm.get("material"));
+                db.saveMaterial(materialModel);
+                materialForm.error("Material saved!");
+            }
             return true;
         });
-        
-        
+
         materialForm.addRow();
         LuggageForm typeForm = new LuggageForm(UI);
         typeForm.addLabel("Type:\t\t");
         typeForm.addTextField("type", false);
+
         typeForm.addSubmitButton("Toevoegen");
-        typeForm.onSubmit((Callable)() -> {
+        typeForm.onSubmit((Callable) () -> {
             if (typeForm.get("type").isEmpty()) {
                 typeForm.error("Field is empty!");
             } else {
@@ -107,23 +109,32 @@ public class AddCategory {
         typeForm.addRow();
         LuggageForm locationForm = new LuggageForm(UI);
         locationForm.addLabel("Location:\t");
-        locationForm.addTextField("location", false);
+        locationForm.addTextField("location", true);
+        locationForm.addLabel("Address:");
+        locationForm.addTextField("address", true);
+        locationForm.addLabel("Zip:");
+        locationForm.addTextField("zip", true);
+        locationForm.addLabel("Country:");
+        locationForm.addTextField("land", true);
         locationForm.addSubmitButton("Toevoegen");
-        locationForm.onSubmit((Callable)() -> {
+        locationForm.onSubmit((Callable) () -> {
             if (locationForm.get("location").isEmpty()) {
                 locationForm.error("Field is empty!");
             } else {
                 models.Locations locationModel = new models.Locations();
                 locationModel.setLocation(locationForm.get("location"));
+                locationModel.setAddress(locationForm.get("address"));
+                locationModel.setZip(locationForm.get("zip"));
+                locationModel.setLand(locationForm.get("land"));
                 db.saveLocation(locationModel);
                 locationForm.error("Location saved!");
             }
             return true;
         });
-        
-        vBox.getChildren().addAll(form.toNode(), brandForm.toNode(), colorForm.toNode(), materialForm.toNode(), 
+
+        vBox.getChildren().addAll(form.toNode(), brandForm.toNode(), colorForm.toNode(), materialForm.toNode(),
                 typeForm.toNode(), locationForm.toNode());
-        
+
         view.add(vBox, 1, 2);
 
         UI.setCenter(view);
