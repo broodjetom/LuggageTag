@@ -72,6 +72,7 @@ public class Locations {
         form.addTextField("location", false);
 
         form.addRow();
+        form.addCol();
         form.addSubmitButton("Search");
         form.onSubmit((Callable)()-> {
             models.Locations newZoek = new models.Locations();

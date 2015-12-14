@@ -84,7 +84,7 @@ public class EditUser {
         form.addComboBox("role", new String[]{"Employee", "Manager", "Administrator"}, false, role);
 
         form.addRow();
-        form.addLabel("location");
+        form.addLabel("Location:");
         ObservableList<models.Locations> locationModel = this.db.getLocations();
         form.addComboBox("location_id", locationModel, false, model.getLocation());
 
