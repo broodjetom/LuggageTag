@@ -18,7 +18,7 @@ import javafx.scene.layout.GridPane;
 
 /**
  *
- * @author Alex
+ * @author Tom Scholten
  */
 public class F1Screen {
 

@@ -18,7 +18,9 @@ import javafx.scene.layout.GridPane;
 
 /**
  *
- * @author Alex
+ * @author Tom Scholten
+ * @class Show a table of locations.
+ * @date 14-12-15
  */
 public class Locations {
 

@@ -12,8 +12,8 @@ import javafx.scene.layout.VBox;
 
 /**
  * @Author Tom Scholten
- * @Class
- * @Date
+ * @Class Add categories to luggage tag application, for brands, colors, types, materials, and locations.
+ * @Date 11-12-15
  */
 public class AddCategory {
 
