@@ -9,6 +9,7 @@ import UI.LuggageForm;
 import UI.LuggageTable;
 import UI.LuggageUI;
 import database.DatabaseManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.concurrent.Callable;
 import javafx.collections.ObservableList;
@@ -29,10 +30,10 @@ public class UsersPage {
 
     private static final user.Session USER = user.Session.getInstance();
 
-    public UsersPage(LuggageUI UI, DatabaseManager db) throws SQLException {
+    public UsersPage(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;
-        this.db = db;
+        this.db = DatabaseManager.getInstance();
 
         view.setPadding(new Insets(50, 50, 50, 50));
 
@@ -42,7 +43,7 @@ public class UsersPage {
         
         table.onClick((Callable) () -> {
             models.Users row = (models.Users)table.getClicked();
-            EditUser edit = new EditUser(UI, db, row);
+            EditUser edit = new EditUser(UI, row);
             return true;
         });
 

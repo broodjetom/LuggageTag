@@ -5,6 +5,7 @@ import UI.LuggageForm;
 import UI.LuggageTable;
 import UI.LuggageUI;
 import database.DatabaseManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.concurrent.Callable;
@@ -25,10 +26,10 @@ public class SearchCustomer {
 
     private static final user.Session USER = user.Session.getInstance();
 
-    public SearchCustomer(LuggageUI UI, DatabaseManager db) throws SQLException {
+    public SearchCustomer(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;
-        this.db = db;
+        this.db = DatabaseManager.getInstance();
 
         view.setPadding(new Insets(50, 50, 50, 50));
         
@@ -38,7 +39,7 @@ public class SearchCustomer {
         
         table.onClick((Callable) () -> {
             models.Passenger row = (models.Passenger)table.getClicked();
-            PassengerDetails page = new PassengerDetails(UI, db, row);
+            PassengerDetails page = new PassengerDetails(UI, row);
             return true;
         });
 

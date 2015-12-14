@@ -28,7 +28,7 @@ public class ForgotPassword {
 
     private static final user.Session USER = user.Session.getInstance();
 
-    public ForgotPassword(LuggageUI UI, DatabaseManager db) {
+    public ForgotPassword(LuggageUI UI) {
         view.setPadding(new Insets(50, 50, 50, 50));
 
         Label heading = UI.createHeading("Recover password");
@@ -43,7 +43,7 @@ public class ForgotPassword {
         form.addSubmitButton("Back");
         form.onSubmit((Callable) () -> {
 
-            pages.Login page = new pages.Login(UI, db);
+            pages.Login page = new pages.Login(UI);
             return true;
         });
 

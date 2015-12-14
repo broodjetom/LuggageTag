@@ -3,6 +3,7 @@ package pages;
 import UI.LuggageForm;
 import UI.LuggageUI;
 import database.DatabaseManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.concurrent.Callable;
 import javafx.geometry.Insets;
@@ -23,10 +24,10 @@ public class AddCategory {
 
     private static final user.Session USER = user.Session.getInstance();
 
-    public AddCategory(LuggageUI UI, DatabaseManager db) throws SQLException {
+    public AddCategory(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;
-        this.db = db;
+        this.db = DatabaseManager.getInstance();
 
         view.setPadding(new Insets(50, 50, 50, 50));
 

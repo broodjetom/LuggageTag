@@ -9,6 +9,7 @@ import UI.LuggageForm;
 import UI.LuggageTable;
 import UI.LuggageUI;
 import database.DatabaseManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.concurrent.Callable;
 import javafx.collections.ObservableList;
@@ -30,9 +31,9 @@ public class PassengerDetails {
 
     private static final user.Session USER = user.Session.getInstance();
 
-    public PassengerDetails(LuggageUI UI, DatabaseManager db, models.Passenger model) throws SQLException {
+    public PassengerDetails(LuggageUI UI, models.Passenger model) throws SQLException, IOException {
         this.UI = UI;
-        this.db = db;
+        this.db = DatabaseManager.getInstance();
 
         view.setPadding(new Insets(50, 50, 50, 50));
 
@@ -99,7 +100,7 @@ public class PassengerDetails {
         form.addCol();
         form.addLabel("    ");
         form.onSubmit((Callable) () -> {
-            EditPassenger page = new EditPassenger(UI, db, model);
+            EditPassenger page = new EditPassenger(UI, model);
             return true;
         });
 
@@ -107,7 +108,7 @@ public class PassengerDetails {
 
         table.onClick((Callable) () -> {
             models.Luggage row = (models.Luggage) table.getClicked();
-            EditLuggage page = new EditLuggage(UI, db, row);
+            EditLuggage page = new EditLuggage(UI, row);
             return true;
         });
 
@@ -120,7 +121,7 @@ public class PassengerDetails {
 
         table.onClick((Callable) () -> {
             models.Luggage row = (models.Luggage) table.getClicked();
-            LuggageDetails page = new LuggageDetails(UI, db, row);
+            LuggageDetails page = new LuggageDetails(UI, row);
             return true;
         });
 

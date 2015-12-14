@@ -9,6 +9,7 @@ import UI.LuggageForm;
 import UI.LuggageTable;
 import UI.LuggageUI;
 import database.DatabaseManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.concurrent.Callable;
@@ -29,11 +30,13 @@ public class SearchLuggage {
 
     private static final user.Session USER = user.Session.getInstance();
 
-    public SearchLuggage(LuggageUI UI, DatabaseManager db) throws SQLException {
+    public SearchLuggage(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;
-        this.db = db;
-
+        this.db = DatabaseManager.getInstance();
+        
+        UI.setCurPage("SearchLuggage");
+        
         view.setPadding(new Insets(50, 50, 50, 50));
         
         UI.setTitle("Search Database");
@@ -42,7 +45,7 @@ public class SearchLuggage {
         
         table.onClick((Callable) () -> {
             models.Luggage row = (models.Luggage)table.getClicked();
-            LuggageDetails page = new LuggageDetails(UI, db, row);
+            LuggageDetails page = new LuggageDetails(UI, row);
             return true;
         });
 

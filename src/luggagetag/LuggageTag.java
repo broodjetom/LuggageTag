@@ -37,12 +37,14 @@ public class LuggageTag extends Application {
     */
     @Override
     public void start(Stage primaryStage) throws SQLException, IOException {
-        this.db = new DatabaseManager();
+        this.db = DatabaseManager.getInstance();
         this.UI = new LuggageUI(primaryStage);
+        
+        
         
         UI.setTitle("Welcome");
         
-        Login login = new Login(UI, db);
+        Login login = new Login(UI);
         
         UI.show();
 

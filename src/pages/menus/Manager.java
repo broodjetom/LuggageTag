@@ -13,13 +13,10 @@ import pages.*;
 public class Manager {
 
     private LuggageUI UI;
-    private DatabaseManager db;
-
     private static final user.Session USER = user.Session.getInstance();
 
-    public Manager(LuggageUI UI, DatabaseManager db) {
+    public Manager(LuggageUI UI) {
         this.UI = UI;
-        this.db = db;
 
         // Maak een nieuwe menu aan met de LuggageMenu class, deze is wel beetje buggy nog
         LuggageMenu menu = new LuggageMenu(UI);
@@ -28,19 +25,19 @@ public class Manager {
         // Active state is waar
         // En weer op dezelfde methode een eventlistener
         menu.addMenuItem("Stats", false, (Callable) () -> {
-            pages.Stats page = new pages.Stats(UI, db);
+            pages.Stats page = new pages.Stats(UI);
             return true;
         });
         
-        menu.addMenuItem("Help", false, (Callable)()-> {
-            pages.F1Screen page = new pages.F1Screen(UI, db);
-            return true;
-        });
+        /* menu.addMenuItem("Help", false, (Callable)()-> {
+        pages.F1Screen page = new pages.F1Screen(UI);
+        return true;
+        });*/
         
         menu.addMenuItem("Logout", false, (Callable) () -> {
             USER.logout();
             UI.reset();
-            pages.Login page = new pages.Login(UI, db);
+            pages.Login page = new pages.Login(UI);
             return true;
         });
         UI.setTop(

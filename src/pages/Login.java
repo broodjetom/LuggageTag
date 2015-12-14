@@ -7,6 +7,8 @@ package pages;
 
 import UI.*;
 import database.DatabaseManager;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.concurrent.Callable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -28,10 +30,10 @@ public class Login {
 
     public GridPane view = new GridPane();
 
-    public Login(LuggageUI UI, DatabaseManager db) {
+    public Login(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;
-        this.db = db;
+        this.db = DatabaseManager.getInstance();
 
         view.setPadding(new Insets(50, 50, 50, 50));
 
@@ -51,7 +53,7 @@ public class Login {
         form.addRow();
 
         Button forgotPassword = UI.createGreyButton("Wachtwoord vergeten", false, (Callable) () -> {
-            ForgotPassword ForgotPassword = new ForgotPassword(UI, db);
+            ForgotPassword ForgotPassword = new ForgotPassword(UI);
             return true;
         });
 
@@ -67,14 +69,14 @@ public class Login {
             if (db.getCorrectForLogin(emailValue, passwordValue)) {
                 USER.setUser(db.getUserForLogin(emailValue, passwordValue));
                 if (USER.getUser().getEmployee() != 0) {
-                    pages.menus.Employee menu = new pages.menus.Employee(UI, db);
-                    SearchCustomer searchLuggage = new SearchCustomer(UI, db);
+                    pages.menus.Employee menu = new pages.menus.Employee(UI);
+                    SearchCustomer searchLuggage = new SearchCustomer(UI);
                 } else if (USER.getUser().getManager() != 0) {
-                    pages.menus.Manager menu = new pages.menus.Manager(UI, db);
-                    Stats stats = new Stats(UI, db);
+                    pages.menus.Manager menu = new pages.menus.Manager(UI);
+                    Stats stats = new Stats(UI);
                 } else if (USER.getUser().getAdmin() != 0) {
-                    pages.menus.Administrator menu = new pages.menus.Administrator(UI, db);
-                    pages.UsersPage users = new pages.UsersPage(UI, db);
+                    pages.menus.Administrator menu = new pages.menus.Administrator(UI);
+                    pages.UsersPage users = new pages.UsersPage(UI);
                 }
             } else {
                 form.error("Email en/of wachtwoord incorrect\nProbeer het met andere gegevens\nOf ga naar uw manager");

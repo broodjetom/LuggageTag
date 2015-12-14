@@ -4,13 +4,17 @@ import UI.LuggageForm;
 import UI.LuggageTable;
 import UI.LuggageUI;
 import database.DatabaseManager;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.HBox;
 
 /**
@@ -28,10 +32,10 @@ public class AddLuggage {
     private models.Passenger passengerModel = new models.Passenger();
     private static final user.Session USER = user.Session.getInstance();
 
-    public AddLuggage(LuggageUI UI, DatabaseManager db) throws SQLException {
+    public AddLuggage(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;
-        this.db = db;
+        this.db = DatabaseManager.getInstance();
 
         view.setPadding(new Insets(50, 50, 50, 50));
 
@@ -96,14 +100,24 @@ public class AddLuggage {
 
         
         LuggageTable table = new LuggageTable();
-        
+
         table.onClick((Callable) () -> {
             passengerModel = (models.Passenger) table.getClicked();
-            System.out.println(passengerModel.getId());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Link new user");
+            alert.setHeaderText("You're about to change the linked passenger");
+            alert.setContentText("Cange passenger to " + passengerModel.getFullName() + "?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                
+            } else {
+                passengerModel = null;
+            }
             return true;
         });
 
-        String[] topText = {"First name", "Insertion", "Last name", "Date added", "Date changed"}; // texten die bovenaan de tabel verschijnen
+        String[] topText = {"First name", "Insertion", "Last name", "Date added", "Date edited"}; // texten die bovenaan de tabel verschijnen
         String[] topVars = {"fname", "mname", "lname", "date_added", "date_changed"}; // De variable namen van het object gesorteerd op de topText 
 
         models.Passenger zoek = new models.Passenger();
@@ -113,6 +127,35 @@ public class AddLuggage {
         table.setTopRow(topText, topVars);
 
         table.setContent(passengers);
+        
+        LuggageForm form2 = new LuggageForm(UI);
+        form2.addLabel("First name: ");
+        form2.addTextField("fname", false);
+        form2.addRow();
+        
+        form2.addLabel("Insertion: ");
+        form2.addTextField("mname", false);
+        form2.addRow();
+        
+        form2.addLabel("Last name: ");
+        form2.addTextField("lname", false);
+        form2.addRow();
+        
+        form2.addCol();
+        form2.addSubmitButton("Search");
+        form2.addRow();
+        form2.onSubmit((Callable) () -> {
+            models.Passenger zoekNew = new models.Passenger();
+            
+            zoekNew.setFname(form2.get("fname"));
+            zoekNew.setMname(form2.get("mname"));
+            zoekNew.setLname(form2.get("lname"));
+            
+            ObservableList<models.Passenger> passengersZoek = db.getPassenger( zoekNew );
+            
+            table.setContent(passengersZoek);
+            return true;
+        });
 
         form.addRow();
         form.addCol();
@@ -170,7 +213,7 @@ public class AddLuggage {
             if ("Verloren".equals(form.get("status"))) {
                 System.out.println("in de if statement");
                 luggageModel.setPassenger_id(passengerModel.getId());
-                form.error("Passenger" + passengerModel.getFname() + passengerModel.getMname() + passengerModel.getLname());
+                form.error("Passenger" + passengerModel.getFullName());
             }
             form.error("overgeslagen");
             luggageModel.setUsers_id(USER.getUser().getId());
@@ -184,8 +227,9 @@ public class AddLuggage {
         
         HBox box = new HBox();
         box.getChildren().addAll(form.toNode(), table.getTable());
-
-        view.add(box, 0, 0);
+        
+        view.add(form2.toNode(), 0, 0);
+        view.add(box, 0, 1);
 
         UI.setLeft(view);
         // Zet in de top van de BorderPane  

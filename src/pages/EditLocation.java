@@ -3,6 +3,8 @@ package pages;
 import UI.LuggageForm;
 import UI.LuggageUI;
 import database.DatabaseManager;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.concurrent.Callable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -21,10 +23,10 @@ public class EditLocation {
 
     private static final user.Session USER = user.Session.getInstance();
 
-    public EditLocation(LuggageUI UI, DatabaseManager db, models.Locations model) {
+    public EditLocation(LuggageUI UI, models.Locations model) throws SQLException, IOException {
 
         this.UI = UI;
-        this.db = db;
+        this.db = DatabaseManager.getInstance();
 
         UI.setTitle("Edit Location");
 

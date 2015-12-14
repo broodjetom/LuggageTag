@@ -9,13 +9,20 @@ import UI.LuggageForm;
 import UI.LuggageTable;
 import UI.LuggageUI;
 import database.DatabaseManager;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -30,9 +37,9 @@ public class LuggageDetails {
     private models.Passenger passengerModel = new models.Passenger();
     private static final user.Session USER = user.Session.getInstance();
     
-    public LuggageDetails(LuggageUI UI, DatabaseManager db, models.Luggage model) throws SQLException {
+    public LuggageDetails(LuggageUI UI, models.Luggage model) throws SQLException, IOException {
         this.UI = UI;
-        this.db = db;
+        this.db = DatabaseManager.getInstance();
 
         view.setPadding(new Insets(50, 50, 50, 50));
         
@@ -89,6 +96,15 @@ public class LuggageDetails {
         form.addRow();
         form.addLabel("Status:");
         form.addLabel(model.getSituation());
+        
+        form.addRow();
+        form.addSubmitButton("Edit Luggage");
+        
+        form.onSubmit((Callable) () -> {
+            EditLuggage luggagePage = new EditLuggage(UI, model);
+            return true;
+        });
+        
         
         LuggageForm passengerForm = new LuggageForm(UI);
         
@@ -156,57 +172,52 @@ public class LuggageDetails {
             passengerForm.addCol();
             passengerForm.addLabel("    ");
             passengerForm.onSubmit((Callable) () -> {
-                EditPassenger page = new EditPassenger(UI, db, passengerModel);
+                EditPassenger page = new EditPassenger(UI, passengerModel);
                 return true;
             });
         } else {
             passengerForm.addLabel("No passenger linked to this luggage");
         }
         
-        LuggageTable table = new LuggageTable();
-
+       /* LuggageTable table = new LuggageTable();
+        
         table.onClick((Callable) () -> {
-            models.Luggage row = (models.Luggage) table.getClicked();
-            EditLuggage page = new EditLuggage(UI, db, row);
+            passengerModel = (models.Passenger) table.getClicked();
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Link new user");
+            alert.setHeaderText("You're about to change the linked passenger to: "+ passengerModel.getFullName());
+            alert.setContentText("Are you sure?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                // ... user chose OK
+            } else {
+                // ... user chose CANCEL or closed the dialog
+            }
             return true;
         });
 
         String[] topText = {"First name", "Insertion", "Last name", "Date added", "Date edited"}; // texten die bovenaan de tabel verschijnen
         String[] topVars = {"fname", "mname", "lname", "date_added", "date_changed"}; // De variable namen van het object gesorteerd op de topText 
-        
 
-        table.onClick((Callable) () -> {
-            models.Passenger row = (models.Passenger) table.getClicked();
-            PassengerDetails page = new PassengerDetails(UI, db, row);
-            return true;
-        });
-        
-        // Zoeken naar passenger
         models.Passenger zoek = new models.Passenger();
-        
-        if( model.getPassenger_id() == 0 ){
-            ObservableList<models.Passenger> passenger = null;
-            table.setContent(passenger);
-        } else {
-            zoek.setId(model.getPassenger_id());
-            ObservableList<models.Passenger> passenger = db.getPassenger(zoek);
-            table.setContent(passenger);
-        }
-        
 
-        // Set de top rij
+        ObservableList<models.Passenger> passengers = db.getPassenger(zoek);
+
         table.setTopRow(topText, topVars);
-        // Set de data voor in de tabel
-        
-        
+
+        table.setContent(passengers);
+        */
         HBox box = new HBox();
+        VBox vbox = new VBox();
         
-        form.setPrefWidth(400.0);
-        passengerForm.setPrefWidth(400.0);
+        form.addLabel("\t");form.addLabel("\t");form.addLabel("\t");
         
         box.getChildren().addAll(form.toNode(), passengerForm.toNode());
-
-        view.add(box, 0, 0);
+        
+        vbox.getChildren().addAll(box);
+        
+        view.add(vbox, 0, 0);
         
         UI.setLeft(null);
         // Zet in de top van de BorderPane  

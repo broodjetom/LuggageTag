@@ -7,20 +7,20 @@ import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.TilePane;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 import pages.F1Screen;
 
@@ -40,6 +40,9 @@ public class LuggageUI {
     public Font openSans;
 
     public String title;
+    
+    private String curPage = "";
+    private F1Screen help = new F1Screen();
     
     // De prefix van de titel van de applicatie
     final private String TITLE_PREFIX = "Luggage Tag - ";
@@ -73,7 +76,23 @@ public class LuggageUI {
         root = new BorderPane();
         root.setStyle("-fx-background-color: #"+GLOBAL_BACKGROUND_COLOR);
         root.maxHeightProperty();
+        root.setPrefWidth(800.0);
         registerFonts();
+        
+        root.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if(event.getCode() == KeyCode.F1){
+                ImageView image = help.getImage(curPage);
+                Stage viewer = new Stage();
+                viewer.setTitle("LuggageTag - HELP!");
+                Group root2 = new Group();
+                root2.getChildren().add(image);
+                Scene scene2 = new Scene(root2);
+                viewer.getIcons().add(new Image("file:files/images/logo.png"));
+                viewer.setMaximized(true);
+                viewer.setScene(scene2);
+                viewer.show();
+            };
+        });
     }
     
     /**
@@ -281,7 +300,7 @@ public class LuggageUI {
     // Functie om Nodes (elementen) in de center te zetten
     public void setCenter(Node value) {
         ScrollPane s1 = new ScrollPane();
-        s1.setStyle("-fx-padding: 0; -fx-background: #ffffff;");
+        s1.setStyle("-fx-padding: 0; -fx-background: #"+GLOBAL_BACKGROUND_COLOR);
         s1.setFitToHeight(true);
         s1.setFitToWidth(true);
         s1.setContent(value);
@@ -290,7 +309,7 @@ public class LuggageUI {
     // etc
     public void setBottom(Node value) {
         ScrollPane s1 = new ScrollPane();
-        s1.setStyle("-fx-padding: 0; -fx-background: #ffffff;");
+        s1.setStyle("-fx-padding: 0; -fx-background: #"+GLOBAL_BACKGROUND_COLOR);
         s1.setFitToHeight(true);
         s1.setFitToWidth(true);
         s1.setContent(value);
@@ -299,7 +318,7 @@ public class LuggageUI {
     
     public void setLeft(Node value) {
         ScrollPane s1 = new ScrollPane();
-        s1.setStyle("-fx-padding: 0; -fx-background: #ffffff;");
+        s1.setStyle("-fx-padding: 0; -fx-background: #"+GLOBAL_BACKGROUND_COLOR);
         s1.setFitToHeight(true);
         s1.setFitToWidth(true);
         s1.setContent(value);
@@ -308,7 +327,7 @@ public class LuggageUI {
     
     public void setRight(Node value) {
         ScrollPane s1 = new ScrollPane();
-        s1.setStyle("-fx-padding: 0; -fx-background: #ffffff;");
+        s1.setStyle("-fx-padding: 0; -fx-background: #"+GLOBAL_BACKGROUND_COLOR);
         s1.setFitToHeight(true);
         s1.setFitToWidth(true);
         s1.setContent(value);
@@ -326,7 +345,7 @@ public class LuggageUI {
     // Laat dan uiteindelijk de applicatie zien
     public void show() {
         scene = new Scene(root);
-        this.primaryStage.getIcons().add(new Image("file:logo.png"));
+        this.primaryStage.getIcons().add(new Image("file:files/images/logo.png"));
         this.primaryStage.setMaximized(true);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
@@ -335,9 +354,9 @@ public class LuggageUI {
     // Laad lettertype in
     private void registerFonts() {
         try {
-            this.uniSansHeavy = Font.loadFont(new FileInputStream(new File("uni_sans_heavy.ttf")), 14);
-            this.uniSansSemiBoldItalic = Font.loadFont(new FileInputStream(new File("unisans-semibolditalic.ttf")), 14);
-            this.openSans = Font.loadFont(new FileInputStream(new File("OpenSans-Regular.ttf")), 14);
+            this.uniSansHeavy = Font.loadFont(new FileInputStream(new File("files/fonts/uni_sans_heavy.ttf")), 14);
+            this.uniSansSemiBoldItalic = Font.loadFont(new FileInputStream(new File("files/fonts/unisans-semibolditalic.ttf")), 14);
+            this.openSans = Font.loadFont(new FileInputStream(new File("files/fonts/OpenSans-Regular.ttf")), 14);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(LuggageUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -345,5 +364,19 @@ public class LuggageUI {
 
     public Button createRedButton(Button help, Boolean TRUE, F1Screen page) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the curPage
+     */
+    public String getCurPage() {
+        return curPage;
+    }
+
+    /**
+     * @param curPage the curPage to set
+     */
+    public void setCurPage(String curPage) {
+        this.curPage = curPage;
     }
 }

@@ -16,7 +16,8 @@ import javafx.collections.ObservableList;
  * @date
  */
 public class DatabaseManager {
-
+    
+    private static DatabaseManager instance = null;
     private DatabaseConnection databaseconnection;
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -25,8 +26,20 @@ public class DatabaseManager {
      *
      * @throws SQLException
      */
-    public DatabaseManager() throws SQLException, IOException {
+    protected DatabaseManager() throws SQLException, IOException {
         this.databaseconnection = new DatabaseConnection();
+    }
+    
+    /**
+     * Creates an instance of database manager.
+     *
+     * @throws SQLException
+     */
+    public static DatabaseManager getInstance() throws SQLException, IOException{
+        if(instance == null) {
+         instance = new DatabaseManager();
+      }
+      return instance;
     }
 
     /**
@@ -88,34 +101,34 @@ public class DatabaseManager {
     }
 
     public Map<String, Double> getLostStatistics(String start, String end) throws SQLException {
-        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_added FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Verloren' GROUP BY date_added ORDER BY date_added DESC");
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Verloren' GROUP BY date_changed ORDER BY date_changed DESC");
 
         Map<String, Double> results = new HashMap<>();
 
         while (resultSet.next()) {
-            results.put(resultSet.getString("date_added"), resultSet.getDouble("count"));
+            results.put(resultSet.getString("date_changed"), resultSet.getDouble("count"));
         }
         return results;
     }
 
     public Map<String, Double> getFoundStatistics(String start, String end) throws SQLException {
-        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_added FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Gevonden' GROUP BY date_added ORDER BY date_added DESC");
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Gevonden' GROUP BY date_changed ORDER BY date_changed DESC");
 
         Map<String, Double> results = new HashMap<>();
 
         while (resultSet.next()) {
-            results.put(resultSet.getString("date_added"), resultSet.getDouble("count"));
+            results.put(resultSet.getString("date_changed"), resultSet.getDouble("count"));
         }
         return results;
     }
 
     public Map<String, Double> getFinishedStatistics(String start, String end) throws SQLException {
-        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_added FROM luggage WHERE (date_finished BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Afgehandeld' GROUP BY date_finished ORDER BY date_finished DESC");
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_finished FROM luggage WHERE (date_finished BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Afgehandeld' GROUP BY date_finished ORDER BY date_finished DESC");
 
         Map<String, Double> results = new HashMap<>();
 
         while (resultSet.next()) {
-            results.put(resultSet.getString("date_added"), resultSet.getDouble("count"));
+            results.put(resultSet.getString("date_finished"), resultSet.getDouble("count"));
         }
         return results;
     }

@@ -29,12 +29,12 @@ public class LuggageMenu {
     private int nodeCount = 0;
 
     // Logo settings
-    final private ImageView LOGO = new ImageView("file:Corendon_logo_2015.png");
+    final private ImageView LOGO = new ImageView("file:files/images/Corendon_logo_2015.png");
     final private double LOGOWITDH = 240;
 
     // Menu settings
-    final private double BUTTONWIDTH = 200;
-    final private double BUTTONHEIGHT = 50;
+    final private double BUTTONWIDTH = 150;
+    final private double BUTTONHEIGHT = 40;
 
     LuggageUI UI;
 

@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/LuggageTag/src/UI/LuggageForm.java</file>
-            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/LuggageTag/src/UI/LuggageMenu.java</file>
-            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/LuggageTag/src/luggagetag/LuggageTag.java</file>
+            <file>file:/C:/Users/Alex/Documents/luggage-tag/src/UI/LuggageForm.java</file>
+            <file>file:/C:/Users/Alex/Documents/luggage-tag/src/pages/F1Screen.java</file>
+            <file>file:/C:/Users/Alex/Documents/luggage-tag/src/pages/LuggageDetails.java</file>
+            <file>file:/C:/Users/Alex/Documents/luggage-tag/src/pages/EditUser.java</file>
+            <file>file:/C:/Users/Alex/Documents/luggage-tag/src/pages/PassengerDetails.java</file>
         </group>
     </open-files>
 </project-private>

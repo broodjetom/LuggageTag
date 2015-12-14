@@ -9,6 +9,7 @@ import UI.LuggageChart;
 import UI.LuggageForm;
 import UI.LuggageUI;
 import database.DatabaseManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -29,13 +30,13 @@ public class Stats {
 
     private static final user.Session USER = user.Session.getInstance();
     private final LuggageUI UI;
-    private final DatabaseManager DB;
+    private final DatabaseManager db;
 
     public GridPane view = new GridPane();
 
-    public Stats(LuggageUI UI, DatabaseManager db) throws SQLException {
+    public Stats(LuggageUI UI) throws SQLException, IOException {
         this.UI = UI;
-        this.DB = db;
+        this.db = DatabaseManager.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         Calendar c = Calendar.getInstance();

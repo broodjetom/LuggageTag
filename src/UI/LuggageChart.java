@@ -19,10 +19,6 @@ public class LuggageChart{
     
     String[] setXCoord;
     
-    public LuggageChart(){
-        
-    }
-    
     public void setLabelX( String label ){
         xAxis.setLabel(label);
     }

@@ -3,6 +3,7 @@ package pages;
 import UI.LuggageForm;
 import UI.LuggageUI;
 import database.DatabaseManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -26,9 +27,9 @@ public class EditUser {
 
     private static final user.Session USER = user.Session.getInstance();
 
-    public EditUser(LuggageUI UI, DatabaseManager db, models.Users model) throws SQLException {
+    public EditUser(LuggageUI UI, models.Users model) throws SQLException, IOException {
         this.UI = UI;
-        this.db = db;
+        this.db = DatabaseManager.getInstance();
         this.editUser = model;
 
         String role = new String();

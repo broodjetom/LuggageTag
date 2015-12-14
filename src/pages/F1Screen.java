@@ -5,16 +5,8 @@
  */
 package pages;
 
-import UI.LuggageForm;
-import UI.LuggageUI;
-import database.DatabaseManager;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import javafx.geometry.Insets;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.ImageView;
+
 
 /**
  *
@@ -22,18 +14,18 @@ import javafx.scene.layout.GridPane;
  */
 public class F1Screen {
 
-    private LuggageUI UI;
-    private DatabaseManager db;
-    public GridPane view = new GridPane();
-    private final int MAX_LINE_COUNT = 150;
+    //private LuggageUI UI;
+    //private DatabaseManager db;
+    //public GridPane view = new GridPane();
+    //private final int MAX_LINE_COUNT = 150;
 
-    private static final user.Session USER = user.Session.getInstance();
+    //private static final user.Session USER = user.Session.getInstance();
 
-    public F1Screen(LuggageUI UI, DatabaseManager db) throws FileNotFoundException, IOException {
-
-        this.UI = UI;
-        this.db = db;
-
+    public F1Screen() {
+        
+        
+        
+        /****************** TOMS GEDEELTE ****************************\
         view.setPadding(new Insets(50, 50, 50, 50));
 
         UI.setTitle("Help");
@@ -81,5 +73,19 @@ public class F1Screen {
 
         UI.setCenter(view);
         UI.setLeft(null);
+        \******************************* EINDE ********************************/
+    }
+    
+    public ImageView getImage(String page){
+        ImageView image;
+        switch( page ){
+            case "SearchLuggage":
+                image = new ImageView("file:files/images/help/SearchLuggage.png");
+               break;
+            default:
+                image = new ImageView("file:files/images//help/default.png");
+               break;
+        }
+        return image;
     }
 }

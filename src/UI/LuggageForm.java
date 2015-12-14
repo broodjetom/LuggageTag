@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -493,5 +494,13 @@ public class LuggageForm {
     
     public void setPrefHeight(Double height){
         this.grid.prefHeight(height);
+    }
+    
+    public void setAlignment(Pos pos){
+        this.grid.setAlignment(pos);
+    }
+    
+    public void setSyle(String style){
+        this.grid.setStyle(style);
     }
 }
