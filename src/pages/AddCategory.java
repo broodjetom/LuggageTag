@@ -12,18 +12,23 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 /**
- * @Author Tom Scholten
- * @Class Add categories to luggage tag application, for brands, colors, types, materials, and locations.
- * @Date 11-12-15
+ * @author Tom Scholten
  */
 public class AddCategory {
 
     private LuggageUI UI;
     private DatabaseManager db;
-    public GridPane view = new GridPane();
+
+    private GridPane view = new GridPane();
 
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Show category page
+     * @param UI
+     * @throws SQLException
+     * @throws IOException
+     */
     public AddCategory(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;

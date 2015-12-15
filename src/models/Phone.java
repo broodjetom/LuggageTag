@@ -1,19 +1,11 @@
 package models;
 /**
- * @Author Tom Scholten
- * @Class
- * @Date 
+ * @author Tom Scholten
  */
 public class Phone {
     private int id = 0;
     private int passenger_id;
     private String phone;
-
-    /**
-     *
-     */
-    public Phone() {
-    }
 
     /**
      * @return the id

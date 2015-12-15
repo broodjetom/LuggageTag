@@ -23,10 +23,18 @@ public class EditUser {
     private LuggageUI UI;
     private DatabaseManager db;
     private models.Users editUser;
-    public GridPane view = new GridPane();
+
+    private GridPane view = new GridPane();
 
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Show the edit user page
+     * @param UI
+     * @param model models.Users to edit
+     * @throws SQLException
+     * @throws IOException
+     */
     public EditUser(LuggageUI UI, models.Users model) throws SQLException, IOException {
         this.UI = UI;
         this.db = DatabaseManager.getInstance();

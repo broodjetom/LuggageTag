@@ -24,7 +24,7 @@ import javafx.scene.layout.GridPane;
 
 /**
  *
- * @author ...
+ * @author Alex, Kah Kit
  */
 public class Stats {
 
@@ -32,8 +32,14 @@ public class Stats {
     private final LuggageUI UI;
     private final DatabaseManager db;
 
-    public GridPane view = new GridPane();
+    private GridPane view = new GridPane();
 
+    /**
+     * Show statistics page
+     * @param UI
+     * @throws SQLException
+     * @throws IOException
+     */
     public Stats(LuggageUI UI) throws SQLException, IOException {
         this.UI = UI;
         this.db = DatabaseManager.getInstance();

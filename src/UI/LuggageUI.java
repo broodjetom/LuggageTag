@@ -30,15 +30,41 @@ import pages.F1Screen;
  */
 public class LuggageUI {
 
+    /**
+     * The primaryStage of the screen
+     */
     public Stage primaryStage;
+
+    /**
+     * The scene of the screen
+     */
     public Scene scene;
+
+    /**
+     * The borderPane of the screen
+     */
     public BorderPane root;
     
     // Fonts
+
+    /**
+     * The uniSansHeavy font
+     */
     public Font uniSansHeavy;
+
+    /**
+     * The uniSans Semi Bold Italic font
+     */
     public Font uniSansSemiBoldItalic;
+
+    /**
+     * The Open Sans font
+     */
     public Font openSans;
 
+    /**
+     * The title of the page
+     */
     public String title;
     
     private String curPage = "";
@@ -47,23 +73,65 @@ public class LuggageUI {
     // De prefix van de titel van de applicatie
     final private String TITLE_PREFIX = "Luggage Tag - ";
     
+    /**
+     * The global background color used in every Node
+     */
     final public String GLOBAL_BACKGROUND_COLOR = "FFFFFF";
     
+    /**
+     * The red color
+     */
     final public String COLOR_RED = "D81E05";
+
+    /**
+     * The grey color
+     */
     final public String COLOR_GREY = "333333";
     
     // Variablen om de primaire kleuren van de knoppen op te slaan
+
+    /**
+     * The primary button background color
+     */
     final public String BUTTON_PRIMARY_BACKGOUND_COLOR = "D81E05";
+
+    /**
+     * The primary button backround color used on hover and active state
+     */
     final public String BUTTON_PRIMARY_BACKGOUND_HOVER_COLOR = "B81A04";
+
+    /**
+     * The primary button text color
+     */
     final public String BUTTON_PRIMARY_TEXT_COLOR = "FFFFFF";
     
     // Variablen om de secundaire kleuren van de knoppen op te slaan
+
+    /**
+     * The secondary button backgound color
+     */
     final public String BUTTON_SECONDARY_BACKGOUND_COLOR = "1E8410";
+
+    /**
+     * The secondary button background color used on hover and active state
+     */
     final public String BUTTON_SECONDARY_BACKGOUND_HOVER_COLOR = "26A514";
+
+    /**
+     * The secondary button text color
+     */
     final public String BUTTON_SECONDARY_TEXT_COLOR = "FFFFFF";
     
     // Variablen om de grijze kleuren van de knoppen op te slaan
+
+    /**
+     * The grey button background color
+     */
     final public String GREY_BUTTON_BACKGOUND_COLOR = "808080";
+
+    /**
+     * The grey button text color
+     */
     final public String GREY_BUTTON_BACKGOUND_TEXT_COLOR = "FFFFFF";
     
     
@@ -294,10 +362,20 @@ public class LuggageUI {
     }
     
     // Functie om Nodes (elementen) in de top te zetten
+
+    /**
+     * Set top content
+     * @param value Node
+     */
     public void setTop(Node value) {
         this.root.setTop(value);
     }
     // Functie om Nodes (elementen) in de center te zetten
+
+    /**
+     * Set center content
+     * @param value Node
+     */
     public void setCenter(Node value) {
         ScrollPane s1 = new ScrollPane();
         s1.setStyle("-fx-padding: 0; -fx-background: #"+GLOBAL_BACKGROUND_COLOR);
@@ -307,6 +385,11 @@ public class LuggageUI {
         this.root.setCenter(s1);
     }
     // etc
+
+    /**
+     * Set bottom content
+     * @param value Node
+     */
     public void setBottom(Node value) {
         ScrollPane s1 = new ScrollPane();
         s1.setStyle("-fx-padding: 0; -fx-background: #"+GLOBAL_BACKGROUND_COLOR);
@@ -316,6 +399,10 @@ public class LuggageUI {
         this.root.setBottom(s1);
     }
     
+    /**
+     * Set left content
+     * @param value Node
+     */
     public void setLeft(Node value) {
         ScrollPane s1 = new ScrollPane();
         s1.setStyle("-fx-padding: 0; -fx-background: #"+GLOBAL_BACKGROUND_COLOR);
@@ -325,6 +412,10 @@ public class LuggageUI {
         this.root.setLeft(s1);
     }
     
+    /**
+     * Set right content
+     * @param value Node
+     */
     public void setRight(Node value) {
         ScrollPane s1 = new ScrollPane();
         s1.setStyle("-fx-padding: 0; -fx-background: #"+GLOBAL_BACKGROUND_COLOR);
@@ -334,6 +425,10 @@ public class LuggageUI {
         this.root.setRight(s1);
     }
     
+    /**
+     * Reset all content
+     * Deletes <b>all</b> the content in top, center, bottom, left and right
+     */
     public void reset(){
         setTop(null);
         setCenter(null);
@@ -343,6 +438,10 @@ public class LuggageUI {
     }
     
     // Laat dan uiteindelijk de applicatie zien
+
+    /**
+     * Show the primary stage
+     */
     public void show() {
         scene = new Scene(root);
         this.primaryStage.getIcons().add(new Image("file:files/images/logo.png"));
@@ -360,10 +459,6 @@ public class LuggageUI {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(LuggageUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public Button createRedButton(Button help, Boolean TRUE, F1Screen page) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

@@ -12,11 +12,9 @@ import javafx.collections.ObservableList;
 
 /**
  * @author Tom Scholten
- * @class Databasemanager,
- * @date
  */
 public class DatabaseManager {
-    
+
     private static DatabaseManager instance = null;
     private DatabaseConnection databaseconnection;
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -24,31 +22,34 @@ public class DatabaseManager {
     /**
      * Creates a database manager.
      *
-     * @throws SQLException
+     * @throws SQLException SQL error exeptions
+     * @throws java.io.IOException IO error exeptions
      */
     protected DatabaseManager() throws SQLException, IOException {
         this.databaseconnection = new DatabaseConnection();
     }
-    
+
     /**
      * Creates an instance of database manager.
      *
-     * @throws SQLException
+     * @return Instance of DatabaseManager
+     * @throws SQLException SQL error exeptions
+     * @throws java.io.IOException IO error exeptions
      */
-    public static DatabaseManager getInstance() throws SQLException, IOException{
-        if(instance == null) {
-         instance = new DatabaseManager();
-      }
-      return instance;
+    public static DatabaseManager getInstance() throws SQLException, IOException {
+        if (instance == null) {
+            instance = new DatabaseManager();
+        }
+        return instance;
     }
 
     /**
-     * Saves data, stored in passenger object, to database. if id is stored, the data will be
-     * updated, otherwise it will be saved as a new record.
+     * Saves data, stored in passenger object, to database. if id is stored, the
+     * data will be updated, otherwise it will be saved as a new record.
      *
-     * @param models.Passenger(), object of passenger
-     * @return
-     * @throws SQLException
+     * @param model Updated models.Passenger
+     * @return Updated Passenger model
+     * @throws SQLException SQL error exeptions
      */
     public models.Passenger savePassenger(models.Passenger model) throws SQLException {
         if (model.getId() != 0) {
@@ -75,6 +76,12 @@ public class DatabaseManager {
         return model;
     }
 
+    /**
+     * Search passenger by ID
+     * @param id int id of the passenger
+     * @return Passenger model
+     * @throws SQLException SQL error exeptions
+     */
     public models.Passenger getPassenger(int id) throws SQLException {
         if (id == 0) {
             return null;
@@ -100,6 +107,13 @@ public class DatabaseManager {
         return row;
     }
 
+    /**
+     * Get the statistics of lost luggage
+      * @param start Start date
+     * @param end  End date
+     * @return Map date, amount
+     * @throws SQLException SQL error exeptions
+     */
     public Map<String, Double> getLostStatistics(String start, String end) throws SQLException {
         ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Verloren' GROUP BY date_changed ORDER BY date_changed DESC");
 
@@ -111,6 +125,13 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Get the statistics of found luggage
+     * @param start Start date
+     * @param end  End date
+     * @return Map date, amount
+     * @throws SQLException SQL error exeptions
+     */
     public Map<String, Double> getFoundStatistics(String start, String end) throws SQLException {
         ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Gevonden' GROUP BY date_changed ORDER BY date_changed DESC");
 
@@ -122,6 +143,13 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Get the statistics of the finished luggage
+     * @param start Start date
+     * @param end  End date
+     * @return Map date, amount
+     * @throws SQLException SQL error exeptions
+     */
     public Map<String, Double> getFinishedStatistics(String start, String end) throws SQLException {
         ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_finished FROM luggage WHERE (date_finished BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Afgehandeld' GROUP BY date_finished ORDER BY date_finished DESC");
 
@@ -134,11 +162,12 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table passenger, which can be presented in a table.
+     * Returns a list of records form table passenger, which can be presented in
+     * a table.
      *
-     * @param model
+     * @param model models.Passenger
      * @return ObservableList
-     * @throws SQLException
+     * @throws SQLException SQL error exeptions
      */
     public ObservableList<models.Passenger> getPassenger(models.Passenger model) throws SQLException {
         // Krijg resultaten als Passenger
@@ -200,9 +229,9 @@ public class DatabaseManager {
 
     /**
      *
-     * @param table
-     * @return
-     * @throws SQLException
+     * @param table Name of the table
+     * @return Last inserted id
+     * @throws SQLException SQL error exeptions
      */
     public int getLastInsertId(String table) throws SQLException {
         ResultSet resultSet = databaseconnection.executeSelect("SELECT id FROM "
@@ -214,11 +243,11 @@ public class DatabaseManager {
     }
 
     /**
-     * Saves data, stored in Users object, to database. if id is stored, the data will be updated,
-     * otherwise it will be saved as a new record.
+     * Saves data, stored in Users object, to database. if id is stored, the
+     * data will be updated, otherwise it will be saved as a new record.
      *
      * @param model.Users(), object of Users.
-     * @throws SQLException
+     * @throws SQLException SQL error exeptions
      */
     public void saveUsers(models.Users model) throws SQLException {
         if (model.getId() != 0) {
@@ -244,10 +273,12 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Users, which can be presented in a table.
+     * Returns a list of records form table Users, which can be presented in a
+     * table.
      *
-     * @return ObservableList
-     * @throws SQLException
+     * @param model models.Users
+     * @return ObservableList results of users
+     * @throws SQLException SQL error exeptions
      */
     public ObservableList<models.Users> getUsers(models.Users model) throws SQLException {
 
@@ -330,6 +361,13 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Search for user by username and password
+     * @param username String username
+     * @param password String password
+     * @return Users model
+     * @throws SQLException SQL error exeptions
+     */
     public models.Users getUserForLogin(String username, String password) throws SQLException {
         String query = "SELECT * FROM users WHERE username ='" + username + "' AND password ='" + password + "' LIMIT 1";
 
@@ -353,6 +391,13 @@ public class DatabaseManager {
         return model;
     }
 
+    /**
+     * Search for user by username and password
+     * @param username String username
+     * @param password String password
+     * @return boolean
+     * @throws SQLException SQL error exeptions
+     */
     public boolean getCorrectForLogin(String username, String password) throws SQLException {
 
         String query = "SELECT * FROM users WHERE username ='" + username + "' AND password ='" + password + "' LIMIT 1";
@@ -366,6 +411,12 @@ public class DatabaseManager {
         return true;
     }
 
+    /**
+     * Get user by ID
+     * @param id int id of the User
+     * @return Users model
+     * @throws SQLException SQL error exeptions
+     */
     public models.Users getUser(int id) throws SQLException {
         // Krijg resultaten als Passenger
         if (id == 0) {
@@ -394,12 +445,12 @@ public class DatabaseManager {
     }
 
     /**
-     * Saves data, stored in Locations object, to database. if id is stored, the data will be
-     * updated, otherwise it will be saved as a new record.
+     * Saves data, stored in Locations object, to database. if id is stored, the
+     * data will be updated, otherwise it will be saved as a new record.
      *
      * @param model.Locations(), object from Locations
-     * @return
-     * @throws SQLException
+     * @return model models.Locations
+     * @throws SQLException SQL error exeptions
      */
     public models.Locations saveLocation(models.Locations model) throws SQLException {
         if (model.getId() != 0) {
@@ -417,10 +468,11 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in a table.
+     * Returns a list of records form table Locations, which can be presented in
+     * a table.
      *
      * @return ObservableList
-     * @throws SQLException
+     * @throws SQLException SQL error exeptions
      */
     public ObservableList<models.Locations> getLocations() throws SQLException {
         // Krijg resultaten als Passenger
@@ -442,11 +494,12 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in a table.
+     * Returns a list of records form table Locations, which can be presented in
+     * a table.
      *
-     * @param id
+     * @param id int id of the location
      * @return ObservableList
-     * @throws SQLException
+     * @throws SQLException SQL error exeptions
      */
     public models.Locations getLocation(int id) throws SQLException {
         // Krijg resultaten als Passenger
@@ -464,11 +517,12 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a list of records form table Locations, which can be presented in a table.
+     * Returns a list of records form table Locations, which can be presented in
+     * a table.
      *
-     * @param location
+     * @param model models.Locations
      * @return ObservableList
-     * @throws SQLException
+     * @throws SQLException SQL error exeptions
      */
     public ObservableList<models.Locations> getLocation(models.Locations model) throws SQLException {
         // Krijg resultaten als Passenger
@@ -490,6 +544,11 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Save a Brand
+     * @param model Brands model
+     * @throws SQLException SQL error exeptions
+     */
     public void saveBrand(models.Brands model) throws SQLException {
         if (model.getId() != 0) {
             databaseconnection.executeUpdate("UPDATE brands SET brand = \'" + model.getBrand() + "\' "
@@ -502,6 +561,11 @@ public class DatabaseManager {
         }
     }
 
+    /**
+     * Get all brands 
+     * @return ObservableList models.Brands
+     * @throws SQLException SQL error exeptions
+     */ 
     public ObservableList<models.Brands> getBrands() throws SQLException {
         // Krijg resultaten als Passenger
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM brands");
@@ -518,6 +582,12 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Get brand by ID
+     * @param id int id of the brand
+     * @return Brands model
+     * @throws SQLException SQL error exeptions
+     */ 
     public models.Brands getBrand(int id) throws SQLException {
         // Krijg resultaten als Passenger
         if (id == 0) {
@@ -534,6 +604,12 @@ public class DatabaseManager {
         return row;
     }
 
+    /**
+     * Search for brands by brand name
+     * @param brand String name of the brand
+     * @return ObservableList models.Brands
+     * @throws SQLException SQL error exeptions
+     */
     public ObservableList<models.Brands> getBrands(String brand) throws SQLException {
         // Krijg resultaten als Passenger
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM brands "
@@ -551,6 +627,11 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Save a color
+     * @param model Colors
+     * @throws SQLException SQL error exeptions
+     */
     public void saveColor(models.Colors model) throws SQLException {
         if (model.getId() != 0) {
             databaseconnection.executeUpdate("UPDATE colors SET color = '" + model.getColor() + "' "
@@ -563,7 +644,12 @@ public class DatabaseManager {
         }
     }
 
-    public ObservableList getColors() throws SQLException {
+    /**
+     * Get all colors
+     * @return ObservableList models.Colors
+     * @throws SQLException SQL error exeptions
+     */
+    public ObservableList<models.Colors> getColors() throws SQLException {
         // Krijg resultaten als Passenger
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM colors");
 
@@ -579,6 +665,12 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Get colors by ID
+     * @param id Int id of the color
+     * @return models.Colors
+     * @throws SQLException SQL error exeptions
+     */
     public models.Colors getColor(int id) throws SQLException {
         // Krijg resultaten als Passenger
         if (id == 0) {
@@ -595,7 +687,13 @@ public class DatabaseManager {
         return row;
     }
 
-    public ObservableList getColors(String color) throws SQLException {
+    /**
+     * Get colors by color name
+     * @param color String color name
+     * @return ObservableList models.Locations
+     * @throws SQLException SQL error exeptions
+     */
+    public ObservableList<models.Locations> getColors(String color) throws SQLException {
         // Krijg resultaten als Passenger
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM locations "
                 + "WHERE color=\"" + color + "\"");
@@ -612,6 +710,11 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Save material model
+     * @param model models.Materials
+     * @throws SQLException SQL error exeptions
+     */
     public void saveMaterial(models.Materials model) throws SQLException {
         if (model.getId() != 0) {
             databaseconnection.executeUpdate("UPDATE materials SET material = \'"
@@ -623,6 +726,11 @@ public class DatabaseManager {
         }
     }
 
+    /**
+     * Get all materials
+     * @return ObservableList models.Materials
+     * @throws SQLException SQL error exeptions
+     */
     public ObservableList<models.Materials> getMaterials() throws SQLException {
         // Krijg resultaten als Passenger
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM materials");
@@ -639,6 +747,12 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Get material by ID
+     * @param id int id of the material
+     * @return models.Materials
+     * @throws SQLException SQL error exeptions
+     */
     public models.Materials getMaterial(int id) throws SQLException {
         // Krijg resultaten als Passenger
         if (id == 0) {
@@ -655,6 +769,12 @@ public class DatabaseManager {
         return row;
     }
 
+    /**
+     * Get material by material name
+     * @param material models.Materials
+     * @return ObservableList models.Materials
+     * @throws SQLException SQL error exeptions
+     */
     public ObservableList<models.Materials> getMaterials(String material) throws SQLException {
         // Krijg resultaten als Passenger
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM materials "
@@ -672,6 +792,11 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Save a types model
+     * @param model models.Types
+     * @throws SQLException SQL error exeptions
+     */
     public void saveType(models.Types model) throws SQLException {
         if (model.getId() != 0) {
             databaseconnection.executeUpdate("UPDATE types SET type = " + model.getType()
@@ -683,6 +808,11 @@ public class DatabaseManager {
         }
     }
 
+    /**
+     * Get all types
+     * @return ObservableList models.Types
+     * @throws SQLException SQL error exeptions
+     */
     public ObservableList<models.Types> getTypes() throws SQLException {
         // Krijg resultaten als Passenger
         ResultSet resultSet = databaseconnection.executeSelect("select * from types");
@@ -699,6 +829,12 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Get type by ID
+     * @param id int id of the type
+     * @return models.Types
+     * @throws SQLException SQL error exeptions
+     */
     public models.Types getType(int id) throws SQLException {
         // Krijg resultaten als Passenger
         if (id == 0) {
@@ -715,6 +851,12 @@ public class DatabaseManager {
         return row;
     }
 
+    /**
+     * Get type by type name
+     * @param type String type name
+     * @return ObservableList models.Types
+     * @throws SQLException SQL error exeptions
+     */
     public ObservableList<models.Types> getTypes(String type) throws SQLException {
         // Krijg resultaten als Passenger
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM types "
@@ -732,6 +874,12 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Save phone model
+     * @param model models.Phone
+     * @return Updated models.Phone
+     * @throws SQLException SQL error exeptions
+     */
     public models.Phone savePhone(models.Phone model) throws SQLException {
         if (model.getId() != 0) {
             databaseconnection.executeUpdate("UPDATE phone SET phone = \""
@@ -747,6 +895,12 @@ public class DatabaseManager {
         return model;
     }
 
+    /**
+     * Get phones by passenger id
+     * @param passenger_id foreign key, passenger id
+     * @return ObservableList models.Phone
+     * @throws SQLException SQL error exeptions
+     */
     public ObservableList<models.Phone> getPhones(int passenger_id) throws SQLException {
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM phone "
                 + "WHERE passenger_id=" + passenger_id);
@@ -764,6 +918,12 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Save Email model
+     * @param model
+     * @return updated models.Email
+     * @throws SQLException
+     */
     public models.Email saveEmail(models.Email model) throws SQLException {
         if (model.getId() != 0) {
             databaseconnection.executeUpdate("UPDATE email SET email = \"" + model.getEmail() + "\" "
@@ -776,6 +936,12 @@ public class DatabaseManager {
         return model;
     }
 
+    /**
+     * Get emails by passenger id
+     * @param passenger_id
+     * @return ObservableList models.Email
+     * @throws SQLException
+     */
     public ObservableList<models.Email> getEmails(int passenger_id) throws SQLException {
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM email "
                 + "WHERE passenger_id=" + passenger_id);
@@ -793,6 +959,12 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Save addres 
+     * @param model
+     * @return updated models.Address
+     * @throws SQLException
+     */
     public models.Address saveAddress(models.Address model) throws SQLException {
         if (model.getId() != 0) {
             databaseconnection.executeUpdate("UPDATE address SET address = \"" + model.getAddress()
@@ -806,6 +978,12 @@ public class DatabaseManager {
         return model;
     }
 
+    /**
+     * Get addresses by passenger id
+     * @param passenger_id
+     * @return ObservableList models.Address
+     * @throws SQLException
+     */
     public ObservableList<models.Address> getAddresses(int passenger_id) throws SQLException {
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM address "
                 + "WHERE passenger_id=" + passenger_id);
@@ -825,6 +1003,12 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Save luggage model
+     * @param model
+     * @return updated models.Luggage
+     * @throws SQLException
+     */
     public models.Luggage saveLuggage(models.Luggage model) throws SQLException {
         if (model.getId() != 0) {
             databaseconnection.executeUpdate("UPDATE `luggage` SET "
@@ -854,6 +1038,12 @@ public class DatabaseManager {
         return model;
     }
 
+    /**
+     * Get luggage
+     * @param model
+     * @return OservableList models.Luggage
+     * @throws SQLException
+     */
     public ObservableList<models.Luggage> getLuggage(models.Luggage model) throws SQLException {
         boolean addWhere = false;
 
@@ -951,6 +1141,12 @@ public class DatabaseManager {
         return results;
     }
 
+    /**
+     * Get luggage by ID
+     * @param id
+     * @return models.Luggage
+     * @throws SQLException
+     */
     public models.Luggage getLuggage(int id) throws SQLException {
 
         ResultSet resultSet = databaseconnection.executeSelect("SELECT * FROM luggage "

@@ -3,9 +3,7 @@ package models;
 import java.util.Date;
 
 /**
- * @Author Tom Scholten
- * @Class
- * @Date 
+ * @author Tom Scholten
  */
 public class Luggage {
 
@@ -33,22 +31,34 @@ public class Luggage {
     private Locations location;
     private int passenger_id;
 
+    /**
+     * Constructor sets dates to correct format
+     */
     public Luggage(){
         this.date_added = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
         this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
         this.date_finished = "1970-01-01";
     }
     
+    /**
+     * Get the passenger id
+     * @return passenger_id
+     */
     public int getPassenger_id(){
         return passenger_id;
     }
     
+    /**
+     * Set the passenger id
+     * @param passenger_id int passenger_id foreign key
+     */
     public void setPassenger_id(int passenger_id){
         this.passenger_id = passenger_id;
         this.date_changed = "" + (date.getYear() + 1900) + "/" + date.getMonth() + "/" + date.getDate();
     }
     
     /**
+     * Get the id
      * @return the id
      */
     public int getId() {
@@ -56,6 +66,7 @@ public class Luggage {
     }
 
     /**
+     * Set the id
      * @param id the id to set
      */
     public void setId(int id) {
@@ -64,6 +75,7 @@ public class Luggage {
     }
 
     /**
+     * Get the brand_id
      * @return the brand_id
      */
     public int getBrand_id() {
@@ -71,6 +83,7 @@ public class Luggage {
     }
 
     /**
+     * Set the brand_id
      * @param brand_id the brand_id to set
      */
     public void setBrand_id(int brand_id) {
@@ -79,6 +92,7 @@ public class Luggage {
     }
 
     /**
+     * Get the color_id
      * @return the color_id
      */
     public int getColor_id() {
@@ -86,6 +100,7 @@ public class Luggage {
     }
 
     /**
+     * Set the color_id
      * @param color_id the color_id to set
      */
     public void setColor_id(int color_id) {
@@ -94,6 +109,7 @@ public class Luggage {
     }
 
     /**
+     * Get the weight
      * @return the weight
      */
     public double getWeight() {
@@ -101,6 +117,7 @@ public class Luggage {
     }
 
     /**
+     * Set the weight
      * @param weight the weight to set
      */
     public void setWeight(double weight) {
@@ -109,6 +126,7 @@ public class Luggage {
     }
 
     /**
+     * Get the material_id
      * @return the material_id
      */
     public int getMaterial_id() {
@@ -116,6 +134,7 @@ public class Luggage {
     }
 
     /**
+     * Set the material_id
      * @param material_id the material_id to set
      */
     public void setMaterial_id(int material_id) {
@@ -124,13 +143,15 @@ public class Luggage {
     }
 
     /**
-     * @return the stickers
+     * Get the stickers
+     * @return int the stickers
      */
     public int getStickers() {
         return stickers;
     }
 
     /**
+     * Set the stickers
      * @param stickers the stickers to set
      */
     public void setStickers(int stickers) {
@@ -139,6 +160,7 @@ public class Luggage {
     }
 
     /**
+     * Get the characteristic
      * @return the characteristic
      */
     public String getCharacteristic() {
@@ -146,6 +168,7 @@ public class Luggage {
     }
 
     /**
+     * Set the characteristic
      * @param characteristic the characteristic to set
      */
     public void setCharacteristic(String characteristic) {
@@ -154,6 +177,7 @@ public class Luggage {
     }
 
     /**
+     * Get the belt
      * @return the belt
      */
     public int getBelt() {
@@ -161,6 +185,7 @@ public class Luggage {
     }
 
     /**
+     * Set the belt
      * @param belt the belt to set
      */
     public void setBelt(int belt) {
@@ -169,6 +194,7 @@ public class Luggage {
     }
 
     /**
+     * Get the type_id
      * @return the type_id
      */
     public int getType_id() {
@@ -176,6 +202,7 @@ public class Luggage {
     }
 
     /**
+     * Set the type_id
      * @param type_id the type_id to set
      */
     public void setType_id(int type_id) {
@@ -184,6 +211,7 @@ public class Luggage {
     }
 
     /**
+     * Get the location_id
      * @return the location_id
      */
     public int getLocation_id() {
@@ -191,6 +219,7 @@ public class Luggage {
     }
 
     /**
+     * Set the location_id
      * @param location_id the location_id to set
      */
     public void setLocation_id(int location_id) {
@@ -199,6 +228,7 @@ public class Luggage {
     }
 
     /**
+     * Get the comment
      * @return the comment
      */
     public String getComment() {
@@ -206,6 +236,7 @@ public class Luggage {
     }
 
     /**
+     * Set the comment
      * @param comment the comment to set
      */
     public void setComment(String comment) {
@@ -214,6 +245,7 @@ public class Luggage {
     }
 
     /**
+     * Get the users_id the user who added/edited the luggage
      * @return the users_id
      */
     public int getUsers_id() {
@@ -221,6 +253,7 @@ public class Luggage {
     }
 
     /**
+     * Set the users_id the user who added/edited the luggage
      * @param users_id the users_id to set
      */
     public void setUsers_id(int users_id) {
@@ -229,6 +262,7 @@ public class Luggage {
     }
 
     /**
+     * Get the date the luggage was added
      * @return the date_added
      */
     public String getDate_added() {
@@ -236,6 +270,7 @@ public class Luggage {
     }
 
     /**
+     * Set the date the luggage is added
      * @param date_added the date_added to set
      */
     public void setDate_added(String date_added) {
@@ -244,6 +279,7 @@ public class Luggage {
     }
 
     /**
+     * Get the date when luggage was last changed
      * @return the date_changed
      */
     public String getDate_changed() {
@@ -251,6 +287,7 @@ public class Luggage {
     }
 
     /**
+     * Set the date when luggage is changed
      * @param date_changed the date_changed to set
      */
     public void setDate_changed(String date_changed) {
@@ -259,13 +296,15 @@ public class Luggage {
     }
 
     /**
-     * @return the date_finished
+     * Get the date the luggage was finished
+     * @return the date_finished or null
      */
     public String getDate_finished() {
         return date_finished;
     }
 
     /**
+     * Set the date the luggage is finished
      * @param date_finished the date_finished to set
      */
     public void setDate_finished(String date_finished) {
@@ -274,6 +313,10 @@ public class Luggage {
     }
 
     /**
+     * Get the current situation of the luggage
+     * - Gevonden
+     * - Verloren
+     * - Afgehandeld
      * @return the situation
      */
     public String getSituation() {
@@ -281,6 +324,10 @@ public class Luggage {
     }
 
     /**
+     * Set the situation of the luggage
+     * - Gevonden
+     * - Verloren
+     * - Afgehandeld
      * @param situation the situation to set
      */
     public void setSituation(String situation) {
@@ -289,14 +336,16 @@ public class Luggage {
     }
 
     /**
-     * @return the brand
+     * Get the brand
+     * @return models.Brands
      */
     public Brands getBrand() {
         return brand;
     }
 
     /**
-     * @param brand the brand to set
+     * Set the brand
+     * @param brand models.Brands
      */
     public void setBrand(Brands brand) {
         this.brand = brand;
@@ -304,14 +353,16 @@ public class Luggage {
     }
 
     /**
-     * @return the color
+     * Get the color
+     * @return models.Colors
      */
     public Colors getColor() {
         return color;
     }
 
     /**
-     * @param color the color to set
+     * Set the color
+     * @param color models.Colors
      */
     public void setColor(Colors color) {
         this.color = color;
@@ -319,14 +370,16 @@ public class Luggage {
     }
 
     /**
-     * @return the type
+     * Get the type
+     * @return models.Types
      */
     public Types getType() {
         return type;
     }
 
     /**
-     * @param type the type to set
+     * Set the type
+     * @param type models.Types
      */
     public void setType(Types type) {
         this.type = type;
@@ -334,14 +387,16 @@ public class Luggage {
     }
 
     /**
-     * @return the material
+     * Get the material
+     * @return models.Materials
      */
     public Materials getMaterial() {
         return material;
     }
 
     /**
-     * @param material the material to set
+     * Set the materail
+     * @param material models.Materials
      */
     public void setMaterial(Materials material) {
         this.material = material;
@@ -349,14 +404,16 @@ public class Luggage {
     }
 
     /**
-     * @return the location
+     * Get the location
+     * @return models.Locations
      */
     public Locations getLocation() {
         return location;
     }
 
     /**
-     * @param location the location to set
+     * Set the location
+     * @param location models.Locations
      */
     public void setLocation(Locations location) {
         this.location = location;

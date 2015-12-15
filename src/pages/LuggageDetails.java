@@ -6,19 +6,12 @@
 package pages;
 
 import UI.LuggageForm;
-import UI.LuggageTable;
 import UI.LuggageUI;
 import database.DatabaseManager;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.concurrent.Callable;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -32,11 +25,19 @@ public class LuggageDetails {
     
     private LuggageUI UI;
     private DatabaseManager db;
-    public GridPane view = new GridPane();
+
+    private GridPane view = new GridPane();
     
     private models.Passenger passengerModel = new models.Passenger();
     private static final user.Session USER = user.Session.getInstance();
     
+    /**
+     * Show luggage details page
+     * @param UI
+     * @param model
+     * @throws SQLException
+     * @throws IOException
+     */
     public LuggageDetails(LuggageUI UI, models.Luggage model) throws SQLException, IOException {
         this.UI = UI;
         this.db = DatabaseManager.getInstance();

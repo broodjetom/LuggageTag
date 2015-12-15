@@ -20,18 +20,23 @@ import javafx.scene.layout.HBox;
 /**
  *
  * @author Tom Scholten
- * @class add luggage
- * @date 07-12-15
  */
 public class AddLuggage {
 
     private LuggageUI UI;
     private DatabaseManager db;
-    public GridPane view = new GridPane();
+
+    private GridPane view = new GridPane();
 
     private models.Passenger passengerModel = new models.Passenger();
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Show add luggage page
+     * @param UI
+     * @throws SQLException
+     * @throws IOException
+     */
     public AddLuggage(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;

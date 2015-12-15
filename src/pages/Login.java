@@ -28,8 +28,14 @@ public class Login {
 
     private static final user.Session USER = user.Session.getInstance();
 
-    public GridPane view = new GridPane();
+    private GridPane view = new GridPane();
 
+    /**
+     * Show login page
+     * @param UI
+     * @throws SQLException
+     * @throws IOException
+     */
     public Login(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;

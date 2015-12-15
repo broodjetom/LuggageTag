@@ -20,12 +20,14 @@ public class Passenger {
     private String date_added;
     private String date_changed;
 
-    public ObservableList<models.Phone> phone;
-    public ObservableList<models.Email> email;
-    public ObservableList<models.Address> address;
+    private ObservableList<models.Phone> phone;
+
+    private ObservableList<models.Email> email;
+
+    private ObservableList<models.Address> address;
 
     /**
-     *
+     * Formats the dates
      */
     public Passenger() {
 
@@ -33,10 +35,18 @@ public class Passenger {
         this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
     }
 
+    /**
+     * Gets the user
+     * @return models.Users
+     */
     public Users getUser() {
         return user;
     }
 
+    /**
+     * Sets the user
+     * @param user models.Users
+     */
     public void setUser(Users user) {
         this.user = user;
         this.date_changed = "" + (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
@@ -134,7 +144,7 @@ public class Passenger {
     }
 
     /**
-     * @param users_id
+     * @param users_id int Users id
      */
     public void setUsers_id(int users_id) {
         this.users_id = users_id;

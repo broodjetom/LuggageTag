@@ -26,10 +26,17 @@ import javafx.scene.layout.GridPane;
 public class SearchLuggage {
     private LuggageUI UI;
     private DatabaseManager db;
-    public GridPane view = new GridPane();
+
+    private GridPane view = new GridPane();
 
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Show search luggage page
+     * @param UI
+     * @throws SQLException
+     * @throws IOException
+     */
     public SearchLuggage(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;

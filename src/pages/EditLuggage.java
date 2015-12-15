@@ -18,19 +18,25 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 /**
- * @Author Tom Scholten
- * @Class
- * @Date
+ * @author Tom Scholten
  */
 public class EditLuggage {
 
     private LuggageUI UI;
     private DatabaseManager db;
-    public GridPane view = new GridPane();
+
+    private GridPane view = new GridPane();
 
     private models.Passenger passengerModel = new models.Passenger();
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Show edit luggage page
+     * @param UI
+     * @param model models.Luggage to edit
+     * @throws SQLException
+     * @throws IOException
+     */
     public EditLuggage(LuggageUI UI, models.Luggage model) throws SQLException, IOException {
         this.UI = UI;
         this.db = DatabaseManager.getInstance();

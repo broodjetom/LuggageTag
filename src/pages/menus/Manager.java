@@ -15,6 +15,10 @@ public class Manager {
     private LuggageUI UI;
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Generates the manager menu
+     * @param UI
+     */
     public Manager(LuggageUI UI) {
         this.UI = UI;
 

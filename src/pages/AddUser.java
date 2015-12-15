@@ -12,18 +12,23 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 /**
- * @Author Tom Scholten
- * @Class add user
- * @Date 04-12-15
+ * @author Tom Scholten
  */
 public class AddUser {
 
     private LuggageUI UI;
     private DatabaseManager db;
-    public GridPane view = new GridPane();
+
+    private GridPane view = new GridPane();
 
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Show add user page
+     * @param UI
+     * @throws SQLException
+     * @throws IOException
+     */
     public AddUser(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;

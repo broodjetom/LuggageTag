@@ -26,10 +26,17 @@ public class UsersPage {
 
     private LuggageUI UI;
     private DatabaseManager db;
-    public GridPane view = new GridPane();
+
+    private GridPane view = new GridPane();
 
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Show users page
+     * @param UI
+     * @throws SQLException
+     * @throws IOException
+     */
     public UsersPage(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;

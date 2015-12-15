@@ -20,17 +20,22 @@ import javafx.scene.layout.GridPane;
 /**
  *
  * @author Tom Scholten
- * @class Show a table of locations.
- * @date 14-12-15
  */
 public class Locations {
 
     private LuggageUI UI;
     private DatabaseManager db;
-    public GridPane view = new GridPane();
+
+    private GridPane view = new GridPane();
 
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Show locations page
+     * @param UI
+     * @throws SQLException
+     * @throws IOException
+     */
     public Locations(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;

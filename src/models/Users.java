@@ -19,13 +19,6 @@ public class Users {
     private int admin;
     private int location_id;
     private Locations location;
-    
-    /**
-     *
-     */
-    public Users(){
-        
-    }
 
     /**
      * @return the id

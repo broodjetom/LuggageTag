@@ -7,6 +7,8 @@ package pages;
 
 import UI.LuggageUI;
 import database.DatabaseManager;
+import java.io.IOException;
+import java.sql.SQLException;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 
@@ -17,14 +19,21 @@ import javafx.scene.layout.GridPane;
 public class Settings {
     private LuggageUI UI;
     private DatabaseManager db;
-    public GridPane view = new GridPane();
+
+    private GridPane view = new GridPane();
 
     private static final user.Session USER = user.Session.getInstance();
 
-    public Settings(LuggageUI UI, DatabaseManager db) {
+    /**
+     * Show settings page
+     * @param UI
+     * @throws SQLException
+     * @throws IOException
+     */
+    public Settings(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;
-        this.db = db;
+        this.db = DatabaseManager.getInstance();
 
         view.setPadding(new Insets(50, 50, 50, 50));
     }

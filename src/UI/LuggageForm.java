@@ -38,14 +38,31 @@ public class LuggageForm {
     private boolean errorSet = false;
     Label errorText;
 
+    /**
+     * HashMap containing all the added textFields
+     */
     public Map<String, TextField> textFields = new HashMap<>();
     private Map<String, Boolean> textFieldsRequired = new HashMap<>();
 
+    /**
+     * HashMap containing all the added textAreas
+     */
     public Map<String, TextArea> textAreas = new HashMap<>();
     private Map<String, Boolean> textAreasRequired = new HashMap<>();
 
+    /**
+     * HashMap containing all the added radioFields
+     */
     public Map<String, ToggleGroup> radioFields = new HashMap<>();
+
+    /**
+     * HashMap containing all the added comboBoxes
+     */
     public Map<String, ComboBox> comboBox = new HashMap<>();
+
+    /**
+     * HashMap containing all the required comboBoxes
+     */
     public Map<String, Boolean> comboBoxRequired = new HashMap<>();
 
     private Map<String, String> keyValues = new HashMap<>();
@@ -84,7 +101,7 @@ public class LuggageForm {
     /**
      * Add node to the grid
      *
-     * @param node
+     * @param node Node to add to the grid
      */
     public void add(Node node) {
         grid.add(node, col, row);
@@ -94,7 +111,7 @@ public class LuggageForm {
     /**
      * Get the value of an input field
      *
-     * @param id
+     * @param id Identifier of field
      * @return String the value of an element
      */
     public String get(String id) {
@@ -116,6 +133,11 @@ public class LuggageForm {
         return keyValues.get(id);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Object getComboBoxSelected(String id) {
         return this.comboBox.get(id).getSelectionModel().getSelectedItem();
     }
@@ -207,8 +229,7 @@ public class LuggageForm {
      *
      * @param id ID to set for this field
      * @param required Make element required, or not
-     * @param text Default text
-     * @param prefColumnCount Width of text area in columns
+     * @param text Default text of the area
      */
     public void addTextArea(String id, Boolean required, String text) {
         TextArea textArea = new TextArea(text);
@@ -235,6 +256,11 @@ public class LuggageForm {
         add(textArea);
     }
     
+    /**
+     *
+     * @param id
+     * @param elements
+     */
     public void addComboBox(String id, String[] elements) {
         addComboBox(id, elements, false);
     }
@@ -244,6 +270,7 @@ public class LuggageForm {
      *
      * @param id ID to set for this field
      * @param elements The elements to add to the group of the combobox
+     * @param required Set combobox as required
      */
     public void addComboBox(String id, String[] elements, Boolean required) {
         ComboBox theBox = new ComboBox();
@@ -262,6 +289,8 @@ public class LuggageForm {
      *
      * @param id ID to set for this field
      * @param elements The elements to add to the group of the combobox
+     * @param required Set combobox as required
+     * @param selected Set defualt selected item
      */
     public void addComboBox(String id, String[] elements, Boolean required, String selected) {
         ComboBox theBox = new ComboBox();
@@ -303,6 +332,7 @@ public class LuggageForm {
      * @param id ID to set for this field
      * @param elements The elements to add to the group of the combobox
      * @param required Field is required
+     * @param selected The default selected object
      */
     public void addComboBox(String id, ObservableList elements, Boolean required, Object selected) {
         ComboBox theBox = new ComboBox(elements);
@@ -488,18 +518,34 @@ public class LuggageForm {
         }
     }
     
+    /**
+     * Set preferred width of the form
+     * @param width
+     */
     public void setPrefWidth(Double width){
         this.grid.prefWidth(width);
     }
     
+    /**
+     * Set preferred height of the form
+     * @param height
+     */
     public void setPrefHeight(Double height){
         this.grid.prefHeight(height);
     }
     
+    /**
+     * Set the alignment of the form
+     * @param pos
+     */
     public void setAlignment(Pos pos){
         this.grid.setAlignment(pos);
     }
     
+    /**
+     * Set the style of the form, JavaFX CSS
+     * @param style
+     */
     public void setSyle(String style){
         this.grid.setStyle(style);
     }

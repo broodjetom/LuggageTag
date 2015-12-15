@@ -12,18 +12,24 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 /**
- * @Author Tom Scholten
- * @Class
- * @Date
+ * @author Tom Scholten
  */
 public class EditPassenger {
 
     private LuggageUI UI;
     private DatabaseManager db;
-    public GridPane view = new GridPane();
+
+    private GridPane view = new GridPane();
 
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Show edit passenger page
+     * @param UI
+     * @param model models.Passenger to edit
+     * @throws SQLException
+     * @throws IOException
+     */
     public EditPassenger(LuggageUI UI, models.Passenger model) throws SQLException, IOException {
         this.UI = UI;
         this.db = DatabaseManager.getInstance();

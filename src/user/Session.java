@@ -8,7 +8,10 @@ public class Session {
    private static Session instance = null;
    private models.Users user = new models.Users();
    
-   protected Session() {
+    /**
+     * Protected constructor for singleton
+     */
+    protected Session() {
       // Protect the constructor
    }
    

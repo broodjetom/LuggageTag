@@ -27,10 +27,21 @@ public class PassengerDetails {
 
     private LuggageUI UI;
     private DatabaseManager db;
+
+    /**
+     *
+     */
     public GridPane view = new GridPane();
 
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Show pagger detials page
+     * @param UI
+     * @param model
+     * @throws SQLException
+     * @throws IOException
+     */
     public PassengerDetails(LuggageUI UI, models.Passenger model) throws SQLException, IOException {
         this.UI = UI;
         this.db = DatabaseManager.getInstance();

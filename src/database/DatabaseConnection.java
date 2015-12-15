@@ -25,7 +25,9 @@ public class DatabaseConnection {
     /**
      * Makes a connection to the database.
      *
-     * @throws SQLException
+     * @throws SQLException SQL error exeptions
+     * @throws java.io.FileNotFoundException IO file error exeptions
+     * @throws java.io.IOException IO error exeptions
      */
     public DatabaseConnection() throws SQLException, FileNotFoundException, IOException {
         BufferedReader br = new BufferedReader(new FileReader(".env"));
@@ -75,8 +77,8 @@ public class DatabaseConnection {
     /**
      * Executes a query to insert into the database.
      *
-     * @param query
-     * @throws SQLException
+     * @param query String query that needs to be executed
+     * @throws SQLException SQL error exeptions
      */
     public void executeQuery(String query) throws SQLException {
         this.connection.createStatement().executeQuery(query);
@@ -85,14 +87,19 @@ public class DatabaseConnection {
     /**
      * Executes a query to select from the database
      *
-     * @param query
+     * @param query String query that needs to be executed
      * @return Resultset, results of select
-     * @throws SQLException
+     * @throws SQLException SQL error exeptions
      */
     public ResultSet executeSelect(String query) throws SQLException {
         return this.connection.createStatement().executeQuery(query);
     }
 
+    /**
+     *
+     * @param query String query that needs to be executed
+     * @throws SQLException SQL error exeptions
+     */
     public void executeUpdate(String query) throws SQLException {
         this.connection.createStatement().executeUpdate(query);
     }

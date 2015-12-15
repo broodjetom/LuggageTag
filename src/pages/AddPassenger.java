@@ -14,17 +14,22 @@ import javafx.scene.control.Button;
 
 /**
  * @author Tom Scholten
- * @class screen to add a passenger to database
- * @date 07-12-15
  */
 public class AddPassenger {
 
     private LuggageUI UI;
     private DatabaseManager db;
-    public GridPane view = new GridPane();
+
+    private GridPane view = new GridPane();
 
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Show add passenger page
+     * @param UI
+     * @throws SQLException
+     * @throws IOException
+     */
     public AddPassenger(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;

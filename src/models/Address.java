@@ -1,10 +1,5 @@
 package models;
 
-/**
- * @Author Tom Scholten
- * @Class
- * @Date
- */
 public class Address {
 
     private int id = 0;
@@ -14,18 +9,16 @@ public class Address {
     private String land;
 
     /**
-     *
-     */
-    public Address() {
-    }
-
-    /**
      * @return the id
      */
     public int getId() {
         return id;
     }
 
+    /**
+     * Get the formatted address
+     * @return formatted address address <i>\n</i> zip <i>\n</i> land
+     */
     public String getFormattedAddress() {
         return address + "\n" + zip + "\n" + land;
     }

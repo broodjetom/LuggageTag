@@ -17,17 +17,20 @@ import javafx.scene.layout.GridPane;
 /**
  *
  * @author Tom Scholten
- * @class Forgot password screen
- * @date 11-12-15
  */
 public class ForgotPassword {
 
     private LuggageUI UI;
     private DatabaseManager db;
-    public GridPane view = new GridPane();
+
+    private GridPane view = new GridPane();
 
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Show forgot password page
+     * @param UI
+     */
     public ForgotPassword(LuggageUI UI) {
         view.setPadding(new Insets(50, 50, 50, 50));
 

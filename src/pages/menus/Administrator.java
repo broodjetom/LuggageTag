@@ -20,6 +20,10 @@ public class Administrator {
     
     private static final user.Session USER = user.Session.getInstance();
     
+    /**
+     * Generates the administrator menu
+     * @param UI LuggageUI
+     */
     public Administrator(LuggageUI UI){
         this.UI = UI;
         

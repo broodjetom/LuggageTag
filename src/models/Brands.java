@@ -10,12 +10,6 @@ public class Brands {
 
     /**
      *
-     */
-    public Brands() {
-    }
-
-    /**
-     *
      * @return
      */
     public int getId() {

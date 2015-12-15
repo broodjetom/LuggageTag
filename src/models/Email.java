@@ -1,19 +1,11 @@
 package models;
 /**
- * @Author Tom Scholten
- * @Class
- * @Date 
+ * @author Tom Scholten
  */
 public class Email {
     private int id = 0;
     private int passenger_id;
     private String email;
-
-    /**
-     *
-     */
-    public Email() {
-    }
 
     /**
      * @return the id
@@ -51,6 +43,7 @@ public class Email {
     }
     
     /**
+     * Returns the email, used in JavaFX classes
      * @return the email
      */
     public String toString() {

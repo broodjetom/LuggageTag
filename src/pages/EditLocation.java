@@ -10,19 +10,24 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 /**
- * @Author Tom Scholten
- * @Class Edit locations
- * @Date 14-12-15
+ * @author Tom Scholten
  */
 public class EditLocation {
 
     private LuggageUI UI;
     private DatabaseManager db;
 
-    public GridPane view = new GridPane();
+    private GridPane view = new GridPane();
 
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Show edit location page
+     * @param UI
+     * @param model models.Location to edit
+     * @throws SQLException
+     * @throws IOException
+     */
     public EditLocation(LuggageUI UI, models.Locations model) throws SQLException, IOException {
 
         this.UI = UI;

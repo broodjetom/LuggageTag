@@ -14,6 +14,10 @@ public class Employee {
     private LuggageUI UI;
     private static final user.Session USER = user.Session.getInstance();
 
+    /**
+     * Generates the Employee menu
+     * @param UI
+     */
     public Employee(LuggageUI UI) {
         this.UI = UI;
 

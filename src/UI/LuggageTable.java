@@ -19,6 +19,10 @@ import javafx.scene.input.MouseEvent;
 public class LuggageTable {
 
     private TableView table;
+
+    /**
+     * HashMap containing all the columns
+     */
     public Map<String, TableColumn> tableColumns = new HashMap<>();
     private Object clicked;
     
