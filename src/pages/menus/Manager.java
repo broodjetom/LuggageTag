@@ -33,6 +33,11 @@ public class Manager {
             return true;
         });
         
+        menu.addMenuItem("Overview", false, (Callable) () -> {
+            pages.Overview page = new pages.Overview(UI);
+            return true;
+        });
+        
         /* menu.addMenuItem("Help", false, (Callable)()-> {
         pages.F1Screen page = new pages.F1Screen(UI);
         return true;
