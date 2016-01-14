@@ -203,7 +203,7 @@ public class AddLuggage {
                     luggageModel.setBelt(0);
                     break;
             }
-            System.out.println(form.get("belt"));
+            
             luggageModel.setBelt((form.get("belt") == ("Yes")) ? 1 : 0);
             models.Types typesBox = (models.Types) form.getComboBoxSelected("type_id");
             if (typesBox != null) {
@@ -215,8 +215,11 @@ public class AddLuggage {
             }
             luggageModel.setComment(form.get("comment"));
             luggageModel.setSituation(form.get("status"));
-            if ("Verloren".equals(form.get("status"))) {
+            
+            if( passengerModel != null )
                 luggageModel.setPassenger_id(passengerModel.getId());
+            
+            if ("Verloren".equals(form.get("status"))) {
                 form.error("Passenger" + passengerModel.getFullName());
             }
             form.error("overgeslagen");

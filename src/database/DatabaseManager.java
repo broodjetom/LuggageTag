@@ -115,7 +115,7 @@ public class DatabaseManager {
      * @throws SQLException SQL error exeptions
      */
     public Map<String, Double> getLostStatistics(String start, String end) throws SQLException {
-        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed, date_added FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Verloren' GROUP BY date_changed ORDER BY date_changed DESC");
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed, date_added FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Verloren' GROUP BY date_changed ORDER BY DATE(date_changed) DESC");
 
         Map<String, Double> results = new HashMap<>();
 
@@ -137,7 +137,7 @@ public class DatabaseManager {
      * @throws SQLException SQL error exeptions
      */
     public Map<String, Double> getFoundStatistics(String start, String end) throws SQLException {
-        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed, date_added FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Gevonden' GROUP BY date_changed ORDER BY date_changed DESC");
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed, date_added FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Gevonden' GROUP BY date_changed ORDER BY DATE(date_changed) DESC");
 
         Map<String, Double> results = new HashMap<>();
 
@@ -159,7 +159,7 @@ public class DatabaseManager {
      * @throws SQLException SQL error exeptions
      */
     public Map<String, Double> getFinishedStatistics(String start, String end) throws SQLException {
-        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_finished FROM luggage WHERE (date_finished BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Afgehandeld' GROUP BY date_finished ORDER BY date_finished DESC");
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_finished FROM luggage WHERE (date_finished BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Afgehandeld' GROUP BY date_finished ORDER BY DATE(date_finished) DESC");
 
         Map<String, Double> results = new HashMap<>();
 
