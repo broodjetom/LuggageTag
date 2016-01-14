@@ -115,12 +115,16 @@ public class DatabaseManager {
      * @throws SQLException SQL error exeptions
      */
     public Map<String, Double> getLostStatistics(String start, String end) throws SQLException {
-        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Verloren' GROUP BY date_changed ORDER BY date_changed DESC");
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed, date_added FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Verloren' GROUP BY date_changed ORDER BY date_changed DESC");
 
         Map<String, Double> results = new HashMap<>();
 
         while (resultSet.next()) {
-            results.put(resultSet.getString("date_changed"), resultSet.getDouble("count"));
+            if( resultSet.getString("date_changed") == null ){
+                results.put(resultSet.getString("date_added"), resultSet.getDouble("count"));
+            } else {
+                results.put(resultSet.getString("date_changed"), resultSet.getDouble("count"));
+            }
         }
         return results;
     }
@@ -133,12 +137,16 @@ public class DatabaseManager {
      * @throws SQLException SQL error exeptions
      */
     public Map<String, Double> getFoundStatistics(String start, String end) throws SQLException {
-        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Gevonden' GROUP BY date_changed ORDER BY date_changed DESC");
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed, date_added FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Gevonden' GROUP BY date_changed ORDER BY date_changed DESC");
 
         Map<String, Double> results = new HashMap<>();
 
         while (resultSet.next()) {
-            results.put(resultSet.getString("date_changed"), resultSet.getDouble("count"));
+            if( resultSet.getString("date_changed") == null ){
+                results.put(resultSet.getString("date_added"), resultSet.getDouble("count"));
+            } else {
+                results.put(resultSet.getString("date_changed"), resultSet.getDouble("count"));
+            }
         }
         return results;
     }
@@ -1091,12 +1099,13 @@ public class DatabaseManager {
         }
 
         if (model.getLocation_id() != 0) {
-            query += "passenger_id = " + model.getLocation_id() + " AND ";
+            query += "location_id = " + model.getLocation_id() + " AND ";
             addWhere = true;
         }
 
         if (model.getSituation() != null) {
-            query += "situation = " + model.getSituation() + " AND ";
+            query += "situation = '" + model.getSituation() + "' AND ";
+            addWhere = true;
         }
 
         if (addWhere) {
@@ -1106,6 +1115,8 @@ public class DatabaseManager {
         }
 
         query += " ORDER BY date_changed DESC";
+        
+        System.out.println(query);
 
         ResultSet resultSet = databaseconnection.executeSelect(query);
 

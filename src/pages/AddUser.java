@@ -120,8 +120,6 @@ public class AddUser {
                 if (locationsBox != null) {
                     newUser.setLocation_id(locationsBox.getId());
                 }
-                System.out.println("Now saving");
-                System.out.println(newUser.getLocation_id());
                 db.saveUsers(newUser);
                 form.error("User saved");
             } else {

@@ -84,32 +84,16 @@ private LuggageUI UI;
         form.addComboBox("status", new String[]{"Gevonden", "Verloren", "Afgehandeld"});
         form.addRow();
         
-        Button forgotPassword = UI.createGreyButton("Print?", false, (Callable) () -> {
-            return true;
-        });
-
-        form.add(forgotPassword);
+        form.addCol();
         form.addSubmitButton("Search");
         
         form.onSubmit((Callable) () -> {
             models.Luggage zoekNew = new models.Luggage();
            
-            models.Brands brandBox = (models.Brands)form.getComboBoxSelected("brand_id");
-            if( brandBox != null )
-                zoekNew.setBrand_id(brandBox.getId());
+            String selected = (String) form.getComboBoxSelected("status");
             
-            models.Colors colorBox = (models.Colors)form.getComboBoxSelected("color_id");
-            if( colorBox != null )
-                zoekNew.setColor_id(colorBox.getId());
+            zoekNew.setSituation(selected);
             
-            models.Materials materialBox = (models.Materials)form.getComboBoxSelected("material_id");
-            if( materialBox != null )
-                zoekNew.setMaterial_id(materialBox.getId());
-            
-            models.Types typeBox = (models.Types)form.getComboBoxSelected("type_id");
-            if( typeBox != null )
-                zoekNew.setType_id(typeBox.getId());
-                    
             ObservableList<models.Luggage> passengersZoek = db.getLuggage( zoekNew );
             
             table.setContent(passengersZoek);

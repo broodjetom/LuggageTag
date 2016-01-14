@@ -41,7 +41,6 @@ public class DatabaseConnection {
                 line = br.readLine();
             }
             String everything = sb.toString();
-            System.out.println(everything);
             
             Pattern h = Pattern.compile("HOST=(.+)");
             Pattern d = Pattern.compile("DATABASE=(.+)");
