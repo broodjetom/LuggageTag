@@ -1,44 +1,43 @@
 package UI;
 
 import java.util.Map;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 /**
- * Create a Chart
- * @author Kah Kit &amp; Alex
+ * Creates a line chart representing the luggage that is lost, taken care of and
+ * found.
+ *
+ * @author Kah Kit Version 1.0
  */
-public class LuggageChart{
-    
+public class LuggageChart {
+
+    //Defining the axes
     final CategoryAxis xAxis = new CategoryAxis();
-    final NumberAxis yAxis = new NumberAxis();
-    final BarChart<String,Number> bc = 
-            new BarChart<>(xAxis,yAxis);
+    final NumberAxis yAxis = new NumberAxis();        
+    final LineChart<String,Number> lineChart = new LineChart<>(xAxis,yAxis);
+
+    String[] setXCoord;
     
-    
-    /**
-     * Set the label for the X axis
-     * @param label
-     */
+    //Creating the default constructor
+    public LuggageChart() {
+
+    }
+
     public void setLabelX( String label ){
         xAxis.setLabel(label);
     }
     
-    /**
-     * Set the label for the Y axis
-     * @param label
-     */
     public void setLabelY( String label ){
         yAxis.setLabel(label);
     }
     
-    /**
-     * Add a serie to the chart
-     * @param name Human readable name of the chart
-     * @param map Data for the chart
-     */
+    public void setXCoords( String[] values ){
+        setXCoord = values;
+    }
+    
     public void addSerie( String name, Map<String, Double> map ){
         XYChart.Series series1 = new XYChart.Series();
         series1.setName(name);
@@ -48,14 +47,10 @@ public class LuggageChart{
             Double value = entry.getValue();
             series1.getData().add(new XYChart.Data(key, value)); 
         }
-        bc.getData().add(series1);
+        lineChart.getData().add(series1);
     }
     
-    /**
-     * Return JavaFX BarChart Node
-     * @return
-     */
-    public BarChart<String, Number> getChart(){
-        return bc;
+    public LineChart<String, Number> getChart(){
+        return lineChart;
     }
 }
