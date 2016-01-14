@@ -43,6 +43,10 @@ public class Stats {
     public Stats(LuggageUI UI) throws SQLException, IOException {
         this.UI = UI;
         this.db = DatabaseManager.getInstance();
+        
+        view.setPadding(new Insets(50, 50, 50, 50));
+        UI.setCurPage("Stats");
+        
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         Calendar c = Calendar.getInstance();

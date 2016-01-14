@@ -35,6 +35,9 @@ public class AddUser {
         this.db = DatabaseManager.getInstance();
 
         view.setPadding(new Insets(50, 50, 50, 50));
+        UI.setCurPage("AddUser");
+        
+        view.setPadding(new Insets(50, 50, 50, 50));
 
         Label heading = UI.createHeading("Add user");
 

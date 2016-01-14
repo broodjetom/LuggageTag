@@ -41,6 +41,8 @@ public class AddLuggage {
 
         this.UI = UI;
         this.db = DatabaseManager.getInstance();
+        
+        UI.setCurPage("AddLuggage");
 
         view.setPadding(new Insets(50, 50, 50, 50));
 

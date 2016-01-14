@@ -40,6 +40,9 @@ public class Login {
 
         this.UI = UI;
         this.db = DatabaseManager.getInstance();
+        
+        view.setPadding(new Insets(50, 50, 50, 50));
+        UI.setCurPage("Login");
 
         view.setPadding(new Insets(50, 50, 50, 50));
 

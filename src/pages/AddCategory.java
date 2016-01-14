@@ -25,6 +25,7 @@ public class AddCategory {
 
     /**
      * Show category page
+     *
      * @param UI
      * @throws SQLException
      * @throws IOException
@@ -33,6 +34,9 @@ public class AddCategory {
 
         this.UI = UI;
         this.db = DatabaseManager.getInstance();
+
+        view.setPadding(new Insets(50, 50, 50, 50));
+        UI.setCurPage("AddCatagory");
 
         view.setPadding(new Insets(50, 50, 50, 50));
 
