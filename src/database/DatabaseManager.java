@@ -115,16 +115,12 @@ public class DatabaseManager {
      * @throws SQLException SQL error exeptions
      */
     public Map<String, Double> getLostStatistics(String start, String end) throws SQLException {
-        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed, date_added FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Verloren' GROUP BY date_changed ORDER BY DATE(date_changed) DESC");
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Verloren' GROUP BY date_changed ORDER BY date_changed DESC");
 
         Map<String, Double> results = new HashMap<>();
 
         while (resultSet.next()) {
-            if( resultSet.getString("date_changed") == null ){
-                results.put(resultSet.getString("date_added"), resultSet.getDouble("count"));
-            } else {
-                results.put(resultSet.getString("date_changed"), resultSet.getDouble("count"));
-            }
+            results.put(resultSet.getString("date_changed"), resultSet.getDouble("count"));
         }
         return results;
     }
@@ -137,16 +133,12 @@ public class DatabaseManager {
      * @throws SQLException SQL error exeptions
      */
     public Map<String, Double> getFoundStatistics(String start, String end) throws SQLException {
-        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed, date_added FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Gevonden' GROUP BY date_changed ORDER BY DATE(date_changed) DESC");
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_changed FROM luggage WHERE (date_added BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Gevonden' GROUP BY date_changed ORDER BY date_changed DESC");
 
         Map<String, Double> results = new HashMap<>();
 
         while (resultSet.next()) {
-            if( resultSet.getString("date_changed") == null ){
-                results.put(resultSet.getString("date_added"), resultSet.getDouble("count"));
-            } else {
-                results.put(resultSet.getString("date_changed"), resultSet.getDouble("count"));
-            }
+            results.put(resultSet.getString("date_changed"), resultSet.getDouble("count"));
         }
         return results;
     }
@@ -159,7 +151,7 @@ public class DatabaseManager {
      * @throws SQLException SQL error exeptions
      */
     public Map<String, Double> getFinishedStatistics(String start, String end) throws SQLException {
-        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_finished FROM luggage WHERE (date_finished BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Afgehandeld' GROUP BY date_finished ORDER BY DATE(date_finished) DESC");
+        ResultSet resultSet = databaseconnection.executeSelect("SELECT COUNT(*) AS count, date_finished FROM luggage WHERE (date_finished BETWEEN '" + start + "' AND '" + end + "') AND situation = 'Afgehandeld' GROUP BY date_finished ORDER BY date_finished DESC");
 
         Map<String, Double> results = new HashMap<>();
 
@@ -395,7 +387,6 @@ public class DatabaseManager {
             model.setManager(resultSet.getInt("manager"));
             model.setAdmin(resultSet.getInt("admin"));
             model.setLocation_id(resultSet.getInt("setting_id"));
-            model.setLocation(DatabaseManager.this.getLocation(resultSet.getInt("setting_id")));
         }
         return model;
     }
@@ -1099,13 +1090,12 @@ public class DatabaseManager {
         }
 
         if (model.getLocation_id() != 0) {
-            query += "location_id = " + model.getLocation_id() + " AND ";
+            query += "passenger_id = " + model.getLocation_id() + " AND ";
             addWhere = true;
         }
 
         if (model.getSituation() != null) {
-            query += "situation = '" + model.getSituation() + "' AND ";
-            addWhere = true;
+            query += "situation = " + model.getSituation() + " AND ";
         }
 
         if (addWhere) {
@@ -1115,8 +1105,6 @@ public class DatabaseManager {
         }
 
         query += " ORDER BY date_changed DESC";
-        
-        System.out.println(query);
 
         ResultSet resultSet = databaseconnection.executeSelect(query);
 

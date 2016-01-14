@@ -40,6 +40,9 @@ public class Locations {
 
         this.UI = UI;
         this.db = DatabaseManager.getInstance();
+        
+        view.setPadding(new Insets(50, 50, 50, 50));
+        UI.setCurPage("Locations");
 
         view.setPadding(new Insets(50, 50, 50, 50));
 

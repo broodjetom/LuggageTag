@@ -25,6 +25,7 @@ public class AddCategory {
 
     /**
      * Show category page
+     *
      * @param UI
      * @throws SQLException
      * @throws IOException
@@ -35,8 +36,11 @@ public class AddCategory {
         this.db = DatabaseManager.getInstance();
 
         view.setPadding(new Insets(50, 50, 50, 50));
+        UI.setCurPage("AddCatagory");
 
-        Label heading = UI.createHeading("Add categories");
+        view.setPadding(new Insets(50, 50, 50, 50));
+
+        Label heading = UI.createHeading("Categorieën toevoegen");
 
         VBox vBox = new VBox();
 
@@ -47,7 +51,7 @@ public class AddCategory {
         LuggageForm brandForm = new LuggageForm(UI);
         brandForm.addLabel("Brand:\t\t");
         brandForm.addTextField("brand", false);
-        brandForm.addSubmitButton("Add");
+        brandForm.addSubmitButton("Toevoegen");
         brandForm.onSubmit((Callable) () -> {
             if (brandForm.get("brand").isEmpty()) {
                 brandForm.error("Field is empty");
@@ -64,7 +68,7 @@ public class AddCategory {
         LuggageForm colorForm = new LuggageForm(UI);
         colorForm.addLabel("Color:\t\t");
         colorForm.addTextField("color", false);
-        colorForm.addSubmitButton("Add");
+        colorForm.addSubmitButton("Toevoegen");
         colorForm.onSubmit((Callable) () -> {
             if (colorForm.get("color").isEmpty()) {
                 colorForm.error("Field is empty!");
@@ -81,7 +85,7 @@ public class AddCategory {
         LuggageForm materialForm = new LuggageForm(UI);
         materialForm.addLabel("Material:\t");
         materialForm.addTextField("material", false);
-        materialForm.addSubmitButton("Add");
+        materialForm.addSubmitButton("Toevoegen");
         materialForm.onSubmit((Callable) () -> {
             if (materialForm.get("material").isEmpty()) {
                 materialForm.error("Field is empty!");
@@ -99,7 +103,7 @@ public class AddCategory {
         typeForm.addLabel("Type:\t\t");
         typeForm.addTextField("type", false);
 
-        typeForm.addSubmitButton("Add");
+        typeForm.addSubmitButton("Toevoegen");
         typeForm.onSubmit((Callable) () -> {
             if (typeForm.get("type").isEmpty()) {
                 typeForm.error("Field is empty!");
@@ -122,7 +126,7 @@ public class AddCategory {
         locationForm.addTextField("zip", true);
         locationForm.addLabel("Country:");
         locationForm.addTextField("land", true);
-        locationForm.addSubmitButton("Add");
+        locationForm.addSubmitButton("Toevoegen");
         locationForm.onSubmit((Callable) () -> {
             if (locationForm.get("location").isEmpty()) {
                 locationForm.error("Field is empty!");

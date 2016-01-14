@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -150,29 +148,7 @@ public class LuggageForm {
      * @param text
      */
     public void addLabel(String text) {
-        int maxLength = 60;
-        String newtext = "";
-        String[] words = text.split("\\s+");
-        if (words.length > 5) {
-            int count = 0;
-            for (int i = 0; i < words.length; i++) {
-                String word = words[i];
-                int wordLength = word.length() + 1;
-                if( count + wordLength < 50 ){
-                    count += wordLength;
-                } else {
-                    newtext += "\n";
-                    count = 0;
-                }
-                newtext += word + " ";
-                System.out.println("Found value: " + word);
-            }
-        } else {
-            newtext = text;
-        }
-        
-        
-        Label label = UI.createText(newtext);
+        Label label = UI.createText(text);
         label.setStyle("-fx-font-weight: bold;");
         add(label);
     }
@@ -448,12 +424,12 @@ public class LuggageForm {
      * @param text the value of the button
      */
     public void addSubmitButton(String text) {
-        Button submitButton = UI.createSecondaryButton(text, false, (Callable) () -> {
+        Button login = UI.createSecondaryButton(text, false, (Callable) () -> {
             fireSubmitEvent();
             return true;
         });
 
-        grid.add(submitButton, col, row);
+        grid.add(login, col, row);
         addCol();
     }
 

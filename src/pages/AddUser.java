@@ -35,6 +35,9 @@ public class AddUser {
         this.db = DatabaseManager.getInstance();
 
         view.setPadding(new Insets(50, 50, 50, 50));
+        UI.setCurPage("AddUser");
+        
+        view.setPadding(new Insets(50, 50, 50, 50));
 
         Label heading = UI.createHeading("Add user");
 
@@ -120,6 +123,8 @@ public class AddUser {
                 if (locationsBox != null) {
                     newUser.setLocation_id(locationsBox.getId());
                 }
+                System.out.println("Now saving");
+                System.out.println(newUser.getLocation_id());
                 db.saveUsers(newUser);
                 form.error("User saved");
             } else {

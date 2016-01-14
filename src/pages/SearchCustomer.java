@@ -37,6 +37,9 @@ public class SearchCustomer {
 
         this.UI = UI;
         this.db = DatabaseManager.getInstance();
+        
+        view.setPadding(new Insets(50, 50, 50, 50));
+        UI.setCurPage("SearchPassenger");
 
         view.setPadding(new Insets(50, 50, 50, 50));
         

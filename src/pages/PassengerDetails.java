@@ -50,6 +50,10 @@ public class PassengerDetails {
 
         UI.setTitle("Passenger details");
 
+        UI.setCurPage("AddLuggage");
+
+        view.setPadding(new Insets(50, 50, 50, 50));
+        
         LuggageForm form = new LuggageForm(UI);
 
         Label heading = UI.createHeading("Details of " + model.getFullName());

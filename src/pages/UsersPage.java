@@ -26,6 +26,8 @@ public class UsersPage {
 
     private LuggageUI UI;
     private DatabaseManager db;
+    
+    
 
     private GridPane view = new GridPane();
 
@@ -42,6 +44,9 @@ public class UsersPage {
         this.UI = UI;
         this.db = DatabaseManager.getInstance();
 
+        view.setPadding(new Insets(50, 50, 50, 50));
+        UI.setCurPage("Users");
+        
         view.setPadding(new Insets(50, 50, 50, 50));
 
         UI.setTitle("Search Users");

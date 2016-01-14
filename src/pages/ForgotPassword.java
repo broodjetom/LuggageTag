@@ -31,9 +31,14 @@ public class ForgotPassword {
      * Show forgot password page
      * @param UI
      */
+   
+    
     public ForgotPassword(LuggageUI UI) {
         view.setPadding(new Insets(50, 50, 50, 50));
 
+        view.setPadding(new Insets(50, 50, 50, 50));
+        UI.setCurPage("ForgotPassword");
+        
         Label heading = UI.createHeading("Recover password");
         view.add(heading, 1, 1);
 

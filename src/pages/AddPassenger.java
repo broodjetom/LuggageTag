@@ -26,6 +26,7 @@ public class AddPassenger {
 
     /**
      * Show add passenger page
+     *
      * @param UI
      * @throws SQLException
      * @throws IOException
@@ -36,9 +37,9 @@ public class AddPassenger {
         this.db = DatabaseManager.getInstance();
 
         view.setPadding(new Insets(50, 50, 50, 50));
+        UI.setCurPage("AddPassenger");
+        view.setPadding(new Insets(50, 50, 50, 50));
 
-        
-        
         Label heading = UI.createHeading("Add Passenger");
 
         LuggageForm form = new LuggageForm(UI);
@@ -131,16 +132,15 @@ public class AddPassenger {
             phoneModel.setPhone(form.get("phone1"));
             db.savePhone(phoneModel);
 
-            
             System.out.println("phone saved" + form.get("phone1"));
-            if (form.get("phone2").length() != 0 ) {
+            if (form.get("phone2").length() != 0) {
                 phoneModel.setId(0);
                 phoneModel.setPassenger_id(id);
                 phoneModel.setPhone(form.get("phone2"));
                 phoneModel = db.savePhone(phoneModel);
             }
 
-            if (form.get("phone3").length() != 0 ) {
+            if (form.get("phone3").length() != 0) {
                 phoneModel.setId(0);
                 phoneModel.setPassenger_id(id);
                 phoneModel.setPhone(form.get("phone3"));
@@ -152,7 +152,7 @@ public class AddPassenger {
             emailModel.setPassenger_id(id);
             emailModel.setEmail(form.get("email1"));
             db.saveEmail(emailModel);
-            
+
             System.out.println("email saved");
             if (form.get("email2").length() != 0) {
                 phoneModel.setId(0);
@@ -175,6 +175,7 @@ public class AddPassenger {
             addressModel.setLand(form.get("land1"));
             db.saveAddress(addressModel);
 
+            System.out.println("address saved");
             if (form.get("address2").length() != 0) {
                 phoneModel.setId(0);
                 addressModel.setPassenger_id(id);
