@@ -44,7 +44,7 @@ public class AddLuggage {
 
         view.setPadding(new Insets(50, 50, 50, 50));
 
-        Label heading = UI.createHeading("Bagage toevoegen");
+        Label heading = UI.createHeading("Add luggage");
 
         LuggageForm form = new LuggageForm(UI);
         form.add(heading);
@@ -111,7 +111,7 @@ public class AddLuggage {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Link new user");
             alert.setHeaderText("You're about to change the linked passenger");
-            alert.setContentText("Cange passenger to " + passengerModel.getFullName() + "?");
+            alert.setContentText("Are you sure you want to change the passenger to " + passengerModel.getFullName() + "?");
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
@@ -216,7 +216,6 @@ public class AddLuggage {
             luggageModel.setComment(form.get("comment"));
             luggageModel.setSituation(form.get("status"));
             if ("Verloren".equals(form.get("status"))) {
-                System.out.println("in de if statement");
                 luggageModel.setPassenger_id(passengerModel.getId());
                 form.error("Passenger" + passengerModel.getFullName());
             }

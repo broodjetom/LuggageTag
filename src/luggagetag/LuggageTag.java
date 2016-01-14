@@ -19,11 +19,12 @@ import java.sql.SQLException;
  * @author Alex
  */
 public class LuggageTag extends Application {
+
     private LuggageUI UI;
     private static final user.Session USER = user.Session.getInstance();
-    
+
     private DatabaseManager db;
-    
+
     /**
      * @param args the command line arguments
      */
@@ -31,21 +32,19 @@ public class LuggageTag extends Application {
         launch(args);
 
     }
-    
+
     /*
         Start is de constructor, hier start de applicatie
-    */
+     */
     @Override
     public void start(Stage primaryStage) throws SQLException, IOException {
         this.db = DatabaseManager.getInstance();
         this.UI = new LuggageUI(primaryStage);
-        
-        
-        
+
         UI.setTitle("Welcome");
-        
+
         Login login = new Login(UI);
-        
+
         UI.show();
 
     }

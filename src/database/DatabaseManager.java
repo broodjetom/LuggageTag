@@ -387,6 +387,7 @@ public class DatabaseManager {
             model.setManager(resultSet.getInt("manager"));
             model.setAdmin(resultSet.getInt("admin"));
             model.setLocation_id(resultSet.getInt("setting_id"));
+            model.setLocation(DatabaseManager.this.getLocation(resultSet.getInt("setting_id")));
         }
         return model;
     }

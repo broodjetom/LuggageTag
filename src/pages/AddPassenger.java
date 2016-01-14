@@ -175,7 +175,6 @@ public class AddPassenger {
             addressModel.setLand(form.get("land1"));
             db.saveAddress(addressModel);
 
-            System.out.println("address saved");
             if (form.get("address2").length() != 0) {
                 phoneModel.setId(0);
                 addressModel.setPassenger_id(id);
