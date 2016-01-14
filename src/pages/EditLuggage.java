@@ -96,7 +96,7 @@ public class EditLuggage {
 
         form.addRow();
         form.addLabel("Comment: ");
-        form.addTextArea("comment", false);
+        form.addTextArea("comment", false, model.getComment());
 
         form.addRow();
         form.addLabel("Status:");
@@ -109,7 +109,7 @@ public class EditLuggage {
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Link new user");
             alert.setHeaderText("You're about to change the linked passenger");
-            alert.setContentText("Cange passenger to " + passengerModel.getFullName() + "?");
+            alert.setContentText("Are you sure you want to change the passenger to " + passengerModel.getFullName() + "?");
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
