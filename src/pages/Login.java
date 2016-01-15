@@ -39,12 +39,10 @@ public class Login {
     public Login(LuggageUI UI) throws SQLException, IOException {
 
         this.UI = UI;
-        this.db = DatabaseManager.getInstance();
-        
-        view.setPadding(new Insets(50, 50, 50, 50));
-        UI.setCurPage("Login");
+        this.db = DatabaseManager.getInstance(); 
 
         view.setPadding(new Insets(50, 50, 50, 50));
+        UI.setCurPage("Login");
 
         Label heading = UI.createHeading("Log in");
         Label subtext = UI.createText("Log in with your log-in credentials");
@@ -61,7 +59,7 @@ public class Login {
 
         form.addRow();
 
-        Button forgotPassword = UI.createGreyButton("Wachtwoord vergeten", false, (Callable) () -> {
+        Button forgotPassword = UI.createGreyButton("Forgot password", false, (Callable) () -> {
             ForgotPassword ForgotPassword = new ForgotPassword(UI);
             return true;
         });
@@ -88,7 +86,7 @@ public class Login {
                     pages.UsersPage users = new pages.UsersPage(UI);
                 }
             } else {
-                form.error("Email en/of wachtwoord incorrect\nProbeer het met andere gegevens\nOf ga naar uw manager");
+                form.error("Email and/or password incorrect\nTry with other credentials\nOr contact your manager");
             }
             return true;
 

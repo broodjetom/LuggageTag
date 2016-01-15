@@ -96,7 +96,7 @@ public class EditLuggage {
 
         form.addRow();
         form.addLabel("Comment: ");
-        form.addTextArea("comment", false, model.getComment());
+        form.addTextArea("comment", false);
 
         form.addRow();
         form.addLabel("Status:");
