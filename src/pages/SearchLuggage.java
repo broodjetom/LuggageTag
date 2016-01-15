@@ -58,14 +58,16 @@ public class SearchLuggage {
             return true;
         });
 
-        String[] topText = {"Brand", "Color", "Weight", "Material", "Amount of Stickers", "Has belt", "Type", "Status", "Location", "Date adeed", "Date changed"}; // texten die bovenaan de tabel verschijnen
+        String[] topText = {"Brand", "Color", "Weight", "Material", "Amount of Stickers", "Has belt", "Type", "Status", "Location", "Date added", "Date changed"}; // texten die bovenaan de tabel verschijnen
         String[] topVars = {"brand", "color", "weight", "material", "stickers", "belt", "type", "situation", "location", "date_added", "date_changed"}; // De variable namen van het object gesorteerd op de topText 
 
         // Zoeken naar passenger
         models.Luggage zoek = new models.Luggage();
 
-        ObservableList<models.Luggage> luggage = db.getLuggage(zoek);
-
+        
+        ObservableList<models.Luggage> luggage = db.getLuggage( zoek );
+        
+        
         // Set de top rij
         table.setTopRow(topText, topVars);
 
@@ -116,7 +118,6 @@ public class SearchLuggage {
 
         form.addRow();
         form.addLabel("Status:");
-
         form.addComboBox("status", new String[]{"Gevonden", "Verloren", "Afgehandeld"});
         form.addRow();
 
@@ -163,7 +164,6 @@ public class SearchLuggage {
             zoekNew.setSituation(selected);
 
             ObservableList<models.Luggage> passengersZoek = db.getLuggage(zoekNew);
-
             table.setContent(passengersZoek);
             return true;
         });
