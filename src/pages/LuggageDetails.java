@@ -10,12 +10,8 @@ import UI.LuggageUI;
 import database.DatabaseManager;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.concurrent.Callable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -110,24 +106,6 @@ public class LuggageDetails {
             return true;
         });
         
-        Button resolveLuggageButton = UI.createGreyButton("Resolve case", false, (Callable) () -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Resolve case");
-            alert.setHeaderText("You're about to resolve this case");
-            alert.setContentText("Are you sure you want to set the case of this " + model.getType() + " to resolved?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                model.setSituation("Afgehandeld");
-                db.saveLuggage(model);
-            } else {
-                // ... user chose CANCEL or closed the dialog
-            }
-            return true;
-        });
-        form.addRow();
-        form.add(resolveLuggageButton);
-        
         
         LuggageForm passengerForm = new LuggageForm(UI);
         
@@ -202,6 +180,35 @@ public class LuggageDetails {
             passengerForm.addLabel("No passenger linked to this luggage");
         }
         
+       /* LuggageTable table = new LuggageTable();
+        
+        table.onClick((Callable) () -> {
+            passengerModel = (models.Passenger) table.getClicked();
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Link new user");
+            alert.setHeaderText("You're about to change the linked passenger to: "+ passengerModel.getFullName());
+            alert.setContentText("Are you sure?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                // ... user chose OK
+            } else {
+                // ... user chose CANCEL or closed the dialog
+            }
+            return true;
+        });
+
+        String[] topText = {"First name", "Insertion", "Last name", "Date added", "Date edited"}; // texten die bovenaan de tabel verschijnen
+        String[] topVars = {"fname", "mname", "lname", "date_added", "date_changed"}; // De variable namen van het object gesorteerd op de topText 
+
+        models.Passenger zoek = new models.Passenger();
+
+        ObservableList<models.Passenger> passengers = db.getPassenger(zoek);
+
+        table.setTopRow(topText, topVars);
+
+        table.setContent(passengers);
+        */
         HBox box = new HBox();
         VBox vbox = new VBox();
         
