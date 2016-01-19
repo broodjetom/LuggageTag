@@ -141,14 +141,17 @@ public class LuggageUI {
      */
     public LuggageUI(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        root = new BorderPane();
+        root = new BorderPane(); // Voor de basis layout gebruiken we een BorderPane
+        // Zet de juiste stylinh
         root.setStyle("-fx-background-color: #"+GLOBAL_BACKGROUND_COLOR);
         root.maxHeightProperty();
         root.setPrefWidth(800.0);
-        registerFonts();
+        registerFonts(); // Laad lettertypes
         
+        // Event listener voor de F1 hulpscherm
         root.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if(event.getCode() == KeyCode.F1){
+                // Haal de juiste afbeelding op vanuit de F1 classe
                 ImageView image = help.getImage(curPage);
                 Stage viewer = new Stage();
                 viewer.setTitle("LuggageTag - HELP!");

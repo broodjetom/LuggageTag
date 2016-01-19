@@ -64,7 +64,8 @@ public class LuggageForm {
      * HashMap containing all the required comboBoxes
      */
     public Map<String, Boolean> comboBoxRequired = new HashMap<>();
-
+    
+    // Map om alle objecten op te slaan
     private Map<String, String> keyValues = new HashMap<>();
     private Map<String, Object> keyElement = new HashMap<>();
 
@@ -76,6 +77,7 @@ public class LuggageForm {
      * @param UI The LuggageUI
      */
     public LuggageForm(LuggageUI UI) {
+        // Instellen layout
         this.UI = UI;
         grid.setPadding(new Insets(5));
         grid.setHgap(10);
@@ -116,19 +118,20 @@ public class LuggageForm {
      */
     public String get(String id) {
         keyValues.clear();
-        for (Map.Entry<String, TextField> entry : textFields.entrySet()) {
+        // Update alle mogenlijke input velden en update deze in de keyValues var
+        textFields.entrySet().stream().forEach((entry) -> {
             String value = entry.getValue().getText();
             keyValues.put(entry.getKey(), value);
-        }
-        for (Map.Entry<String, TextArea> entry : textAreas.entrySet()) {
+        });
+        textAreas.entrySet().stream().forEach((entry) -> {
             String value = entry.getValue().getText();
             keyValues.put(entry.getKey(), value);
-        }
-        for (Map.Entry<String, ToggleGroup> group : radioFields.entrySet()) {
+        });
+        radioFields.entrySet().stream().forEach((group) -> {
             RadioButton button = (RadioButton) group.getValue().getSelectedToggle();
             String value = button.getText();
             keyValues.put(group.getKey(), value);
-        }
+        });
 
         return keyValues.get(id);
     }
@@ -148,7 +151,33 @@ public class LuggageForm {
      * @param text
      */
     public void addLabel(String text) {
-        Label label = UI.createText(text);
+        int maxLength = 60;
+        String newtext = "";
+        // Reguliere expressie om woorden apart in een array te zetten
+        String[] words = text.split("\\s+");
+        // Ga alleen door als er meer dan 5 woorden zijn, anders is dit overbodig
+        if (words.length > 5) {
+            int count = 0;
+            for (int i = 0; i < words.length; i++) {
+                String word = words[i];
+                int wordLength = word.length() + 1;
+                // Als het totaal aantal karakters 
+                // plus wat we nu er achter aan willen plakken
+                // Kleiner dan 50 blijft, plak dan het volgende woord er achter
+                // Anders voeg er een newline aan toe
+                if( count + wordLength < 50 ){
+                    count += wordLength;
+                } else {
+                    newtext += "\n";
+                    count = 0;
+                }
+                newtext += word + " ";
+                System.out.println("Found value: " + word);
+            }
+        } else {
+            newtext = text;
+        }
+        Label label = UI.createText(newtext);
         label.setStyle("-fx-font-weight: bold;");
         add(label);
     }
@@ -171,12 +200,17 @@ public class LuggageForm {
      * @param value Default value of the field
      */
     public void addTextField(String id, Boolean required, String value) {
+        // Maakt een nieuwe textfield aan, zet de standaard waarde
+        // en zet de styling
         TextField textField = new TextField();
         textField.setText(value);
         textField.setStyle("-fx-border-radius: 6px; -fx-background-color: white; -fx-border-color: #" + BORDER_COLOR);
+        // Voeg deze toe aan de textField map en sla op of hij verplicht is of niet
         textFields.put(id, textField);
         textFieldsRequired.put(id, required);
+        // Voeg hem toe aan het scherm
         add(textField);
+        // Run de submit event als er op enter wordt gedrukt
         textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent t) {
@@ -257,7 +291,7 @@ public class LuggageForm {
     }
     
     /**
-     *
+     * Adds a combobox from String array
      * @param id
      * @param elements
      */
@@ -424,6 +458,8 @@ public class LuggageForm {
      * @param text the value of the button
      */
     public void addSubmitButton(String text) {
+        // Maak een nieuwe knop die een standaard eventhandler heeft 
+        // die de submit event aanroept
         Button login = UI.createSecondaryButton(text, false, (Callable) () -> {
             fireSubmitEvent();
             return true;
@@ -454,6 +490,9 @@ public class LuggageForm {
      * @return Node grid
      */
     public Node toNode() {
+        // Aangezien JavaFX geen "LuggageForm" kan toevoegen hebben we 
+        // deze methode die de grid terug geeft waar we alle elementen
+        // Aan hebben toegevoegd
         return grid;
     }
 
@@ -473,6 +512,8 @@ public class LuggageForm {
     private void fireSubmitEvent() {
         try {
             keyValues.clear();
+            // Update alle keyValues variabelen
+            // Check of alle required velden zijn ingevuld
             for (Map.Entry<String, TextField> entry : textFields.entrySet()) {
                 String value = entry.getValue().getText();
                 keyValues.put(entry.getKey(), value);

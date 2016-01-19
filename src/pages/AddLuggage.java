@@ -1,5 +1,8 @@
 package pages;
 
+/**
+ * Imports die deze class nodig heeft.
+ */
 import UI.LuggageForm;
 import UI.LuggageTable;
 import UI.LuggageUI;
@@ -25,9 +28,19 @@ public class AddLuggage {
 
     private LuggageUI UI;
     private DatabaseManager db;
-
+    
+    /**
+     * Maakt een nieuwe GridPane voor, een Gridpane zorgt voor de plaatsing en uiterlijk
+     * van het programma, dus waar een knop staat en welke kleur de achtergrond is etc.
+     */
     private GridPane view = new GridPane();
-
+    
+    /**
+     * Objecten Models.pass en user.sess worden aangemaakt met naam.
+     * models.Passenger is een leeg model die data kan ophalen uit de database.
+     * User session maakt het mogelijk om in te loggen als een gebruiker, 
+     * de data van je "Account" word hier bewaard.
+     */
     private models.Passenger passengerModel = new models.Passenger();
     private static final user.Session USER = user.Session.getInstance();
 
@@ -38,30 +51,48 @@ public class AddLuggage {
      * @throws IOException
      */
     public AddLuggage(LuggageUI UI) throws SQLException, IOException {
-
+        
+        /**
+         * Maakt de standaard UI aan, en zorgt dat de page "ADDluggage" word geopend
+         */
+        
         this.UI = UI;
         this.db = DatabaseManager.getInstance();
         
+        /**
+         * setCurpage zorgt ervoor dat het programma weet welke pagina 
+         * de gebruiker ziet, zodat het F1 scherm overeenkomt met het 
+         * scherm dat de gebruiker ziet.
+         */
         UI.setCurPage("AddLuggage");
-
+        
+        /**
+         * Zet de "Padding" voor de pagina, dus van boven,rechts,onder,links
+         * 50,50,50,50. Ruimte.
+         */
         view.setPadding(new Insets(50, 50, 50, 50));
-
+        
+        /**
+         * Maakt een nieuwe titel aan van de pagina, om duidelijker te maken
+         * voor de gebruiker welke pagina hij zich bevindt
+         */
         Label heading = UI.createHeading("Bagage toevoegen");
-
+        
+        //Roept de form aan.
         LuggageForm form = new LuggageForm(UI);
-        form.add(heading);
-        form.addRow();
+        form.add(heading); //maakt een plaats aan voor de heading
+        form.addRow(); //Gaat naar de volgende regel
 
         form.addRow();
-        form.addLabel("Brand: ");
-        ObservableList<models.Brands> brandsModel = this.db.getBrands();
-        form.addComboBox("brand_id", brandsModel);
+        form.addLabel("Brand: "); //Voegt een label toe voor het scherm
+        ObservableList<models.Brands> brandsModel = this.db.getBrands(); //Haalt het model op voor de brands(db model) "GETbrands"
+        form.addComboBox("brand_id", brandsModel); //maakt een combobox knop aan voor gebruiker, "brand_id" is voor db
         form.addRow();
 
         form.addLabel("Color: ");
         ObservableList<models.Colors> colorsModel = this.db.getColors();
         form.addComboBox("color_id", colorsModel);
-        form.addRow();
+        form.addRow(); //Idem
 
         form.addRow();
         form.addLabel("Weight: ");
@@ -106,16 +137,16 @@ public class AddLuggage {
         form.addHRadioButtons("status", new String[]{"Gevonden", "Verloren"}, "Gevonden");
 
         
-        LuggageTable table = new LuggageTable();
+        LuggageTable table = new LuggageTable(); //Maakt een tabel aan in het programma om alle waarde van passenger op te tonen
 
-        table.onClick((Callable) () -> {
-            passengerModel = (models.Passenger) table.getClicked();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Link new user");
-            alert.setHeaderText("You're about to change the linked passenger");
-            alert.setContentText("Cange passenger to " + passengerModel.getFullName() + "?");
+        table.onClick((Callable) () -> { //Maakt het mogelijk om op een record te klikken 
+            passengerModel = (models.Passenger) table.getClicked(); //Haalt hiermee de geklikte record op in de database.
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION); //Maakt object aan, voor een "warning screen"
+            alert.setTitle("Link new user"); //Titel van popup scherm
+            alert.setHeaderText("You're about to change the linked passenger"); //Text in de pup op
+            alert.setContentText("Cange passenger to " + passengerModel.getFullName() + "?"); 
 
-            Optional<ButtonType> result = alert.showAndWait();
+            Optional<ButtonType> result = alert.showAndWait(); //-----------------------------------------------------------------------------------------------------------------
             if (result.get() == ButtonType.OK) {
                 
             } else {
@@ -127,11 +158,11 @@ public class AddLuggage {
         String[] topText = {"First name", "Insertion", "Last name", "Date added", "Date edited"}; // texten die bovenaan de tabel verschijnen
         String[] topVars = {"fname", "mname", "lname", "date_added", "date_changed"}; // De variable namen van het object gesorteerd op de topText 
 
-        models.Passenger zoek = new models.Passenger();
+        models.Passenger zoek = new models.Passenger(); 
 
         ObservableList<models.Passenger> passengers = db.getPassenger(zoek);
 
-        table.setTopRow(topText, topVars);
+        table.setTopRow(topText, topVars); //Zet de Strings topText en topVars in tabel
 
         table.setContent(passengers);
         
@@ -151,29 +182,30 @@ public class AddLuggage {
         form2.addCol();
         form2.addSubmitButton("Search");
         form2.addRow();
-        form2.onSubmit((Callable) () -> {
-            models.Passenger zoekNew = new models.Passenger();
+        form2.onSubmit((Callable) () -> {  //als er op submit word gedrukt.
+            models.Passenger zoekNew = new models.Passenger(); //Nieuw model passenger genaamd zoekNew
             
-            zoekNew.setFname(form2.get("fname"));
+            zoekNew.setFname(form2.get("fname"));  //Methode voor tijdelijk opslaan van data (fname)
             zoekNew.setMname(form2.get("mname"));
             zoekNew.setLname(form2.get("lname"));
             
-            ObservableList<models.Passenger> passengersZoek = db.getPassenger( zoekNew );
+            ObservableList<models.Passenger> passengersZoek = db.getPassenger( zoekNew ); //Data word opgehaald uit de OSL
             
-            table.setContent(passengersZoek);
+            table.setContent(passengersZoek); //Hier word de data in de tabel gezet.
             return true;
         });
 
         form.addRow();
         form.addCol();
         form.addSubmitButton("Save");
-
-        form.onSubmit((Callable) () -> {
-            models.Luggage luggageModel = new models.Luggage();
-            Object beltBox = form.getComboBoxSelected("belt");
-            models.Brands brandsBox = (models.Brands) form.getComboBoxSelected("brand_id");
-            if (brandsBox != null) {
-                luggageModel.setBrand_id(brandsBox.getId());
+        
+        //ADD LUGGAGE
+        form.onSubmit((Callable) () -> { //als er op submit word gedrukt
+            models.Luggage luggageModel = new models.Luggage(); //Nieuw model word aangemaakt 
+            Object beltBox = form.getComboBoxSelected("belt"); //data word gecheckt voordat het naar de database gaat.
+            models.Brands brandsBox = (models.Brands) form.getComboBoxSelected("brand_id"); //alle modellen worden gecheckt of er data in zit
+            if (brandsBox != null) { //als dat niet zo is
+                luggageModel.setBrand_id(brandsBox.getId()); //word de standaard constructor aangeroepen die de waarde null meegeeft
             }
             models.Colors colorsBox = (models.Colors) form.getComboBoxSelected("color_id");
             if (colorsBox != null) {
@@ -190,11 +222,11 @@ public class AddLuggage {
             if (materialsBox != null) {
                 luggageModel.setMaterial_id(materialsBox.getId());
             }
-            luggageModel.setStickers(Integer.parseInt(form.get("stickers")));
+            luggageModel.setStickers(Integer.parseInt(form.get("stickers"))); //alle data word opgehaald om het model te vullen
             luggageModel.setCharacteristic(form.get("characteristics"));
 
             String beltString = beltBox.toString();
-            switch (beltString) {
+            switch (beltString) { //switch, als yes setbelt 1 etc..
                 case "Yes":
                     luggageModel.setBelt(1);
                     break;
@@ -219,7 +251,7 @@ public class AddLuggage {
             luggageModel.setSituation(form.get("status"));
             
             if( passengerModel != null )
-                luggageModel.setPassenger_id(passengerModel.getId());
+                luggageModel.setPassenger_id(passengerModel.getId()); //Wat doet dit en waarom?
             
             if ("Verloren".equals(form.get("status"))) {
                 form.error("Passenger" + passengerModel.getFullName());
@@ -234,7 +266,7 @@ public class AddLuggage {
 
         
         
-        HBox box = new HBox();
+        HBox box = new HBox(); //Hbox?
         box.getChildren().addAll(form.toNode(), table.getTable());
         
         view.add(form2.toNode(), 0, 0);

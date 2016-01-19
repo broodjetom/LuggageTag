@@ -45,10 +45,11 @@ public class LuggageMenu {
      */
     public LuggageMenu(LuggageUI UI) {
         this.UI = UI;
-
+        // Voor het menu gebruiken we een ToolBar
+        // Hier zetten we de stijling
         menu = new ToolBar();
         menu.setStyle("-fx-background-color: #f7f7f7; -fx-padding: 20px;");
-
+        // Hier resizen we het logo en voegen we hem toe 
         LOGO.setFitWidth(LOGOWITDH);
         LOGO.setPreserveRatio(true);
         menu.getItems().add(LOGO);
@@ -71,9 +72,10 @@ public class LuggageMenu {
      * @return Node menu
      */
     public ToolBar toNode() {
+        // Zorg dat het menu in het midden komt te staan
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double center = (primaryScreenBounds.getWidth() / 2) - (nodeCount * BUTTONWIDTH / 2) - LOGOWITDH;
-
+        // Voeg een spacer toe en return het menu zelf
         addSpacer(center);
         menuGroupRow.setAlignment(Pos.CENTER);
         menuGroup.getChildren().add(menuGroupRow);
@@ -112,6 +114,7 @@ public class LuggageMenu {
      * @return
      */
     public Button addMenuItem(String text, Boolean active, Callable clickEvent, Boolean r) {
+        // Eerst maken we een knop aan en zetten de styling
         Button btn = new Button();
         btn.setText(text);
         btn.setMinWidth(BUTTONWIDTH);
@@ -130,7 +133,8 @@ public class LuggageMenu {
                 Logger.getLogger(LuggageUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
+        // Event handlers voor hovering
         btn.setOnMouseEntered((MouseEvent t) -> {
             btn.setStyle("-fx-background-radius: 0; -fx-text-fill: #" + UI.BUTTON_PRIMARY_TEXT_COLOR + "; -fx-background-color: #" + UI.BUTTON_PRIMARY_BACKGOUND_HOVER_COLOR);
             UI.scene.setCursor(Cursor.HAND);
@@ -142,8 +146,10 @@ public class LuggageMenu {
             }
             UI.scene.setCursor(Cursor.DEFAULT);
         });
-
+           
+        // Clickevent
         btn.setOnMouseClicked((MouseEvent t) -> {
+            // Op de klik zetten we alle menuitems op non-acteif en zetten we de geklikte weer op actief
             menuGroupRow.getChildren().forEach(b
             -> {
                 b.setStyle("-fx-background-radius: 0; -fx-text-fill: #" + UI.BUTTON_PRIMARY_TEXT_COLOR + "; -fx-background-color: #" + UI.BUTTON_PRIMARY_BACKGOUND_COLOR);
@@ -154,6 +160,7 @@ public class LuggageMenu {
 
             btn.setStyle("-fx-background-radius: 0; -fx-text-fill: #" + UI.BUTTON_PRIMARY_TEXT_COLOR + "; -fx-background-color: #" + UI.BUTTON_PRIMARY_BACKGOUND_HOVER_COLOR);
             try {
+                // Roep de event listener aan
                 clickEvent.call();
             } catch (Exception ex) {
                 Logger.getLogger(LuggageUI.class.getName()).log(Level.SEVERE, null, ex);
