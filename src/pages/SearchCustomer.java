@@ -38,13 +38,16 @@ public class SearchCustomer {
         this.UI = UI;
         this.db = DatabaseManager.getInstance();
         
+        
         view.setPadding(new Insets(50, 50, 50, 50));
         UI.setCurPage("SearchPassenger");
 
         view.setPadding(new Insets(50, 50, 50, 50));
         
+        // Titel aanpassen
         UI.setTitle("Search Database");
-
+        
+        // Nieuwe tabel aanmaken    
         LuggageTable table = new LuggageTable();
         
         table.onClick((Callable) () -> {
@@ -71,7 +74,8 @@ public class SearchCustomer {
         
         GridPane test = new GridPane();
         test.setPadding(new Insets(50, 50, 50, 50));
-
+     
+        // Maak de Search form aan
         Label heading = UI.createHeading("Search");
 
         test.add(heading, 1, 1);
@@ -92,7 +96,8 @@ public class SearchCustomer {
         Button forgotPassword = UI.createGreyButton("Clear", false, (Callable) () -> {
             return true;
         });
-
+        
+        // Grijze search knop
         form.add(forgotPassword);
         form.addSubmitButton("Search");
         
@@ -111,6 +116,7 @@ public class SearchCustomer {
         
         test.add(form.toNode(), 1, 2);
         
+        // Zet de search velden links
         UI.setLeft(test);
         // Zet in de top van de BorderPane
         UI.setCenter(table.getTable());

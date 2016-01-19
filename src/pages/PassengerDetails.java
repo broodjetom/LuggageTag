@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package pages;
 
 import UI.LuggageForm;
@@ -49,9 +45,11 @@ public class PassengerDetails {
         view.setPadding(new Insets(50, 50, 50, 50));
 
         UI.setTitle("Passenger details");
-
+        
+        // F1 scherm indicator
         UI.setCurPage("AddLuggage");
-
+        
+        // form aanmaken voor Passenger details
         view.setPadding(new Insets(50, 50, 50, 50));
         
         LuggageForm form = new LuggageForm(UI);
@@ -127,8 +125,13 @@ public class PassengerDetails {
             return true;
         });
 
-        String[] topText = {"Brand", "Color", "Weight", "Material", "Has sticker", "Has belt", "Type", "Status", "Date added", "Date edited"}; // texten die bovenaan de tabel verschijnen
-        String[] topVars = {"brand", "color", "weight", "material", "stickers", "belt", "type", "situation", "date_added", "date_changed"}; // De variable namen van het object gesorteerd op de topText 
+        String[] topText = {"Brand", "Color", "Weight", "Material", 
+            "Has sticker", "Has belt", "Type", "Status", "Date added", 
+            "Date edited"}; 
+        // texten die bovenaan de tabel verschijnen
+        String[] topVars = {"brand", "color", "weight", "material", "stickers",
+            "belt", "type", "situation", "date_added", "date_changed"}; 
+        // De variable namen van het object gesorteerd op de topText 
 
         // Zoeken naar passenger
         models.Luggage zoek = new models.Luggage();
@@ -139,7 +142,8 @@ public class PassengerDetails {
             LuggageDetails page = new LuggageDetails(UI, row);
             return true;
         });
-
+        
+        // Geef resultaten weer
         ObservableList<models.Luggage> luggage = db.getLuggage(zoek);
 
         // Set de top rij

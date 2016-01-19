@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package pages;
 
 import UI.LuggageForm;
@@ -41,7 +37,8 @@ public class LuggageDetails {
     public LuggageDetails(LuggageUI UI, models.Luggage model) throws SQLException, IOException {
         this.UI = UI;
         this.db = DatabaseManager.getInstance();
-
+        
+        // maak de forms aan en haal de gegevens op
         view.setPadding(new Insets(50, 50, 50, 50));
         
         LuggageForm form = new LuggageForm(UI);
@@ -110,11 +107,12 @@ public class LuggageDetails {
         LuggageForm passengerForm = new LuggageForm(UI);
         
         
-        
+        // Linked passenger form maken
         Label heading1 = UI.createHeading("Linked passenger");
         passengerForm.add(heading1);
         passengerForm.addRow();
         
+        // Checken of er een gelinke passagier is en zoja informatie weergeven
         if(model.getPassenger_id() != 0){
             models.Passenger passengerModel = db.getPassenger(model.getPassenger_id());
             passengerForm.addLabel("Information: ");
@@ -180,7 +178,7 @@ public class LuggageDetails {
             passengerForm.addLabel("No passenger linked to this luggage");
         }
         
-       /* LuggageTable table = new LuggageTable();
+       /*LuggageTable table = new LuggageTable();
         
         table.onClick((Callable) () -> {
             passengerModel = (models.Passenger) table.getClicked();
