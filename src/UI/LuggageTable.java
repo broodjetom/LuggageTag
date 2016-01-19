@@ -31,6 +31,7 @@ public class LuggageTable {
      * @param editable 
      */
     public LuggageTable(Boolean editable) {
+        // Maak een table aan
         this.table = new TableView();
 
         if (editable) {
@@ -56,17 +57,17 @@ public class LuggageTable {
     public void onClick(Callable clickEvent) {
         table.setRowFactory(tv -> {
             TableRow<Object> row = new TableRow<>();
-            row.setOnMouseClicked((MouseEvent t) -> {
+            row.setOnMouseClicked((MouseEvent t) -> { // Event Listener
                 try {
                     this.clicked = row.getItem();
-                    if (t.getClickCount() == 2 && (!row.isEmpty())) {
+                    if (t.getClickCount() == 2 && (!row.isEmpty())) { // Ga niet door als iemand op een lege rij klikt
                         clickEvent.call(); // Hier voert het programma de methode aan die je als parameter mee gaf.
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(LuggageUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-            return row;
+            return row; // Stuur de gelkikte rij terug, is een beetje nutteloos
         });
     }
 
@@ -76,7 +77,7 @@ public class LuggageTable {
      * @return clicked Object
      */
     public Object getClicked() {
-        return this.clicked;
+        return this.clicked; // Stuur de geklikte rij terug
     }
 
     /**
@@ -88,6 +89,7 @@ public class LuggageTable {
      */
     public void setTopRow(String[] columnsName, String[] modelVars) {
         int i = 0;
+        // Loop door alle elementen heen
         for (String col : columnsName) {
             TableColumn idCol = new TableColumn(col);
             idCol.setMinWidth(0);
