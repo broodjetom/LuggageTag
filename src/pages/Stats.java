@@ -24,8 +24,10 @@ import javafx.scene.layout.GridPane;
 
 /**
  *
- * @author Alex, Kah Kit
+ * @author Kah Kit Zheng
+ * Version 1.0
  */
+
 public class Stats {
 
     private static final user.Session USER = user.Session.getInstance();
@@ -37,23 +39,29 @@ public class Stats {
     /**
      * Show statistics page
      * @param UI
-     * @throws SQLException
-     * @throws IOException
+     * @throws SQLException, geeft informatie weer tijdens database toegang of andere errors
+     * @throws IOException geeft informatie weer als er input of output wordt gegeven
      */
     public Stats(LuggageUI UI) throws SQLException, IOException {
         this.UI = UI;
+        //Maakt een instantie van de databasemanager
         this.db = DatabaseManager.getInstance();
         
         view.setPadding(new Insets(50, 50, 50, 50));
         UI.setCurPage("Stats");
         
+        //Verandert de date naar "yyyy-MM--dd", i.p.v. de yyyy-MM-dd HH-mm-ss
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         Calendar c = Calendar.getInstance();
+        //Set de dag naar vandaag
         c.setTime(date);
-        c.add(Calendar.MONTH, -1);
+        //Set de maand van de datum een maand terug
+        c.add(Calendar.MONTH, -1);    
+        //Declareert today gelijk aan de datum van vandaag
         String today = dateFormat.format(date);
-        String monthAgo = dateFormat.format(c.getTime());
+        //Declareert monthAgo gelijk aan de datum van vandaag min een maand
+        String monthAgo = dateFormat.format(c.getTime());                               
 
         LuggageForm left = new LuggageForm(UI);
         view.setPadding(new Insets(50, 50, 50, 50));
@@ -75,16 +83,18 @@ public class Stats {
         left.addCol();
         left.addSubmitButton("Show");
 
-
-        view.add(left.toNode(), 1, 2);
+        view.add(left.toNode(), 1, 2);                                                  //
 
         UI.setTitle("Statistics");
 
         LuggageChart chart = new LuggageChart();
 
-        chart.setLabelX("Amount");
-        chart.setLabelX("Date");
+        chart.setLabelY("Amount");                                                      
+        chart.setLabelX("Date");                                                        
 
+        //Zoekt alleen tussen de monthAgo en today
+        //Set de x-as in een string voor de datum
+        //Set de y-as in een double voor de hoeveelheid
         Map<String, Double> lost = db.getLostStatistics(monthAgo, today);
         Map<String, Double> found = db.getFoundStatistics(monthAgo, today);
         Map<String, Double> finished = db.getFinishedStatistics(monthAgo, today);
@@ -100,7 +110,7 @@ public class Stats {
             
             LuggageChart chartChange = new LuggageChart();
 
-            chartChange.setLabelX("Amount");
+            chartChange.setLabelY("Amount");
             chartChange.setLabelX("Date");
 
             Map<String, Double> lostChange = db.getLostStatistics(from, to);
