@@ -8,7 +8,9 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="LuggageTag.jar" size="20734" download="eager" />
+    <jar href="LuggageTag.jar" size="107527" download="eager" />
+    <jar href="lib\mysql-connector-java-5.1.37-bin.jar" size="985603" download="eager" />
+    <jar href="lib\ojdbc6.jar" size="2152051" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="LuggageTag" >
     <param name="requiredFXVersion" value="8.0+"/>

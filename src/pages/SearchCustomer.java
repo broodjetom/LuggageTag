@@ -71,6 +71,7 @@ public class SearchCustomer {
         
         // Set de data voor in de tabel
         table.setContent(passengers);
+        passengers = null;
         
         GridPane test = new GridPane();
         test.setPadding(new Insets(50, 50, 50, 50));

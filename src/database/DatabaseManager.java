@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
  * @author Tom Scholten
  */
 public class DatabaseManager {
+    
 
     private static DatabaseManager instance = null; //Singleton
     private DatabaseConnection databaseconnection;
@@ -27,6 +28,7 @@ public class DatabaseManager {
      */
     protected DatabaseManager() throws SQLException, IOException {
         this.databaseconnection = new DatabaseConnection();
+        
     }
 
     /**
